@@ -1,0 +1,19 @@
+
+body {font: 14px Tahoma; background-color: #ffffff; margin: 0px; padding: 0px;}
+td {font: 14px Tahoma; margin: 0px; padding: 0px;}
+
+.MainTable { background-image : url(images/bg.png); background-repeat: no-repeat; width:755px; height: 560px; }
+.DivPleaseWait { display: none; width: 750; height: 455px; text-align: center; background-image: url(images/main_repeat.jpg); padding-left: 230px; padding-top: 210px; }
+.TableFooter {width: 750px; height: 35px; margin: 0px; padding: 0px; }
+.EulaLink { font: 10 px "Verdana"; color: #000000; font-weight: bolder; text-align: center; }
+.ButtonsOuter { width: 350px; margin-top: 205px; margin-right: 0px; margin-left: 388px ; padding: 0px ; text-align: left; } 
+.StyleBold {font: 10pt "Arial"; font-weight: bold }
+.Button {border: none; color: #000000; text-align: center; font: 14px Arial; font-weight: Bold; cursor: hand; width: 300px; background:url(images/button.png); background-repeat: no-repeat; height: 37px; padding-left: 0px; padding-top: 4px; vertical-align: top;}
+.SubHeader { font: 10px verdana; font-weight: bold; color: #000000; font-weight: bold; margin-left: 10px; margin-top:5px; text-align: left; }
+.SubHeaderText { margin-left: 10px; margin-top:3px; font: 10px verdana; color: #000000; text-align: left;}
+.PurchaseHeaderTxt { font: 10px verdana; font-weight:bold; color: #000000; font-weight: bold; margin-left:10px; margin-top:5px; text-align: left; text-align:left; padding-top: 20px; }
+.PleaseWait { display: none; }
+.PrivacyLink { display: inline; cursor: pointer; }
+.SupportLink { display: inline; cursor: pointer; }
+.CopyRightText { font: 7px verdana; color: #6a6a6a; font-weight: bold }
+.CopyrightCell { font-weight: bold; font-size: 10px; vertical-align: Middle; color: #6a6a6a; font-family: Arial, Helvetica, Sans-serif; height: 35px; width: 340px; padding-left: 20px; }

@@ -1,0 +1,143 @@
+﻿<html>
+<head>
+	<title></title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+
+	<script type="text/JScript">
+		function ShowPleaseWait() {
+			document.all.contain_all.style.display = 'none';
+			document.all.please_wait.style.display = 'block';
+		}
+
+		function OnBuyClick() {
+			ShowPleaseWait();
+
+			document.loader2.ButtonAction.value = "Buy";
+			if (document.all.link_purchase_URL.value == 'HighEncryptionInfo.htm') {
+				document.location = document.all.link_purchase_URL.value;
+			}
+			else {
+				document.location = document.all.link_purchase_URL.value + document.all.link_purchase_URL_Parameter.value + "&lang=" + document.loader2.in_Language.value;
+			}
+		}
+
+		function OnTryClick() {
+			document.loader2.ButtonAction.value = "Try";
+			document.location = "ActionComplete.htm";
+		}
+
+		function OnActivateClick() {
+			ShowPleaseWait();
+
+			document.loader2.ButtonAction.value = "Activate";
+			if (document.all.link_activate_URL.value == 'HighEncryptionInfo.htm') {
+				document.location = document.all.link_activate_URL.value;
+			}
+			else {
+				document.location = document.all.link_activate_URL.value + document.all.link_activate_URL_Parameter.value + "&lang=" + document.loader2.in_Language.value;
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<form name="loader2" action="">
+	<input id="PageID" type="hidden" value="TryBuy">
+	<input type="Hidden" id="in_Language" value="fr">
+	<input type="Hidden" id="in_PublisherName" value="TestPublisher" name="in_PublisherName">
+	<input type="Hidden" id="in_AppName" value="Test App" name="in_AppName">
+	<input type="Hidden" id="in_AppVersion" value="2.60" name="in_AppVersion">
+	<input type="Hidden" id="in_ShowPrice" value="1">
+	<input type="Hidden" id="in_PriceVal" value="10.00">
+	<input type="Hidden" id="in_PriceCurrency" value="USD">
+	<input type="Hidden" id="in_PriceCurrencySymbol" value="$">
+	<input type="Hidden" id="in_UpgradeVal" value="5.00">
+	<input type="Hidden" id="in_UpgradeCurrency" value="USD">
+	<input type="Hidden" id="in_UpgradeCurrencySymbol" value="$">
+	<input type="Hidden" id="in_IsUpgrade" value="0">
+	<input type="Hidden" id="in_SupportEmail" value="support@Softwrap.com">
+	<input type="Hidden" id="in_evaluation_period" value="">
+	<input type="Hidden" id="in_Limitation" value="85">
+	<input type="Hidden" id="in_AbsDate" value="1">
+	<input type="Hidden" id="in_DateLimit" value="01/01/2006">
+	<input type="Hidden" id="in_DaysLeft" value="2">
+	<input type="Hidden" id="in_UsesLeft" value="19">
+	<input type="Hidden" id="in_MinLeft" value="61">
+	<input type="Hidden" id="in_evaluation_period_used" value="40%">
+	<input type="Hidden" id="in_top_logo" value="images/top_bar.jpg">
+	<input type="Hidden" id="in_hide_buy_btn" value="0">
+	<input type="Hidden" id="in_subscription_expired" value="0">			
+	<input type="hidden" id="ButtonAction" value="Try">
+	<input type="hidden" id="link_purchase_URL" value="" name="link_purchase_URL">
+	<input type="hidden" id="link_purchase_URL_Parameter" value="" name="link_purchase_URL_Parameter">
+	<input type="hidden" id="link_activate_URL" value="" name="link_activation_URL" />
+	<input type="hidden" id="link_activate_URL_Parameter" value="" name="link_activation_URL_Parameter" />
+
+	<table cellspacing="0" cellpadding="0" class="MainTable">
+		<tr>
+			<td style="vertical-align: top;">
+				<div id="contain_all">
+					<div id="div_ButtonsOuter" class="ButtonsOuter">
+						<div id="buy_btn_div">
+							<input name="submit" type="button" class="Button" id="btn_buy_full" style="font-weight: bold" onclick="OnBuyClick()" value="Purchase Pro Edition Online" />
+							<div class="SubHeader" id="purchase_header_txt">Buy the Pro Edition Now!</div>
+							<div class="SubHeaderText">
+								<img src="images/larrow_small.png" alt="" />
+								Use rotated, colorized and translucent sprites.
+							</div>
+							<div class="SubHeaderText">
+								<img src="images/larrow_small.png" alt="" />
+								No popup logo when running your games.
+							</div>
+							<div class="SubHeaderText">
+								<img src="images/larrow_small.png" alt="" />
+								Many additional actions and functions.
+							</div>
+							<div class="SubHeaderText">
+								<img src="images/larrow_small.png" alt="" />
+								Create 3D games and multiplayer games.
+							</div>
+							<div class="SubHeaderText">
+								<img src="images/larrow_small.png" alt="" />
+								Use extension packages.
+							</div>
+						</div>
+						<br />
+						<div id="activate_div">
+							<input name="submit" type="button" class="Button" id="btn_activate" style="font-weight: bold" onclick="OnActivateClick()" value="Enter Activation Code" />
+							<div class="SubHeader">
+								Activate Game Maker with an existing license key.
+							</div>
+						</div>
+						<br />
+						<div id="try_btn_div">
+							<input name="submit2" type="button" class="Button" id="btn_free_trial" style="font-weight: bold" onclick="OnTryClick()" value="Continue Using the Lite Edition" />
+						</div>
+						<br>
+						<br>
+					</div>
+				</div>
+				<!--   Wait screen   -->
+				<div id="please_wait" class="DivPleaseWait">
+					<p class="SubHeader">Please wait while the page is loading...</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td style="height: 55px;">
+				<table cellpadding="0" cellspacing="0" class="TableFooter">
+					<tr>
+						<td class="CopyrightCell">
+							<span class="PrivacyLink" onclick="javascript:window.open('https://www.softwrap.com/privacy?sLang=en', 'support', 'width=800,height=550,menubar=no,status=no,toolbar=no,scrollbars')">Privacy</span>&nbsp;|&nbsp;
+							<span class="SupportLink" onclick="javascript:window.open('http://www.softwrap.com/page.aspx?page_id=65', 'support', 'width=800,height=400,menubar=no,status=no,toolbar=no,resizable=yes,scrollbars')">Support</span>
+							<br />
+							<span id="copy_right_txt" class="CopyRightText">Copyright © 1998-2009 Softwrap Ltd.</span>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

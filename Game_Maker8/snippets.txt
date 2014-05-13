@@ -1,0 +1,12 @@
+1 - block:{#    |STATEMENT|;#}#
+2 - if:if (|CONDITION|)#{#    STATEMENT;#};#
+3 - if-else:if (|CONDITION|)#{#    STATEMENT;#}#else#{#    STATEMENT;#};#
+4 - for:for (|INITIALISATION|; CONDITION; INCREMENT)#{#    STATEMENT;#};#
+5 - for i:for (i=0; i<|CONDITION|; i+=1)#{#    STATEMENT;#};#
+6 - while:while (|CONDITION|)#{#    STATEMENT;#};#
+7 - do:do#{#    |STATEMENT|;#}#until (CONDITION);#
+8 - repeat:repeat (|EXPRESSION|)#{#    STATEMENT;#};#
+9 - switch:switch (|EXPRESSION|)#{#    case EXPRESSION: STATEMENT; break;#    default: STATEMENT;#}# 
+0 - with:with (|EXPRESSION|)#{#    STATEMENT;#};#  
+comment:// |TEXT|
+multiline comment:/***************************************************#  |TEXT|# ***************************************************/
