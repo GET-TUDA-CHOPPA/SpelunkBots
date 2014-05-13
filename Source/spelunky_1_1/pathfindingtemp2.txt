@@ -1,0 +1,133 @@
+GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2)
+{
+	m_PathList.clear();
+
+	ofstream fileStream;
+	fileStream.open("level_paths.txt");
+	// define the new nodes
+	MapSearchNode* start = new MapSearchNode();
+	start->x = x1;
+	start->y = y1;
+
+	MapSearchNode* end = new MapSearchNode();
+	end->x = x2;
+	end->y = y2;
+
+	MapSearchNode* current = new MapSearchNode();
+	MapSearchNode* child = new MapSearchNode();
+
+	std::list<MapSearchNode*> openList;
+	std::list<MapSearchNode*> closedList;
+	list<MapSearchNode*>::iterator i;
+
+	unsigned int n = 0;
+
+	openList.push_back(start);
+	start->opened = true;
+
+	while (n == 0 || (current != end && n < 50))
+	{
+		// Look for the smallest f value in the openList
+		for (i = openList.begin(); i != openList.end(); i++)
+		{
+			if (i == openList.begin() || (*i)->GetFScore() <= current->GetFScore())
+			{
+				current = (*i);
+			}
+		}
+
+		fileStream << "searching";
+		fileStream << " Current X: ";
+		fileStream << current->x;
+		fileStream << " Current Y: ";
+		fileStream << current->y;
+
+		// Stop if we've reached the end
+		if (current == end)
+		{
+			fileStream << "end reached";
+			break;
+		}
+
+		// Remove the current point from the open list
+		openList.remove(current);
+		current->opened = false;
+		
+		// Add the current point from the open list
+		closedList.push_back(current);
+		current->closed = true;
+
+		// Get all the current adjacent walkable points
+		for (int x = -1; x < 2; x++)
+		{
+			for (int y = -1; y < 2; y++)
+			{
+				if (x == 0 && y == 0)
+				{
+					// ignore current node, pass
+					continue;
+				}
+
+				child = new MapSearchNode();
+				child->x = current->x + x;
+				child->y = current->y + y;
+
+				// if it's closed or not walkable then pass
+				if (child->closed || spmap[child->x][child->y] != 0)
+				{
+					continue;
+				}
+
+				// IF AT A CORNER?
+
+				// if it's already in the opened list
+				if (child->opened)
+				{
+					if (child->gScore > child->GetGScore(current))
+					{
+						child->parent = current;
+						child->ComputeScores(end);
+					}
+				}
+				else
+				{
+					openList.push_back(child);
+					child->opened = true;
+
+					// COMPUTE THE G
+					child->parent = current;
+					child->ComputeScores(end);
+				}
+ 			}
+		}
+		n++;
+		fileStream << "\n";
+	}
+
+	// Reset
+	for (i = openList.begin(); i != openList.end(); i++)
+	{
+		(*i)->opened = false;
+	}
+	for (i = closedList.begin(); i != closedList.end(); i++)
+	{
+		(*i)->closed = false;
+	}
+	fileStream.close();
+
+	fileStream.open("level_path.txt");
+	// resolve the path starting from the end point
+	while (current->parent && current != start)
+	{
+		fileStream << "X ";
+		fileStream << current->x;
+		fileStream << " Y ";
+		fileStream << current->y;
+		fileStream << "\n";
+		m_PathList.push_back(current);
+		current = current->parent;
+		n ++;
+	}
+	fileStream.close();
+	return 0;
+}

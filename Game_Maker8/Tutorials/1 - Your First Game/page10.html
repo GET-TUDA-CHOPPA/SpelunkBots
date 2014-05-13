@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+    <title>Game Maker Tutorial</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color: #3a7c3f">
+	  <td style="height: 22px" class="logo"><img src="bar.png"></td>
+	</tr>
+	<tr style="background-color: #ffffff">
+	<td style="width: 220px" valign="top">
+	
+	<div class="bodyText"><i>Page 10 of 15</i></div>
+	<div class="header">Adding Music</div></div>
+	
+	<div class="bodyText">
+	To improve the atmosphere we are going to add background music to the game. Click again on the button
+	to add a sound. In the form give the sound an appropriate name and press the <b>Load Sound</b> button.
+	You should still be in the folder with
+	the sounds for the tutorial. Select the file <tt>music.mid</tt>. This is a midi file. These are
+	useful as background music as they are rather small. Many can be found on the internet.
+	Press <b>OK</b> to close the sound form.
+	</div>
+	
+	<div class="bodyText">
+	Now we need to make sure that the sound will play at the beginning of the game and loop forever. We are
+	going to use an additional object for it. Press the button with the blue ball to add a new object and
+	give it an appropriate name. It does not need a sprite. Click on the <b>Add Event</b> button and select the 
+	<b>Create</b> event. At the right side select the page <b>main1</b> and drag the <b>Play Sound</b> action
+	into the action list. (You should by now know how this works.) As a sound select the music and set <b>loop</b>
+	to true. So the music will now play forever after the object is created.
+	</div>
+	
+	<br>
+	<center><img src="01_actionloop.png"></center>
+	<br>
+
+	<div class="bodyText">
+	Press <b>OK</b> to close the action form and again press <b>OK</b> to close the object form. We still need
+	to add the object to the room, otherwise it won't be created. In the list at the left double click on the room to
+	open its form. Make sure the <b>objects</b> page is visible at the left.
+	Click on the menu icon in the middle to select the music object. Now click somewhere in the room to add an instance
+	of the object. The object has no sprite so a little blue ball with a question mark is shown instead:
+	</div>
+
+	<br>
+	<center><img src="01_roommusic.png"></center>
+	<br>
+
+	<div class="bodyText">
+	Be careful to only add one instance of the music object. Press the green checkbox
+	to close the room form. Save the game and run it. You should now hear background music.
+	</div>
+
+	</td>
+	</tr>
+</table>
+</body>
+</html>

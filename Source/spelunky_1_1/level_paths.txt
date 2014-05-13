@@ -1,0 +1,9 @@
+START START X: 16 START Y: 24END END X: 20 END Y: 23searching Current X: 16 Current Y: 24
+searching Current X: 17 Current Y: 24
+searching Current X: 18 Current Y: 24
+closed or not walkable
+searching Current X: 19 Current Y: 24
+closed or not walkable
+searching Current X: 20 Current Y: 24
+closed or not walkable
+searching Current X: 20 Current Y: 23end reached

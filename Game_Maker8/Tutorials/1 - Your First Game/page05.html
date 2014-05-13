@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+    <title>Game Maker Tutorial</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color: #3a7c3f">
+	  <td style="height: 22px" class="logo"><img src="bar.png"></td>
+	</tr>
+	<tr style="background-color: #ffffff">
+	<td style="width: 220px" valign="top">
+	
+	<div class="bodyText"><i>Page 5 of 15</i></div>
+
+	<div class="bodyText">
+	We have now indicated that the apple, when it is created, should move in any of the eight directions with a speed
+	of 8. Next we must make sure it bounces against the walls. For this we need a <b>collision event</b>.
+	This happens when two objects collide with each other. 
+	</div>
+
+	<div class="bodyText">
+	Press the button <b>Add Event</b> and in the form click on <b>Collision</b>. In the menu that appears select the 
+	wall object.
+	</div>
+	
+	<br>
+	<center><img src="01_eventcollision.png"></center>
+	<br>
+
+	<div class="bodyText">
+	The event is added to the list. Make sure it is selected. Now click the bounce action (the bottom right one) and
+	drag it into the action list. In the form that appears simply press the <b>OK</b> button. 
+	</div>
+	
+	<br>
+	<center><img src="01_actionbounce.png"></center>
+	<br>
+
+	<div class="bodyText">
+	Our final step is to make sure the player can press the mouse on the apple. In this case we want to
+	move the apple to a random location (to make it harder for the user to press on it again) and we
+	want to give the player some score. 
+	</div>
+	
+	<div class="bodyText">
+	Again press the <b>Add Event</b> button and in the form click on <b>Mouse</b>. In the menu select
+	<b>Left pressed</b>. This event happens when the player presses the left mouse button on the object.
+	Drag the <b>Jump to Random</b> action to the list. (You can see the name of an action by letting the
+	mouse hover over the button). 
+	</div>
+
+	<br>
+	<center><img src="01_actionjump.png"></center>
+	<br>
+
+	<div class="bodyText">
+	In the form that appears simply press the <b>OK</b> button. This will make the apple jump to a 
+	random location. Next we need to give the player some score. At the right of the form, select the
+	tabbed page labeled <b>score</b>. A new set of actions appears. Drag the top-left <b>Set Score</b> action to
+	the action list.
+	In the form indicate a new score of 50. Now we do <b>not</b> want to set the score to 50 but
+	we want to <b>add</b> 50 to the score. To this end click on the checkbox <b>Relative</b>.
+	</div>
+	
+	<br>
+	<center><img src="01_actionscore.png"></center>
+	<br>
+
+	<div class="bodyText">
+	This concludes the definition of the apple. The event and action list should now look as follows.
+	</div>
+	
+	<br>
+	<center><img src="01_objectapple2.png"></center>
+	<br>
+	
+	<div class="bodyText">
+	Press <b>OK</b> to close the object form. We now defined our two important objects: the wall and the
+	apple, which are now both shown in the list at the left. Better save your work.
+	</div>
+	
+
+	</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+    <title>Game Maker Tutorial</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color: #3a7c3f">
+	  <td style="height: 22px" class="logo"><img src="bar.png"></td>
+	</tr>
+	<tr style="background-color: #ffffff">
+	<td style="width: 220px" valign="top">
+	
+	<div class="bodyText"><i>Page 13 of 15</i></div>
+	<div class="header">Creating Bombs</div></div>
+
+	<div class="bodyText">
+	To make the game more difficult we want to create additional bombs while playing the game.
+	We can create a new object to do this but we can as well use the music object for this. So
+	reopen the music object by double clicking on it in the list at the left.
+	</div>
+
+	<div class="bodyText">
+	To create the bombs we will use alarm clocks. You can set these clocks to a particular value and
+	they will then tick down to 0. Once they reach 0 an <b>Alarm</b> event will happen. To initialize
+	the alarm clock, go to then <b>main2</b> tab and drag the top left action (with the clock image)
+	to the action list (below the play sound action). As <b>number of steps</b> indicate a value of 60.
+	A second is 30 steps so we will add a new bomb every 2 seconds. Make sure alarm 0 is selected.
+	</div>
+
+	<div class="bodyText">
+	Now press <b>Add Event</b>, click on the <b>Alarm</b> events and select in the menu <b>Alarm 0</b>.
+	In this event we will create the bomb. Go to the <b>main1</b> tab and drag the top left action in the 
+	action list (the lightbulb). Click on the menu icon and select the bomb object.
+	</div>
+	
+	<br>
+	<center><img src="01_actioncreate.png"></center>
+	<br>
+
+	<div class="bodyText">
+	There is no need to set a position as the bomb will anyway jump to a random position. Next we must set the
+	alarm clock again. So add the alarm action (from the <b>main2</b> tab) and set alarm 0 again to 60. This
+	will repeat the proces. So the action list now looks as follows:
+	</div>
+
+	<br>
+	<center><img src="01_actionbomb.png"></center>
+	<br>
+
+	<div class="bodyText">
+	Close the object form, save the game, and run it. You should see more and more bombs appearing and eventually
+	you will click on one of them and the game will end. If you want to make the game a bit harder, you can also
+	let the bombs move slowly. You should by now know how to achieve that.
+	</div>
+
+
+
+	
+	
+	</td>
+	</tr>
+</table>
+</body>
+</html>

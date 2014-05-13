@@ -1,0 +1,94 @@
+	
+	bool pathWasFound = false;
+	
+	// Define the start state
+	MapSearchNode searchStartNode = MapSearchNode();
+	searchStartNode.x = x1;
+	searchStartNode.y = y1;
+
+	// Define the end state
+	MapSearchNode searchEndNode = MapSearchNode();
+	searchEndNode.x = x2;
+	searchEndNode.y = y2;
+
+	std::vector<MapSearchNode> l_OpenList;
+	std::vector<MapSearchNode> l_ClosedList;
+	
+	std::vector<MapSearchNode> l_AdjascentList;
+
+	// add the start position to the open nodes list
+	l_OpenList.push_back(searchStartNode);
+
+	MapSearchNode currentNode;
+	ofstream fileStream;
+	fileStream.open("Level_Path.txt");
+	
+	do
+	{
+		currentNode = GetNodeWithLowestFScore(&l_OpenList); // Get the current node with the lowest F Score, also remove it from the open list using this method
+		l_ClosedList.push_back(currentNode); // Add the node to the closed list
+		
+		if (ContainsNode(&l_ClosedList, searchEndNode))
+		{
+			// THE END HAS BEEN FOUND
+			fileStream << "End Found";
+			pathWasFound = true;
+			break;
+		}
+
+		// Get all walkable adjascent nodes
+		fileStream << "Get Adjascent Nodes";
+		l_AdjascentList = GetWalkableAdjascentNodes(currentNode);
+
+		for (int i = 0; i < l_AdjascentList.size(); i++)
+		{
+			fileStream << "Iterate Adjascent Nodes";
+			int index = 0;
+			// If this node is already in the closed list
+			if (ContainsNode(&l_ClosedList, l_AdjascentList.at(i)))
+			{
+				// Go to the next node
+				fileStream << "Node is contained in closed list";
+				continue;
+			}
+
+			int moveCost = GetDistanceBetweenNodeAandB(currentNode, l_AdjascentList.at(i));
+
+			// If the node is not within the open list
+			if (!ContainsNode(&l_OpenList, l_AdjascentList.at(i)))
+			{
+				fileStream << "Node is not in the open list";
+				// Compute it's score and set the parent
+				l_AdjascentList.at(i).parent = &currentNode;
+
+				// The G score is equal to the parent G score + the cost to move from the parent to it
+				l_AdjascentList.at(i).gScore = currentNode.gScore + moveCost;
+
+				// compute the H score
+				l_AdjascentList.at(i).hScore = GetDistanceBetweenNodeAandB(l_AdjascentList.at(i), searchEndNode);
+
+				l_OpenList.push_back(l_AdjascentList.at(i));	
+			}
+			else
+			{
+				fileStream << "Node is already in the open list";
+				// it's already in the open list				
+				// test if using the current G score make the aSquare F score lower, if yes update the parent because it means its a better path
+				if (currentNode.gScore + moveCost < l_OpenList.at(index).gScore)
+				{
+					l_OpenList.at(index).gScore = currentNode.gScore + moveCost;
+
+					MapSearchNode tempNode = l_OpenList.at(index);
+					l_OpenList.erase(l_OpenList.begin() + index);
+					
+					// ADD BACK TO THE LIST USING THE FUNCTION THAT KEEPS IT ORDERED BY F SCORE
+					AddNodeBackToListInOrder(tempNode,&l_OpenList);
+				}
+			}
+		}
+	}
+	while (!l_OpenList.empty()); // Continue until there is no more available square in the open list (which means there is no path)
+
+    fileStream.close();
+	
+	return 0;

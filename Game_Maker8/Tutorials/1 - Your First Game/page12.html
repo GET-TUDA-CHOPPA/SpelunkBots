@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+    <title>Game Maker Tutorial</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color: #3a7c3f">
+	  <td style="height: 22px" class="logo"><img src="bar.png"></td>
+	</tr>
+	<tr style="background-color: #ffffff">
+	<td style="width: 220px" valign="top">
+	
+	<div class="bodyText"><i>Page 12 of 15</i></div>
+	<div class="header">Adding Bombs</div></div>
+
+	<div class="bodyText">
+	Although the game can already be fun to play, there is something missing. You cannot lose! 
+	You can just keep clicking randomly, which is not really much fun. Hence, we are going to add
+	bombs to the game. If you click on a bomb you will lose and the game will end. Bombs will be static.
+	They won't move, but their number keeps increasing to make the game more and more difficult over time.
+	</div>
+	
+    <div class="bodyText">
+	The bomb sprite is already present but we atill need a sound effect for it. Press the button with the
+	speaker to add a sound. Give is an appropriate name, press the <b>Load Sound</b> button and select
+	<tt>explosion.wav</tt>. Press <b>OK</b> to close the sound form.
+	</div>
+
+	<div class="bodyText">
+	Now create the bomb object by clicking on the
+	blue ball button. Give the object an appropriate name and the bomb sprite. We want the bomb to
+	appear in a random place. To this end, add the <b>Create</b> event. In it place the action to jump
+	to a random location.
+	</div>
+
+	<div class="bodyText">
+	When the use clicks on it we want the game to end. So add the <b>Mouse</b> event <b>Left pressed</b>.
+	As a first action we want to play the explode sound so add the play sound action (from the <b>main1</b> tab)
+	and select the explode sound. Next we want to wait a little while to let the player realize he lost.
+	From the <b>main2</b> tab, drag the sleep action (with the zzz on it) and place it <b>below</b> the play sound
+	action. The default values are fine, so press <b>OK</b>.  
+	</div>
+
+	<div class="bodyText">
+	As a next step we want to show a highscore list. This is very easy in <i>Game Maker</i>. From the <b>score</b> 
+	tab, drag the show highscore action (with the 1,2,3 in it). In the form you can set quite some values. As
+	a background you can choose the wood background. You also can change the colors and the font if you like, for
+	example as follows: 
+	</div>
+
+	<br>
+	<center><img src="01_actionhigh.png"></center>
+	<br>
+
+	<div class="bodyText">
+	As a final step we need the action to restart the game, which can be found in the <b>main2</b> tab. The action
+	list should now look as follows: 
+	</div>
+	
+	<br>
+	<center><img src="01_actionlose.png"></center>
+	<br>
+
+	<div class="bodyText">
+	Make sure the order of the actions is correct. (If not, drag them to the correct location.)
+	That finishes the bomb object so better press the <b>OK</b> button to close the form.
+	To test the game, place one or two bomb objects in the room. Save the game, run it, catch some
+	fruit and then click on a bomb. An explosion sound should be heard and the highscore list should show.
+	Note that in this list you can add your name if you get a new high score.  
+	</div>
+
+
+	</td>
+	</tr>
+</table>
+</body>
+</html>

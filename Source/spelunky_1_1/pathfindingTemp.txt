@@ -1,0 +1,327 @@
+MapSearchNode GetNodeWithLowestFScore(std::vector<MapSearchNode> *list)
+{
+	// RETURN THE NODE WITH THE LOWEST SCORE IN THIS LIST
+	MapSearchNode lowest;
+	int score = 0;
+	for (int i = 0; i < list->size(); i++)
+	{
+		lowest = list->at(i);
+		list->erase(list->begin() + i);
+	}	
+	return lowest;
+}
+
+bool ContainsNode(std::vector<MapSearchNode> *list, MapSearchNode finalNode)
+{
+	for (int i = 0; i < list->size(); i++)
+	{
+		if (list->at(i).x == finalNode.x)
+		{
+			if (list->at(i).y == finalNode.y)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+int GetDistanceBetweenNodeAandB(MapSearchNode a, MapSearchNode b)
+{
+	float xDist = ((a.x) - (b.x));
+	float yDist = ((a.y) - (b.y));
+	float distance = sqrt((xDist * xDist) + (yDist * yDist));
+	return (int) distance;
+}
+
+void AddNodeBackToListInOrder(MapSearchNode n, std::vector<MapSearchNode> *list)
+{
+	bool placeFound = false;
+	int fScore = n.gScore + 1;
+	int index = 0;
+	for (int i = 0; i < list->size(); i++)
+	{
+		// CHANGE TO CALCULATE F SCORE
+		int secondFScore = list->at(i).gScore + 1;
+		if (fScore < secondFScore)
+		{
+			list->insert(list->begin() + i, n);
+		}
+	}
+}
+
+std::vector<MapSearchNode> GetWalkableAdjascentNodes(MapSearchNode currentNode)
+{
+
+	// Grab all of the children and evaluate them			
+	std::vector<MapSearchNode> childrenToExplore;
+	bool top = false;
+	bool left = false;
+	bool right = false;
+	bool down = false;
+	// RIGHT
+	if (map[ (int)currentNode.x + 1][(int)currentNode.y] == 0)
+	{
+		MapSearchNode a;
+		a.x = currentNode.x + 1;
+		a.y = currentNode.y;
+		childrenToExplore.push_back(a);
+		right = true;
+	}
+
+	// LEFT
+	if (map[(int)currentNode.x - 1][(int)currentNode.y] == 0)
+	{
+		MapSearchNode a;
+		a.x = currentNode.x - 1;
+		a.y = currentNode.y;
+		childrenToExplore.push_back(a);
+		left = true;
+	}
+	
+	// DOWN
+	if (map[ (int)currentNode.x][(int)currentNode.y + 1] == 0)
+	{
+		MapSearchNode a;
+		a.x = currentNode.x;
+		a.y = currentNode.y + 1;
+		childrenToExplore.push_back(a);
+		down = true;
+	}
+
+	// UP
+	if (map[(int)currentNode.x][(int)currentNode.y  - 1] == 0)
+	{
+		MapSearchNode a;
+		a.x = currentNode.x;
+		a.y = currentNode.y - 1;
+		childrenToExplore.push_back(a);
+		top = true;
+	}
+	/*
+	// LEFT UP
+	if (map[n.x - 1,n.y - 1] == 0)
+	{
+		if (map[n.x - 1, n.y] == 0 || map[n.x, n.y - 1] == 0)
+		{
+			MapSearchNode a;
+			a.x = n.x - 1;
+			a.y = n.y - 1;
+			l_walkableNodes.push_back(a);
+		}
+	}
+
+	// RIGHT UP
+	if (map[n.x + 1,n.y - 1] == 0)
+	{
+		if (map[n.x + 1, n.y] == 0 || map[n.x, n.y - 1] == 0)
+		{
+			MapSearchNode a;
+			a.x = n.x + 1;
+			a.y = n.y - 1;
+			l_walkableNodes.push_back(a);
+		}
+	}
+
+	// DOWN LEFT
+	if (map[n.x - 1,n.y  + 1] == 0)
+	{
+		if (map[n.x - 1, n.y] == 0 || map[n.x, n.y + 1] == 0)
+		{
+			MapSearchNode a;
+			a.x = n.x - 1;
+			a.y = n.y + 1;
+			l_walkableNodes.push_back(a);
+		}
+	}
+
+	// DOWN RIGHT
+	if (map[n.x + 1,n.y  + 1] == 0)
+	{
+		if (map[n.x + 1, n.y] == 0 || map[n.x, n.y + 1] == 0)
+		{
+			MapSearchNode a;
+			a.x = n.x + 1;
+			a.y = n.y + 1;
+			l_walkableNodes.push_back(a);
+		}
+	}*/
+	return childrenToExplore;
+}
+
+
+
+bool DoesListContainMapNode(std::vector<MapSearchNode> *list, MapSearchNode* n)
+{
+	for (int i = 0; i < list->size(); i++)
+	{
+		if (list->at(i).x == n->x && list->at(i).y == n->y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool DoesDictionaryContainMapNode(std::vector<nodeValue> *list, MapSearchNode* n)
+{
+	for (int i = 0; i < list->size(); i++)
+	{
+		if (list->at(i).node.x == n->x && list->at(i).node.y == n->y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+std::vector<MapSearchNode> waitingList;
+std::vector<MapSearchNode> visited;
+std::vector<nodeValue> fValue;
+std::vector<nodeValue> gValue;
+
+
+int GetPositionOfCurrentNodeInDictionary(MapSearchNode* n, std::vector<nodeValue> *list)
+{
+	for (int i = 0; i < list->size(); i++)
+	{
+		if (list->at(i).node.x == n->x && list->at(i).node.y == n->y)
+		{
+			return i;
+		}
+	}
+	return NULL;
+}
+
+void UpdateGValue(MapSearchNode currentChild, double newScore)
+{
+	nodeValue v;
+	if (DoesDictionaryContainMapNode(&gValue, &currentChild))
+	{
+		//gvalue[currentNode] = newScore
+		for (int i = 0; i < gValue.size(); i++)
+		{
+			if (gValue.at(i).node.x == currentChild.x && gValue.at(i).node.y == currentChild.y)
+			{
+				gValue.at(i).value = newScore;
+			}
+		}
+	}
+	else
+	{
+		//gvalue.Add(currentNode, newScore);
+		v.node = currentChild;
+		v.value = newScore;
+		gValue.push_back(v);
+	}
+}
+
+void UpdateFValue(MapSearchNode currentNode)
+{
+	nodeValue v;
+	if (DoesDictionaryContainMapNode(&fValue, &currentNode))
+	{
+		fValue.at(GetPositionOfCurrentNodeInDictionary(&currentNode, &fValue)).value = gValue.at(GetPositionOfCurrentNodeInDictionary(&currentNode, &fValue)).value + GetDistanceBetweenNodeAandB(currentNode, goal);
+	}
+	else
+	{
+		v.node = currentNode;
+		v.value = gValue.at(GetPositionOfCurrentNodeInDictionary(&currentNode, &fValue)).value + GetDistanceBetweenNodeAandB(currentNode, goal);
+		fValue.push_back(v);
+	}
+}
+
+
+
+GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2)
+{
+	visited.clear();
+	waitingList.clear();
+	gValue.clear();
+	fValue.clear();
+	ofstream fileStream;
+	fileStream.open("Level_Path.txt");
+	MapSearchNode start;
+	start.x = x1;
+	start.y = y1;
+	fileStream << "START X:";
+	fileStream << start.x;
+	fileStream << "START Y:";
+	fileStream << start.y;
+	fileStream << "\n";
+	goal.x = x2;
+	goal.y = y2;
+	fileStream << "END X:";
+	fileStream << goal.x;
+	fileStream << "END Y:";
+	fileStream << goal.y;
+	fileStream << "\n";
+	waitingList.push_back(start);
+
+	while(!waitingList.empty())
+	{
+		// Get the next node with the lowest cost from waiting
+		MapSearchNode currentNode = GetNodeWithLowestFScore(&waitingList); 
+
+		// Current node is the goal node! 
+		if (currentNode.x == goal.x && currentNode.y == goal.y)
+		{			
+			fileStream << "End found!";
+			fileStream.close();
+			return 1;
+		}
+		else
+		{
+			fileStream << "End not found \n";
+			// Otherwise add it to the open set
+			visited.push_back(currentNode);
+
+			std::vector<MapSearchNode> childrenToExplore = GetWalkableAdjascentNodes(currentNode);
+
+			// STOP GETTING CHILDREN
+			for (int i = 0; i < childrenToExplore.size(); i++)
+			{
+				fileStream << "Exploring Children Nodes \n";
+				if (!DoesListContainMapNode(&visited,&childrenToExplore.at(i)))
+				{
+					// Calculate the G Score
+					int gScore = 1  + GetDistanceBetweenNodeAandB(currentNode, childrenToExplore.at(i));
+					//int gScore = 1;
+					// IF it is not already in our waiting list OR the gScore is better than previously discovered
+					if (!DoesListContainMapNode(&waitingList, &childrenToExplore.at(i)) || gScore < gValue.at(GetPositionOfCurrentNodeInDictionary(&childrenToExplore.at(i), &gValue)).value)
+					{
+						fileStream << "waiting list does not contain this child node \n";
+						// SET AS THE PARENT if it is not the parent already
+						if (childrenToExplore.at(i).parent != &currentNode)
+						{
+							childrenToExplore.at(i).parent = &currentNode;
+						}
+
+						// Update G Value
+						UpdateGValue(childrenToExplore.at(i),gScore);
+						// Update F Value
+						UpdateFValue(childrenToExplore.at(i));
+
+						if (!DoesListContainMapNode(&waitingList, &childrenToExplore.at(i)))
+						{
+							// Waiting List Enqueue
+							fileStream << "waiting list does not contain this child node, so push it back! \n";
+							waitingList.push_back(childrenToExplore.at(i));
+						}
+					}
+					else
+					{
+						fileStream << "waiting list does contain this child node \n";
+					}
+				}
+				else
+				{
+					fileStream << "visited List does contain this child \n";
+				}
+			}
+			
+		}
+	}
+	fileStream.close();
+	return 0;
+}

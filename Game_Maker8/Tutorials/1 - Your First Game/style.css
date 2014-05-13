@@ -1,0 +1,51 @@
+/* Global Styles */
+
+body
+{
+	margin: 5px;
+}
+
+td
+{
+	font: 11px arial;
+	color: #333333;
+}
+
+a
+{
+	color: Green;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: Green;
+	text-decoration: underline;
+}
+
+/* Class Styles */
+
+.logo
+{
+	font: 28px arial;
+	color: #3a7c3f;
+	letter-spacing: .1em;
+	font-weight: bold;
+	line-height: 22px;
+}
+
+.bodyText
+{
+	font: 10px arial;
+	color: #333333;
+	padding-bottom: 5px;
+}
+
+.header
+{
+	font: 16px arial;
+	color: #3a7c3f;
+	font-weight: bold;
+	letter-spacing: .1em;
+}
+
