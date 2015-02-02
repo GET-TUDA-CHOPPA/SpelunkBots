@@ -11,6 +11,8 @@
 #include <queue>
 #include <list>
 #include <map>
+#include <ostream>
+#include <string>
 
 
 
@@ -21,6 +23,9 @@ BOOL WINAPI DllMain(
   LPVOID lpvReserved
 )
 {
+		AllocConsole();
+	freopen("CON", "w", stdout);
+
 	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
@@ -96,6 +101,14 @@ bool shopkeepersAngered;
 #define GMEXPORT extern "C" __declspec (dllexport)
 
 using namespace std;
+
+//string varName, int val
+GMEXPORT double DebugPlayerVariables()
+{
+	cout << "TEST" << endl;
+	return 0;
+	//pInput.Update(varName, val);
+}
 
 GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 {

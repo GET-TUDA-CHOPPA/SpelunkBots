@@ -1,38 +1,40 @@
-﻿Build started 09/04/2014 18:12:59.
-     1>Project "C:\Users\DanielCake\documents\visual studio 2012\Projects\Spelunkbots\Spelunkbots\Spelunkbots.vcxproj" on node 2 (Build target(s)).
+﻿Build started 02/02/2015 09:20:45.
+     1>Project "C:\Users\DanielCake\SpelunkbotsConsole\DLL Solution\Spelunkbots\Spelunkbots\Spelunkbots.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D SPELUNKBOTS_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Spelunkbots.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Spelunkbots.cpp
          Spelunkbots.cpp
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(113): warning C4081: expected '('; found 'string'
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(346): warning C4081: expected '('; found 'string'
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(395): warning C4081: expected '('; found 'string'
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(408): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(409): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(466): warning C4081: expected '('; found 'string'
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(479): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(480): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(587): warning C4081: expected '('; found 'string'
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(750): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(751): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(795): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(796): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(805): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(806): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(945): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(947): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(948): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(973): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(975): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\danielcake\documents\visual studio 2012\projects\spelunkbots\spelunkbots\spelunkbots.cpp(976): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(27): warning C4996: 'freopen': This function or variable may be unsafe. Consider using freopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(233) : see declaration of 'freopen'
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(126): warning C4081: expected '('; found 'string'
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(359): warning C4081: expected '('; found 'string'
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(408): warning C4081: expected '('; found 'string'
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(421): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(422): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(479): warning C4081: expected '('; found 'string'
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(492): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(493): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(600): warning C4081: expected '('; found 'string'
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(763): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(764): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(808): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(809): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(818): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(819): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(958): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(960): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(961): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(986): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(988): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\danielcake\spelunkbotsconsole\dll solution\spelunkbots\spelunkbots\spelunkbots.cpp(989): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DanielCake\documents\visual studio 2012\Projects\Spelunkbots\Debug\Spelunkbots.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DanielCake\documents\visual studio 2012\Projects\Spelunkbots\Debug\Spelunkbots.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DanielCake\documents\visual studio 2012\Projects\Spelunkbots\Debug\Spelunkbots.lib" /MACHINE:X86 /DLL Debug\Altar.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\DanielCake\SpelunkbotsConsole\DLL Solution\Spelunkbots\Debug\Spelunkbots.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\DanielCake\SpelunkbotsConsole\DLL Solution\Spelunkbots\Debug\Spelunkbots.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\DanielCake\SpelunkbotsConsole\DLL Solution\Spelunkbots\Debug\Spelunkbots.lib" /MACHINE:X86 /DLL Debug\Altar.obj
          Debug\dllmain.obj
          Debug\Enemy.obj
          Debug\Spelunkbots.obj
          Debug\stdafx.obj
-         Spelunkbots.vcxproj -> C:\Users\DanielCake\documents\visual studio 2012\Projects\Spelunkbots\Debug\Spelunkbots.dll
-     1>Done Building Project "C:\Users\DanielCake\documents\visual studio 2012\Projects\Spelunkbots\Spelunkbots\Spelunkbots.vcxproj" (Build target(s)).
+         Spelunkbots.vcxproj -> C:\Users\DanielCake\SpelunkbotsConsole\DLL Solution\Spelunkbots\Debug\Spelunkbots.dll
+     1>Done Building Project "C:\Users\DanielCake\SpelunkbotsConsole\DLL Solution\Spelunkbots\Spelunkbots\Spelunkbots.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.43
+Time Elapsed 00:00:01.71

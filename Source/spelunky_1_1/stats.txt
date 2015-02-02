@@ -75,7 +75,7 @@ MISC         DEATHS
  ???        | 0
  CRUSHED    | 20
  LONG FALL  | 32
- SPIKES     | 25
+ SPIKES     | 26
  ???        | 0
  ARROW TRAP | 15
  SPEAR TRAP | 2
