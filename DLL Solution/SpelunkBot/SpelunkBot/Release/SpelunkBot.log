@@ -1,0 +1,23 @@
+﻿Build started 11/02/2015 09:11:05.
+     1>Project "C:\Users\James\Desktop\SpelunkBots\DLL Solution\SpelunkBot\SpelunkBot\SpelunkBot.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SPELUNKBOT_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release\SpelunkBot.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SPELUNKBOT_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt dllmain.cpp
+         dllmain.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SPELUNKBOT_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release\SpelunkBot.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt SpelunkBot.cpp
+         SpelunkBot.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\..\Source\spelunky_1_1\SpelunkBot.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\..\Source\spelunky_1_1\SpelunkBot.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\..\Source\spelunky_1_1\SpelunkBot.lib" /MACHINE:X86 /SAFESEH /DLL Release\dllmain.obj
+         Release\SpelunkBot.obj
+         Release\stdafx.obj
+            Creating library ..\..\..\Source\spelunky_1_1\SpelunkBot.lib and object ..\..\..\Source\spelunky_1_1\SpelunkBot.exp
+         Generating code
+         Finished generating code
+         SpelunkBot.vcxproj -> C:\Users\James\Desktop\SpelunkBots\DLL Solution\SpelunkBot\SpelunkBot\..\..\..\Source\spelunky_1_1\SpelunkBot.dll
+     1>Done Building Project "C:\Users\James\Desktop\SpelunkBots\DLL Solution\SpelunkBot\SpelunkBot\SpelunkBot.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:05.81
