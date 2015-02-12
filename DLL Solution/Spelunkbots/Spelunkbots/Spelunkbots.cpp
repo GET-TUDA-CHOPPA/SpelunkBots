@@ -18,12 +18,12 @@
 
 // entry point
 BOOL WINAPI DllMain(
-  HANDLE hinstDLL, 
-  DWORD dwReason, 
-  LPVOID lpvReserved
-)
+	HANDLE hinstDLL,
+	DWORD dwReason,
+	LPVOID lpvReserved
+	)
 {
-		AllocConsole();
+	AllocConsole();
 	freopen("CON", "w", stdout);
 
 	switch (dwReason)
@@ -102,13 +102,95 @@ bool shopkeepersAngered;
 
 using namespace std;
 
-//string varName, int val
-GMEXPORT double DebugPlayerVariables()
+// Convert pixel coordinates into node coordinates
+void TranslateToNodeCoordinates(double &x, double &y)
 {
-	cout << "TEST" << endl;
-	return 0;
-	//pInput.Update(varName, val);
+	x /= 16;
+	y /= 16;
 }
+
+void TranslateToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
+{
+	TranslateToNodeCoordinates(x1, y1);
+	TranslateToNodeCoordinates(x2, y2);
+}
+
+// Class for holding messages
+class SpelunkbotVariables
+{
+public:
+	SpelunkbotVariables()
+	{
+		updated = false;
+	}
+
+	void UpdateVariable(std::string name, std::string value)
+	{
+		bool exists = false;
+
+		for (auto var : variables)
+		{
+			if (var.first == name)
+			{
+				exists = true;
+				break;
+			}
+		}
+
+		if (exists && variables[name] != value)
+		{
+			variables[name] = value;
+
+			updated = true;
+		}
+		else if (!exists)
+		{
+			variables[name] = value;
+
+			updated = true;
+		}
+	}
+
+	void DisplayVariables()
+	{
+		if (updated)
+		{
+			std::cout << "================================" << std::endl;
+			for (auto var : variables)
+			{
+				std::cout << var.first + ": " + var.second << std::endl;
+			}
+			std::cout << "================================\n";
+
+			updated = false;
+		}
+	}
+
+private:
+	std::map<std::string, std::string> variables;
+
+	bool updated;
+};
+
+SpelunkbotVariables spelunkbotVariables;
+
+GMEXPORT double UpdatePlayerVariables(char *name, char *value)
+{
+	std::string varName = name;
+	std::string varValue = value;
+
+	spelunkbotVariables.UpdateVariable(varName, varValue);
+
+	return 0;
+}
+
+GMEXPORT double DisplayMessages()
+{
+	spelunkbotVariables.DisplayVariables();
+
+	return 0;
+}
+
 
 GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 {
@@ -209,7 +291,7 @@ GMEXPORT double TerrainIsGoal(double x, double y)
 
 GMEXPORT double TerrainIsStart(double x, double y)
 {
-	spmap[(int)x][(int)y]	= 4;
+	spmap[(int)x][(int)y] = 4;
 	return 0;
 }
 
@@ -302,8 +384,6 @@ GMEXPORT double SpringPadAtPosition(double x, double y)
 	return 0;
 }
 
-
-
 GMEXPORT double FillShopkeeperArea(double x, double y)
 {
 	// TODO
@@ -314,11 +394,11 @@ GMEXPORT double FillShopkeeperArea(double x, double y)
 }
 
 /*
-	Call this each time a new level is loaded in a loop in GameMaker
-	Setting the state of the block as to whether there is a terrain block
-	in that coordinate.
+Call this each time a new level is loaded in a loop in GameMaker
+Setting the state of the block as to whether there is a terrain block
+in that coordinate.
 
-	Should also be called when a terrain block is destroyed by *anything*
+Should also be called when a terrain block is destroyed by *anything*
 */
 GMEXPORT double SetMapCoord(double x, double y, double state)
 {
@@ -335,8 +415,11 @@ GMEXPORT double ClearFogFromSquare(double x, double y)
 
 // returns whether a node has terrain or not
 // if the section has not been discovered then it returns false
-GMEXPORT double GetNodeState(double x, double y)
+GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	if (mapFog[(int)x][(int)y] == 0)
 	{
 		return spmap[(int)x][(int)y];
@@ -378,8 +461,11 @@ GMEXPORT double NodeContainsPushBlock(double x, double y)
 	return 0;
 }
 
-GMEXPORT double GetNodeContainsPushBlock(double x, double y)
+GMEXPORT double GetNodeContainsPushBlock(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	if (mapFog[(int)x][(int)y] == 0)
 	{
 		return pushBlocks[(int)x][(int)y];
@@ -427,7 +513,7 @@ GMEXPORT double NodeContainsCollectable(double x, double y, double type, double 
 GMEXPORT double UpdateCollectableAtNode(double x, double y, double id)
 {
 	int cSize = collectablesList.size();
-	for(int i = 0; i < cSize; i++)
+	for (int i = 0; i < cSize; i++)
 	{
 		if (collectablesList.at(i).id == id)
 		{
@@ -445,7 +531,7 @@ GMEXPORT double UpdateCollectableAtNode(double x, double y, double id)
 GMEXPORT double RemoveCollectableWithID(double id)
 {
 	int cSize = collectablesList.size();
-	for(int i = 0; i < cSize; i++)
+	for (int i = 0; i < cSize; i++)
 	{
 		if (collectablesList.at(i).id == id)
 		{
@@ -462,11 +548,11 @@ GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y)
 	double count = 0;
 	if (mapFog[(int)x][(int)y] == 0)
 	{
-		for(int i = 0; i < cSize; i++)
+		for (int i = 0; i < cSize; i++)
 		{
 			if (collectablesList.at(i).type == type)
-			{ 
-				if ((int)collectablesList.at(i).x == (int) x && (int) collectablesList.at(i).y == (int) y)
+			{
+				if ((int)collectablesList.at(i).x == (int)x && (int)collectablesList.at(i).y == (int)y)
 				{
 					count += 1;
 				}
@@ -498,7 +584,7 @@ GMEXPORT double NodeContainsEnemy(double x, double y, double type, double id)
 GMEXPORT double UpdateEnemyAtNode(double x, double y, double id)
 {
 	int cSize = enemiesList.size();
-	for(int i = 0; i < cSize; i++)
+	for (int i = 0; i < cSize; i++)
 	{
 		if (enemiesList.at(i).id == id)
 		{
@@ -513,7 +599,7 @@ GMEXPORT double UpdateEnemyAtNode(double x, double y, double id)
 GMEXPORT double RemoveEnemyWithID(double id)
 {
 	int cSize = enemiesList.size();
-	for(int i = 0; i < cSize; i++)
+	for (int i = 0; i < cSize; i++)
 	{
 		if (enemiesList.at(i).id == id)
 		{
@@ -526,9 +612,9 @@ GMEXPORT double RemoveEnemyWithID(double id)
 
 GMEXPORT double NumberOfWebsInNode(double x, double y)
 {
-	if (mapFog[(int) x][(int) y] == 0)
+	if (mapFog[(int)x][(int)y] == 0)
 	{
-		return spiderWebs[(int)x][(int) y];
+		return spiderWebs[(int)x][(int)y];
 	}
 	return 0;
 }
@@ -539,35 +625,38 @@ GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y)
 	double count = 0;
 	if (mapFog[(int)x][(int)y] == 0)
 	{
-		for(int i = 0; i < cSize; i++)
-		{				
+		for (int i = 0; i < cSize; i++)
+		{
 			if (enemiesList.at(i).type == type)
-				{ 
-					if ((int)enemiesList.at(i).x >= screenX && (int)enemiesList.at(i).x <= screenX + screenW && 
-						(int)enemiesList.at(i).y >= screenY && (int)enemiesList.at(i).y <= screenY + screenW)
+			{
+				if ((int)enemiesList.at(i).x >= screenX && (int)enemiesList.at(i).x <= screenX + screenW &&
+					(int)enemiesList.at(i).y >= screenY && (int)enemiesList.at(i).y <= screenY + screenW)
+				{
+					if ((int)enemiesList.at(i).x == (int)x && (int)enemiesList.at(i).y == (int)y)
 					{
-						if ((int)enemiesList.at(i).x == (int) x && (int) enemiesList.at(i).y == (int) y)
-						{
-							count += 1;
-						}
+						count += 1;
 					}
 				}
 			}
 		}
+	}
 	return count;
 }
 
-GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y)
+GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	int cSize = enemiesList.size();
 	double count = 0;
 	if (mapFog[(int)x][(int)y] == 0)
 	{
-		for(int i = 0; i < cSize; i++)
+		for (int i = 0; i < cSize; i++)
 		{
 			if (enemiesList.at(i).type == type)
-			{ 
-				if ((int)enemiesList.at(i).x == (int) x && (int) enemiesList.at(i).y == (int) y)
+			{
+				if ((int)enemiesList.at(i).x == (int)x && (int)enemiesList.at(i).y == (int)y)
 				{
 					return enemiesList.at(i).id;
 				}
@@ -577,17 +666,20 @@ GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y)
 	return 0;
 }
 
-GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y)
+GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	int cSize = collectablesList.size();
 	double count = 0;
 	if (mapFog[(int)x][(int)y] == 0)
 	{
-		for(int i = 0; i < cSize; i++)
+		for (int i = 0; i < cSize; i++)
 		{
 			if (collectablesList.at(i).type == type)
-			{ 
-				if ((int)collectablesList.at(i).x == (int) x && (int) collectablesList.at(i).y == (int) y)
+			{
+				if ((int)collectablesList.at(i).x == (int)x && (int)collectablesList.at(i).y == (int)y)
 				{
 					return collectablesList.at(i).id;
 				}
@@ -609,7 +701,7 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 		{
 			if (mapFog[j][i] == 0)
 			{
-				fileStream << spmap[j][i];					
+				fileStream << spmap[j][i];
 			}
 			else
 			{
@@ -617,7 +709,7 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 			}
 			fileStream << " ";
 		}
-		fileStream <<  "\n";
+		fileStream << "\n";
 	}
 	fileStream.close();
 	fileStream.open("level_bats.txt");
@@ -627,7 +719,7 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 		{
 			if (mapFog[j][i] == 0)
 			{
-				fileStream << bats[j][i];					
+				fileStream << bats[j][i];
 			}
 			else
 			{
@@ -635,7 +727,7 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 			}
 			fileStream << " ";
 		}
-		fileStream <<  "\n";
+		fileStream << "\n";
 	}
 	fileStream.close();
 	fileStream.open("level_liquids.txt");
@@ -643,42 +735,42 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	{
 		for (int j = 0; j < 42; j++)
 		{
-			fileStream << mapLiquids[j][i];				
+			fileStream << mapLiquids[j][i];
 
 			fileStream << " ";
 		}
-		fileStream <<  "\n";
+		fileStream << "\n";
 	}
 	fileStream.close();
-		fileStream.open("level_collectables.txt");
-		int size = collectablesList.size();
-		for (int i = 0; i < size; i++)
-		{
-			fileStream << "TYPE: ";	
-			fileStream <<  collectablesList.at(i).type;
-			fileStream << " X: ";
-			fileStream << collectablesList.at(i).x;
-			fileStream << " Y: ";
-			fileStream << collectablesList.at(i).y;
-			fileStream << " ID: ";
-			fileStream << collectablesList.at(i).id;
-			fileStream <<  "\n";
-		}
+	fileStream.open("level_collectables.txt");
+	int size = collectablesList.size();
+	for (int i = 0; i < size; i++)
+	{
+		fileStream << "TYPE: ";
+		fileStream << collectablesList.at(i).type;
+		fileStream << " X: ";
+		fileStream << collectablesList.at(i).x;
+		fileStream << " Y: ";
+		fileStream << collectablesList.at(i).y;
+		fileStream << " ID: ";
+		fileStream << collectablesList.at(i).id;
+		fileStream << "\n";
+	}
 	fileStream.close();
 	fileStream.open("level_enemies.txt");
 	size = enemiesList.size();
-		for (int i = 0; i < size; i++)
-		{
-			fileStream << "TYPE: ";	
-			fileStream <<  enemiesList.at(i).type;
-			fileStream << " X: ";
-			fileStream << enemiesList.at(i).x;
-			fileStream << " Y: ";
-			fileStream << enemiesList.at(i).y;
-			fileStream << " ID: ";
-			fileStream << enemiesList.at(i).id;
-			fileStream <<  "\n";
-		}
+	for (int i = 0; i < size; i++)
+	{
+		fileStream << "TYPE: ";
+		fileStream << enemiesList.at(i).type;
+		fileStream << " X: ";
+		fileStream << enemiesList.at(i).x;
+		fileStream << " Y: ";
+		fileStream << enemiesList.at(i).y;
+		fileStream << " ID: ";
+		fileStream << enemiesList.at(i).id;
+		fileStream << "\n";
+	}
 	fileStream.close();
 	return 0;
 }
@@ -691,10 +783,10 @@ GMEXPORT double SaveSpiderwebsToFile()
 	{
 		for (int j = 0; j < 42; j++)
 		{
-			fileStream << spiderWebs[j][i];	
+			fileStream << spiderWebs[j][i];
 			fileStream << " ";
 		}
-		fileStream <<  "\n";
+		fileStream << "\n";
 	}
 	fileStream.close();
 	return 0;
@@ -710,7 +802,7 @@ GMEXPORT double SaveLevelLayoutToFile()
 		{
 			if (mapFog[j][i] == 0)
 			{
-				fileStream << spmap[j][i];					
+				fileStream << spmap[j][i];
 			}
 			else
 			{
@@ -718,7 +810,7 @@ GMEXPORT double SaveLevelLayoutToFile()
 			}
 			fileStream << " ";
 		}
-		fileStream <<  "\n";
+		fileStream << "\n";
 	}
 	fileStream.close();
 	return 0;
@@ -737,10 +829,10 @@ public:
 	MapSearchNode *parent;
 	bool opened;
 	bool closed;
-	
-	double GetGScore(MapSearchNode *p) 
+
+	double GetGScore(MapSearchNode *p)
 	{
-		return p->gScore + ((x ==p->x || y == p->y) ? 1 : 1.5);
+		return p->gScore + ((x == p->x || y == p->y) ? 1 : 1.5);
 	}
 
 	double GetHScore(MapSearchNode *p)
@@ -767,9 +859,9 @@ public:
 };
 
 struct nodeValue {
-  MapSearchNode node;
-  double value;
-} ;
+	MapSearchNode node;
+	double value;
+};
 
 MapSearchNode goal;
 
@@ -783,182 +875,187 @@ std::vector<MapSearchNode*> openList;
 
 // http://xpac27.github.io/a-star-pathfinder-c++-implementation.html
 
-GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2)
+GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x1, y1, x2, y2);
 
 	if (x1 != x2 || y1 != y2)
 	{
-	m_PathList.clear();
+		m_PathList.clear();
 
-	std::map<int, std::map<int, MapSearchNode*> > grid;
-	for (int i = 0; i < 42; i++)
-	{
-		for (int j = 0; j < 34; j++)
+		std::map<int, std::map<int, MapSearchNode*> > grid;
+		for (int i = 0; i < 42; i++)
 		{
-			grid[i][j] = new MapSearchNode();
-			grid[i][j]->x = i;
-			grid[i][j]->y = j;
-		}
-	}
-
-	ofstream fileStream;
-	fileStream.open("level_paths.txt");
-	// define the new nodes
-	MapSearchNode* start = new MapSearchNode();
-	start->x = x1;
-	start->y = y1;
-
-	fileStream << "START";
-	fileStream << " START X: ";
-	fileStream << start->x;
-	fileStream << " START Y: ";
-	fileStream << start->y;
-
-	MapSearchNode* end = new MapSearchNode();
-	end->x = x2;
-	end->y = y2;
-
-	fileStream << "END";
-	fileStream << " END X: ";
-	fileStream << end->x;
-	fileStream << " END Y: ";
-	fileStream << end->y;
-
-	MapSearchNode* current = new MapSearchNode();
-	MapSearchNode* child = new MapSearchNode();
-
-	std::list<MapSearchNode*> openList;
-	std::list<MapSearchNode*> closedList;
-	list<MapSearchNode*>::iterator i;
-
-	unsigned int n = 0;
-
-	openList.push_back(start);
-	start->opened = true;
-
-	while (n == 0 || (current != end && n < 50))
-	{
-		// Look for the smallest f value in the openList
-		for (i = openList.begin(); i != openList.end(); i++)
-		{
-			if (i == openList.begin() || (*i)->GetFScore() <= current->GetFScore())
+			for (int j = 0; j < 34; j++)
 			{
-				current = (*i);
+				grid[i][j] = new MapSearchNode();
+				grid[i][j]->x = i;
+				grid[i][j]->y = j;
 			}
 		}
 
-		fileStream << "searching";
-		fileStream << " Current X: ";
-		fileStream << current->x;
-		fileStream << " Current Y: ";
-		fileStream << current->y;
+		ofstream fileStream;
+		fileStream.open("level_paths.txt");
+		// define the new nodes
+		MapSearchNode* start = new MapSearchNode();
+		start->x = x1;
+		start->y = y1;
 
-		// Stop if we've reached the end
-		if (current->x == end->x && current->y == end->y)
+		fileStream << "START";
+		fileStream << " START X: ";
+		fileStream << start->x;
+		fileStream << " START Y: ";
+		fileStream << start->y;
+
+		MapSearchNode* end = new MapSearchNode();
+		end->x = x2;
+		end->y = y2;
+
+		fileStream << "END";
+		fileStream << " END X: ";
+		fileStream << end->x;
+		fileStream << " END Y: ";
+		fileStream << end->y;
+
+		MapSearchNode* current = new MapSearchNode();
+		MapSearchNode* child = new MapSearchNode();
+
+		std::list<MapSearchNode*> openList;
+		std::list<MapSearchNode*> closedList;
+		list<MapSearchNode*>::iterator i;
+
+		unsigned int n = 0;
+
+		openList.push_back(start);
+		start->opened = true;
+
+		while (n == 0 || (current != end && n < 50))
 		{
-			fileStream << "end reached";
-			break;
-		}
-
-		// Remove the current point from the open list
-		openList.remove(current);
-		current->opened = false;
-		
-		// Add the current point from the open list
-		closedList.push_back(current);
-		current->closed = true;
-
-		// Get all the current adjacent walkable points
-		for (int x = -1; x < 2; x++)
-		{
-			for (int y = -1; y < 2; y++)
+			// Look for the smallest f value in the openList
+			for (i = openList.begin(); i != openList.end(); i++)
 			{
-				if (x == 0 && y == 0)
+				if (i == openList.begin() || (*i)->GetFScore() <= current->GetFScore())
 				{
-					// ignore current node, pass
-					continue;
+					current = (*i);
 				}
+			}
 
-				if (x == 0 || y == 0)
+			fileStream << "searching";
+			fileStream << " Current X: ";
+			fileStream << current->x;
+			fileStream << " Current Y: ";
+			fileStream << current->y;
+
+			// Stop if we've reached the end
+			if (current->x == end->x && current->y == end->y)
+			{
+				fileStream << "end reached";
+				break;
+			}
+
+			// Remove the current point from the open list
+			openList.remove(current);
+			current->opened = false;
+
+			// Add the current point from the open list
+			closedList.push_back(current);
+			current->closed = true;
+
+			// Get all the current adjacent walkable points
+			for (int x = -1; x < 2; x++)
+			{
+				for (int y = -1; y < 2; y++)
 				{
-
-					child = grid[current->x + x][current->y + y];
-
-					// if it's closed or not walkable then pass
-					if (child->closed || (spmap[child->x][child->y] != 0 && spmap[child->x][child->y] != 3 && spmap[child->x][child->y] != 4 && spmap[child->x][child->y] != 2 && spmap[child->x][child->y] != 9))
+					if (x == 0 && y == 0)
 					{
-						fileStream << "\n";
-						fileStream << "closed or not walkable";
+						// ignore current node, pass
 						continue;
 					}
 
-					// IF AT A CORNER?
-	
-					// if it's already in the opened list
-					if (child->opened)
+					if (x == 0 || y == 0)
 					{
-						if (child->gScore > child->GetGScore(current))
+
+						child = grid[current->x + x][current->y + y];
+
+						// if it's closed or not walkable then pass
+						if (child->closed || (spmap[child->x][child->y] != 0 && spmap[child->x][child->y] != 3 && spmap[child->x][child->y] != 4 && spmap[child->x][child->y] != 2 && spmap[child->x][child->y] != 9))
 						{
+							fileStream << "\n";
+							fileStream << "closed or not walkable";
+							continue;
+						}
+
+						// IF AT A CORNER?
+
+						// if it's already in the opened list
+						if (child->opened)
+						{
+							if (child->gScore > child->GetGScore(current))
+							{
+								child->parent = current;
+								child->ComputeScores(end);
+							}
+						}
+						else
+						{
+							openList.push_back(child);
+							child->opened = true;
+
+							// COMPUTE THE G
 							child->parent = current;
 							child->ComputeScores(end);
 						}
 					}
-					else
-					{
-						openList.push_back(child);
-						child->opened = true;
-	
-						// COMPUTE THE G
-						child->parent = current;
-						child->ComputeScores(end);
-					}
 				}
- 			}
+			}
+			n++;
+			fileStream << "\n";
 		}
-		n++;
-		fileStream << "\n";
-	}
 
-	// Reset
-	for (i = openList.begin(); i != openList.end(); i++)
-	{
-		(*i)->opened = false;
-	}
-	for (i = closedList.begin(); i != closedList.end(); i++)
-	{
-		(*i)->closed = false;
-	}
-	fileStream.close();
+		// Reset
+		for (i = openList.begin(); i != openList.end(); i++)
+		{
+			(*i)->opened = false;
+		}
+		for (i = closedList.begin(); i != closedList.end(); i++)
+		{
+			(*i)->closed = false;
+		}
+		fileStream.close();
 
-	fileStream.open("level_path.txt");
-	// resolve the path starting from the end point
-	while (current->parent && current != start)
-	{
-		fileStream << "X ";
-		fileStream << current->x;
-		fileStream << " Y ";
-		fileStream << current->y;
-		fileStream << "\n";
-		m_PathList.push_back(current);
-		current = current->parent;
-		n ++;
-	}
-	fileStream.close();
-	return 0;
+		fileStream.open("level_path.txt");
+		// resolve the path starting from the end point
+		while (current->parent && current != start)
+		{
+			fileStream << "X ";
+			fileStream << current->x;
+			fileStream << " Y ";
+			fileStream << current->y;
+			fileStream << "\n";
+			m_PathList.push_back(current);
+			current = current->parent;
+			n++;
+		}
+		fileStream.close();
+		return 0;
 	}
 	return 0;
 }
 
-GMEXPORT double GetNextPathXPos(double x, double y)
+GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	ofstream fileStream;
 	fileStream.open("distance.txt");
 	float smallestDistance = 0;
 	int pos = 0;
 	for (int i = 0; i < m_PathList.size(); i++)
 	{
-		float xDist = ((x) - (m_PathList.at(i)->x));
-		float yDist = ((y) - (m_PathList.at(i)->y));
+		float xDist = ((x)-(m_PathList.at(i)->x));
+		float yDist = ((y)-(m_PathList.at(i)->y));
 		float distance = sqrt((xDist * xDist) + (yDist * yDist));
 		fileStream << distance;
 		if (distance < smallestDistance || i == 0)
@@ -966,27 +1063,30 @@ GMEXPORT double GetNextPathXPos(double x, double y)
 			if (distance > 0)
 			{
 				smallestDistance = distance;
-				
+
 				pos = i;
 			}
 		}
 	}
 	fileStream.close();
 	if (pos > 0)
-		pos --;
+		pos--;
 	if (m_PathList.size() > 0)
-	return m_PathList.at(pos)->x;
+		return m_PathList.at(pos)->x;
 	return x;
 }
 
-GMEXPORT double GetNextPathYPos(double x, double y)
+GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	float smallestDistance = 0;
 	int pos = 0;
 	for (int i = 0; i < m_PathList.size(); i++)
 	{
-		float xDist = ((x) - (m_PathList.at(i)->x));
-		float yDist = ((y) - (m_PathList.at(i)->y));
+		float xDist = ((x)-(m_PathList.at(i)->x));
+		float yDist = ((y)-(m_PathList.at(i)->y));
 		float distance = sqrt((xDist * xDist) + (yDist * yDist));
 		if (distance < smallestDistance || i == 0)
 		{
@@ -998,10 +1098,65 @@ GMEXPORT double GetNextPathYPos(double x, double y)
 		}
 	}
 	if (pos > 0)
-		pos --;
+		pos--;
 	if (m_PathList.size() > 0)
-	return m_PathList.at(pos)->y;
+		return m_PathList.at(pos)->y;
 	return y;
 }
 
+// ===== Example custom functions ===== //
 
+// Check if there is any enemy type in a node
+GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
+{
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
+	for (unsigned ID = 1; ID < 38; ID++)
+	{
+		if (GetIDOfEnemyInNode(ID, x, y, false) > 0)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
+// Check if there is any collectable type in a node
+GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
+{
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
+	for (unsigned ID = 1; ID < 36; ID++)
+	{
+		if (GetIDOfCollectableInNode(ID, x, y, false))
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
+// Check if a node is passable
+GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
+{
+	int passableTypes[] = { 0, 2, 3, 4, 12 };
+
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
+	// Can't walk through pushable blocks
+	if (GetNodeContainsPushBlock(x, y, false))
+		return 0;
+
+	int nodeState = GetNodeState(x, y, false);
+
+	for (int var : passableTypes)
+	{
+		if (nodeState == var)
+			return 1;
+	}
+
+	return 0;
+}
