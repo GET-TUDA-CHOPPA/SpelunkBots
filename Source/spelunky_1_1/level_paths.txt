@@ -1,1 +1,1 @@
-START START X: 29 START Y: 8END END X: 29 END Y: 8searching Current X: 29 Current Y: 8end reached
+START START X: 1 START Y: 8END END X: 1 END Y: 8searching Current X: 1 Current Y: 8end reached

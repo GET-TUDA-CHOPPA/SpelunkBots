@@ -14,8 +14,8 @@
 #include <ostream>
 #include <string>
 
-#define X_ROWS 42
-#define Y_ROWS 34
+#define X_NODES 42
+#define Y_NODES 34
 
 // entry point
 BOOL WINAPI DllMain(
@@ -72,14 +72,14 @@ int screenHeight;
 // map holds a bool as to whether there is a land tile in that location
 // fog holds a bool as to whether the node has been discovered
 // X = 41, Y = 33
-double spmap[42][34];
-double mapLiquids[42][34];
-double mapFog[42][34];
+double spmap[X_NODES][Y_NODES];
+double mapLiquids[X_NODES][Y_NODES];
+double mapFog[X_NODES][Y_NODES];
 
 // An array that contains how many spider webs each position contains
-double spiderWebs[42][34];
-double pushBlocks[42][34];
-double bats[42][34];
+double spiderWebs[X_NODES][Y_NODES];
+double pushBlocks[X_NODES][Y_NODES];
+double bats[X_NODES][Y_NODES];
 
 std::vector<collectableObject> collectablesList;
 std::vector<collectableObject> enemiesList;
@@ -238,9 +238,9 @@ GMEXPORT double SetUdjatEye(double d)
 // Call this each time a new level is loaded
 GMEXPORT double ResetFogForNewLevel()
 {
-	for (int i = 0; i < X_ROWS; i++)
+	for (int i = 0; i < X_NODES; i++)
 	{
-		for (int j = 0; j < Y_ROWS; j++)
+		for (int j = 0; j < Y_NODES; j++)
 		{
 			spmap[i][j] = 1;
 			mapFog[i][j] = 1;
@@ -445,9 +445,9 @@ GMEXPORT bool IsClearPathToExit()
 
 GMEXPORT double ClearDynamicObjects()
 {
-	for (int i = 0; i < X_ROWS; i++)
+	for (int i = 0; i < X_NODES; i++)
 	{
-		for (int j = 0; j < Y_ROWS; j++)
+		for (int j = 0; j < Y_NODES; j++)
 		{
 			pushBlocks[i][j] = 0;
 			bats[i][j] = 0;
@@ -697,9 +697,9 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 {
 	ofstream fileStream;
 	fileStream.open("level_layout.txt");
-	for (int i = 0; i < Y_ROWS; i++)
+	for (int i = 0; i < Y_NODES; i++)
 	{
-		for (int j = 0; j < X_ROWS; j++)
+		for (int j = 0; j < X_NODES; j++)
 		{
 			if (mapFog[j][i] == 0)
 			{
@@ -715,9 +715,9 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	}
 	fileStream.close();
 	fileStream.open("level_bats.txt");
-	for (int i = 0; i < Y_ROWS; i++)
+	for (int i = 0; i < Y_NODES; i++)
 	{
-		for (int j = 0; j < X_ROWS; j++)
+		for (int j = 0; j < X_NODES; j++)
 		{
 			if (mapFog[j][i] == 0)
 			{
@@ -733,9 +733,9 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	}
 	fileStream.close();
 	fileStream.open("level_liquids.txt");
-	for (int i = 0; i < Y_ROWS; i++)
+	for (int i = 0; i < Y_NODES; i++)
 	{
-		for (int j = 0; j < X_ROWS; j++)
+		for (int j = 0; j < X_NODES; j++)
 		{
 			fileStream << mapLiquids[j][i];
 
@@ -781,9 +781,9 @@ GMEXPORT double SaveSpiderwebsToFile()
 {
 	ofstream fileStream;
 	fileStream.open("level_webs.txt");
-	for (int i = 0; i < Y_ROWS; i++)
+	for (int i = 0; i < Y_NODES; i++)
 	{
-		for (int j = 0; j < X_ROWS; j++)
+		for (int j = 0; j < X_NODES; j++)
 		{
 			fileStream << spiderWebs[j][i];
 			fileStream << " ";
@@ -798,9 +798,9 @@ GMEXPORT double SaveLevelLayoutToFile()
 {
 	ofstream fileStream;
 	fileStream.open("level_layout.txt");
-	for (int i = 0; i < Y_ROWS; i++)
+	for (int i = 0; i < Y_NODES; i++)
 	{
-		for (int j = 0; j < X_ROWS; j++)
+		for (int j = 0; j < X_NODES; j++)
 		{
 			if (mapFog[j][i] == 0)
 			{
@@ -887,9 +887,9 @@ GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double 
 		m_PathList.clear();
 
 		std::map<int, std::map<int, MapSearchNode*> > grid;
-		for (int i = 0; i < X_ROWS; i++)
+		for (int i = 0; i < X_NODES; i++)
 		{
-			for (int j = 0; j < Y_ROWS; j++)
+			for (int j = 0; j < Y_NODES; j++)
 			{
 				grid[i][j] = new MapSearchNode();
 				grid[i][j]->x = i;
