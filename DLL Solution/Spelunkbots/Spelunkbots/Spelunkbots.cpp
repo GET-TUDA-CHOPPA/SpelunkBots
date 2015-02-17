@@ -14,7 +14,8 @@
 #include <ostream>
 #include <string>
 
-
+#define X_ROWS 42
+#define Y_ROWS 34
 
 // entry point
 BOOL WINAPI DllMain(
@@ -153,6 +154,7 @@ public:
 
 	void DisplayVariables()
 	{
+		// Only display if a variable has been updated
 		if (updated)
 		{
 			std::cout << "================================" << std::endl;
@@ -236,9 +238,9 @@ GMEXPORT double SetUdjatEye(double d)
 // Call this each time a new level is loaded
 GMEXPORT double ResetFogForNewLevel()
 {
-	for (int i = 0; i < 42; i++)
+	for (int i = 0; i < X_ROWS; i++)
 	{
-		for (int j = 0; j < 34; j++)
+		for (int j = 0; j < Y_ROWS; j++)
 		{
 			spmap[i][j] = 1;
 			mapFog[i][j] = 1;
@@ -443,9 +445,9 @@ GMEXPORT bool IsClearPathToExit()
 
 GMEXPORT double ClearDynamicObjects()
 {
-	for (int i = 0; i < 42; i++)
+	for (int i = 0; i < X_ROWS; i++)
 	{
-		for (int j = 0; j < 34; j++)
+		for (int j = 0; j < Y_ROWS; j++)
 		{
 			pushBlocks[i][j] = 0;
 			bats[i][j] = 0;
@@ -695,9 +697,9 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 {
 	ofstream fileStream;
 	fileStream.open("level_layout.txt");
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < Y_ROWS; i++)
 	{
-		for (int j = 0; j < 42; j++)
+		for (int j = 0; j < X_ROWS; j++)
 		{
 			if (mapFog[j][i] == 0)
 			{
@@ -713,9 +715,9 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	}
 	fileStream.close();
 	fileStream.open("level_bats.txt");
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < Y_ROWS; i++)
 	{
-		for (int j = 0; j < 42; j++)
+		for (int j = 0; j < X_ROWS; j++)
 		{
 			if (mapFog[j][i] == 0)
 			{
@@ -731,9 +733,9 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	}
 	fileStream.close();
 	fileStream.open("level_liquids.txt");
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < Y_ROWS; i++)
 	{
-		for (int j = 0; j < 42; j++)
+		for (int j = 0; j < X_ROWS; j++)
 		{
 			fileStream << mapLiquids[j][i];
 
@@ -779,9 +781,9 @@ GMEXPORT double SaveSpiderwebsToFile()
 {
 	ofstream fileStream;
 	fileStream.open("level_webs.txt");
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < Y_ROWS; i++)
 	{
-		for (int j = 0; j < 42; j++)
+		for (int j = 0; j < X_ROWS; j++)
 		{
 			fileStream << spiderWebs[j][i];
 			fileStream << " ";
@@ -796,9 +798,9 @@ GMEXPORT double SaveLevelLayoutToFile()
 {
 	ofstream fileStream;
 	fileStream.open("level_layout.txt");
-	for (int i = 0; i < 34; i++)
+	for (int i = 0; i < Y_ROWS; i++)
 	{
-		for (int j = 0; j < 42; j++)
+		for (int j = 0; j < X_ROWS; j++)
 		{
 			if (mapFog[j][i] == 0)
 			{
@@ -885,9 +887,9 @@ GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double 
 		m_PathList.clear();
 
 		std::map<int, std::map<int, MapSearchNode*> > grid;
-		for (int i = 0; i < 42; i++)
+		for (int i = 0; i < X_ROWS; i++)
 		{
-			for (int j = 0; j < 34; j++)
+			for (int j = 0; j < Y_ROWS; j++)
 			{
 				grid[i][j] = new MapSearchNode();
 				grid[i][j]->x = i;
