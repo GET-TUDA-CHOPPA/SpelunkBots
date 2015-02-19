@@ -2,8 +2,6 @@
 // Spelunkbots Source code written by Daniel Scales t:@DanielCake
 
 #include "stdafx.h"
-#include "Enemy.h"
-#include "Altar.h"
 #include <windows.h>
 #include <iostream>
 #include <fstream>
@@ -13,6 +11,7 @@
 #include <map>
 #include <ostream>
 #include <string>
+#include "SpelunkbotsConsoleOutput.h"
 
 #define X_NODES 42
 #define Y_NODES 34
@@ -84,6 +83,7 @@ double bats[X_NODES][Y_NODES];
 std::vector<collectableObject> collectablesList;
 std::vector<collectableObject> enemiesList;
 
+SpelunkbotsConsoleOutput spelunkbotConsoleOutput;
 
 double hasResetMap = 0;
 
@@ -116,83 +116,26 @@ void TranslateToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
 	TranslateToNodeCoordinates(x2, y2);
 }
 
-// Class for holding messages
-class SpelunkbotVariables
-{
-public:
-	SpelunkbotVariables()
-	{
-		updated = false;
-	}
 
-	void UpdateVariable(std::string name, std::string value)
-	{
-		bool exists = false;
-
-		for (auto var : variables)
-		{
-			if (var.first == name)
-			{
-				exists = true;
-				break;
-			}
-		}
-
-		if (exists && variables[name] != value)
-		{
-			variables[name] = value;
-
-			updated = true;
-		}
-		else if (!exists)
-		{
-			variables[name] = value;
-
-			updated = true;
-		}
-	}
-
-	void DisplayVariables()
-	{
-		// Only display if a variable has been updated
-		if (updated)
-		{
-			std::cout << "================================" << std::endl;
-			for (auto var : variables)
-			{
-				std::cout << var.first + ": " + var.second << std::endl;
-			}
-			std::cout << "================================\n";
-
-			updated = false;
-		}
-	}
-
-private:
-	std::map<std::string, std::string> variables;
-
-	bool updated;
-};
-
-SpelunkbotVariables spelunkbotVariables;
-
-GMEXPORT double UpdatePlayerVariables(char *name, char *value)
+GMEXPORT double UpdatePlayerVariables(char *name, char *value, double type)
 {
 	std::string varName = name;
 	std::string varValue = value;
 
-	spelunkbotVariables.UpdateVariable(varName, varValue);
+	if (type == 0)
+	{
+		varValue = (varValue == "1" ? "True" : "False");
+	}
 
+	spelunkbotConsoleOutput.UpdateVariable(varName, varValue);
 	return 0;
 }
 
 GMEXPORT double DisplayMessages()
 {
-	spelunkbotVariables.DisplayVariables();
-
+	spelunkbotConsoleOutput.DisplayVariables();
 	return 0;
 }
-
 
 GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 {

@@ -23,7 +23,7 @@ DICE GAMES LOST:    0
 
 LEVEL        DEATHS
 ------------+------------
- 1          | 320
+ 1          | 328
  2          | 16
  3          | 6
  4          | 8
@@ -40,7 +40,7 @@ LEVEL        DEATHS
  15         | 1
  16         | 4
 ------------+------------
- TOTAL      | 387
+ TOTAL      | 395
 
 ENEMY        DEATHS
 ------------+------------
@@ -75,9 +75,9 @@ MISC         DEATHS
  ???        | 0
  CRUSHED    | 20
  LONG FALL  | 33
- SPIKES     | 28
+ SPIKES     | 29
  ???        | 0
- ARROW TRAP | 15
+ ARROW TRAP | 16
  SPEAR TRAP | 2
  SMASH TRAP | 3
  ???        | 0
@@ -86,8 +86,8 @@ MISC         DEATHS
 
 ENEMY        KILLS
 ------------+------------
- BAT        | 77
- SNAKE      | 182
+ BAT        | 78
+ SNAKE      | 183
  SPIDER     | 51
  G. SPIDER  | 2
  CAVEMAN    | 4
@@ -110,4 +110,4 @@ ENEMY        KILLS
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 389
+ TOTAL      | 391
