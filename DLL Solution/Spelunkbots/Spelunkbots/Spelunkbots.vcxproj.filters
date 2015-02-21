@@ -24,10 +24,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Altar.h">
+    <ClInclude Include="SpelunkbotsConsoleOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,10 +38,7 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Altar.cpp">
+    <ClCompile Include="SpelunkbotsConsoleOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
