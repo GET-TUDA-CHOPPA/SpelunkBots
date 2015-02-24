@@ -1,11 +1,1 @@
-START START X: 8 START Y: 8END END X: 11 END Y: 7searching Current X: 8 Current Y: 8
-closed or not walkable
-searching Current X: 9 Current Y: 8
-closed or not walkable
-searching Current X: 10 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 11 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 11 Current Y: 7end reached
+START START X: 40 START Y: 9END END X: 40 END Y: 9searching Current X: 40 Current Y: 9end reached
