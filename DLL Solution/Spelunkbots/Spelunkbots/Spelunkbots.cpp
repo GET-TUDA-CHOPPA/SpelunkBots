@@ -487,8 +487,11 @@ GMEXPORT double RemoveCollectableWithID(double id)
 	return 0;
 }
 
-GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y)
+GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	int cSize = collectablesList.size();
 	double count = 0;
 	if (mapFog[(int)x][(int)y] == 0)
