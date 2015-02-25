@@ -4,6 +4,26 @@
 #include "stdafx.h"
 #include "Bot.h"
 
+#pragma region DEFINES
+
+// Use for functions that take either pixel or node coordinates
+#define NODE_COORDS 1
+#define PIXEL_COORDS 0
+
+// Nodes in the x and y axes
+#define Y_NODES 34
+#define X_NODES 42
+
+// Number of pixels in each node
+#define PIXELS_IN_NODES 16
+
+// Variable types - useful for when calling UpdatePlayerVariables()
+#define BOOLEAN 0
+#define DOUBLE 1
+#define STRING 2
+
+#pragma endregion
+
 SPELUNKBOT_API double Initialise(void)
 {
 	_hasGoal = false;
@@ -40,6 +60,14 @@ double ConvertBoolToDouble(bool valToConvert)
 		return 1;
 	}
 	return 0;
+}
+char* ConvertBoolToChar(bool valToConvert)
+{
+	if (valToConvert)
+	{
+		return "1";
+	}
+	return "0";
 }
 SPELUNKBOT_API double GetHasGoal(void)
 {

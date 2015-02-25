@@ -14,6 +14,7 @@ SPELUNKBOT_API double Initialise(void);
 SPELUNKBOT_API double Update(double botXPos, double botYPos);
 
 double ConvertBoolToDouble(bool valToConvert);
+char* ConvertBoolToChar(bool valToConvert);
 SPELUNKBOT_API double GetHasGoal(void);
 SPELUNKBOT_API double GetIsInAir(void);
 SPELUNKBOT_API double GetIsJetpacking(void);
@@ -48,8 +49,11 @@ bool _jump = false;
 
 HMODULE spelunkbots_hModule = LoadLibrary(TEXT("spelunkbots.dll"));
 
-typedef double(__cdecl *DebugPlayerVariablesPROC)();
-DebugPlayerVariablesPROC DebugPlayerVariables = (DebugPlayerVariablesPROC)GetProcAddress(spelunkbots_hModule, "DebugPlayerVariables");
+typedef double(__cdecl *UpdatePlayerVariablesPROC)(char *name, char *value, double type);
+UpdatePlayerVariablesPROC UpdatePlayerVariables = (UpdatePlayerVariablesPROC)GetProcAddress(spelunkbots_hModule, "UpdatePlayerVariables");
+
+typedef double(__cdecl * DisplayPlayerVariablesPROC)();
+DisplayPlayerVariablesPROC DisplayPlayerVariables = (DisplayPlayerVariablesPROC)GetProcAddress(spelunkbots_hModule, "DisplayMessages");
 
 typedef double(__cdecl *SetScreenXYWHPROC)(double x, double y, double w, double h);
 SetScreenXYWHPROC SetScreenXYWH = (SetScreenXYWHPROC)GetProcAddress(spelunkbots_hModule, "SetScreenXYWH");
@@ -138,7 +142,7 @@ SetMapCoordPROC SetMapCoord = (SetMapCoordPROC)GetProcAddress(spelunkbots_hModul
 typedef double(__cdecl *ClearFogFromSquarePROC)(double x, double y);
 ClearFogFromSquarePROC ClearFogFromSquare = (ClearFogFromSquarePROC)GetProcAddress(spelunkbots_hModule, "ClearFogFromSquare");
 
-typedef double(__cdecl *GetNodeStatePROC)(double x, double y);
+typedef double(__cdecl *GetNodeStatePROC)(double x, double y, double usingPixelCoords);
 GetNodeStatePROC GetNodeState = (GetNodeStatePROC)GetProcAddress(spelunkbots_hModule, "GetNodeState");
 
 typedef double(__cdecl *GetFogStatePROC)(double x, double y);
@@ -153,7 +157,7 @@ ClearDynamicObjectsPROC ClearDynamicObjects = (ClearDynamicObjectsPROC)GetProcAd
 typedef double(__cdecl *NodeContainsPushBlockPROC)(double x, double y);
 NodeContainsPushBlockPROC NodeContainsPushBlock = (NodeContainsPushBlockPROC)GetProcAddress(spelunkbots_hModule, "NodeContainsPushBlock");
 
-typedef double(__cdecl *GetNodeContainsPushBlockPROC)(double x, double y);
+typedef double(__cdecl *GetNodeContainsPushBlockPROC)(double x, double y, double usingPixelCoords);
 GetNodeContainsPushBlockPROC GetNodeContainsPushBlock = (GetNodeContainsPushBlockPROC)GetProcAddress(spelunkbots_hModule, "GetNodeContainsPushBlock");
 
 typedef double(__cdecl *NodeContainsBatPROC)(double x, double y);
@@ -174,7 +178,7 @@ UpdateCollectableAtNodePROC UpdateCollectableAtNode = (UpdateCollectableAtNodePR
 typedef double(__cdecl *RemoveCollectableWithIDPROC)(double id);
 RemoveCollectableWithIDPROC RemoveCollectableWithID = (RemoveCollectableWithIDPROC)GetProcAddress(spelunkbots_hModule, "RemoveCollectableWithID");
 
-typedef double(__cdecl *NumberOfCollectableTypeInNodePROC)(double type, double x, double y);
+typedef double(__cdecl *NumberOfCollectableTypeInNodePROC)(double type, double x, double y, double usingPixelCoords);
 NumberOfCollectableTypeInNodePROC NumberOfCollectableTypeInNode = (NumberOfCollectableTypeInNodePROC)GetProcAddress(spelunkbots_hModule, "NumberOfCollectableTypeInNode");
 
 typedef double(__cdecl *ResetEnemiesPROC)();
@@ -213,10 +217,19 @@ SaveLevelLayoutToFilePROC SaveLevelLayoutToFile = (SaveLevelLayoutToFilePROC)Get
 typedef double(__cdecl *CalculatePathFromXYtoXYPROC)(double x1, double y1, double x2, double y2);
 CalculatePathFromXYtoXYPROC CalculatePathFromXYtoXY = (CalculatePathFromXYtoXYPROC)GetProcAddress(spelunkbots_hModule, "CalculatePathFromXYtoXY");
 
-typedef double(__cdecl *GetNextPathXPosPROC)(double x, double y);
+typedef double(__cdecl *GetNextPathXPosPROC)(double x, double y, double usingPixelCoords);
 GetNextPathXPosPROC GetNextPathXPos = (GetNextPathXPosPROC)GetProcAddress(spelunkbots_hModule, "GetNextPathXPos");
 
-typedef double(__cdecl *GetNextPathYPosPROC)(double x, double y);
+typedef double(__cdecl *GetNextPathYPosPROC)(double x, double y, double usingPixelCoords);
 GetNextPathYPosPROC GetNextPathYPos = (GetNextPathYPosPROC)GetProcAddress(spelunkbots_hModule, "GetNextPathYPos");
+
+typedef double(__cdecl *IsEnemyInNodePROC)(double x, double y, double usingPixelCoords);
+IsEnemyInNodePROC IsEnemyInNode = (IsEnemyInNodePROC)GetProcAddress(spelunkbots_hModule, "IsEnemyInNode");
+
+typedef double(__cdecl *IsCollectableInNodePROC)(double x, double y, double usingPixelCoords);
+IsCollectableInNodePROC IsCollectableInNode = (IsCollectableInNodePROC)GetProcAddress(spelunkbots_hModule, "IsCollectableInNode");
+
+typedef double(__cdecl *IsNodePassablePROC)(double x, double y, double usingPixelCoords);
+IsNodePassablePROC IsNodePassable = (IsNodePassablePROC)GetProcAddress(spelunkbots_hModule, "IsNodePassable");
 
 #pragma endregion
