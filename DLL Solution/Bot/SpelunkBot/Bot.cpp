@@ -7,8 +7,8 @@
 #pragma region DEFINES
 
 // Use for functions that take either pixel or node coordinates
-#define NODE_COORDS 1
-#define PIXEL_COORDS 0
+#define NODE_COORDS 0
+#define PIXEL_COORDS 1
 
 // Nodes in the x and y axes
 #define Y_NODES 34
@@ -45,10 +45,39 @@ SPELUNKBOT_API double Initialise(void)
 
 SPELUNKBOT_API double Update(double botXPos, double botYPos)
 {
-	std::cout << "X = " << botXPos << "\t" << "Y = " << botYPos << std::endl;
+	//std::cout << "X = " << botXPos << "\t" << "Y = " << botYPos << std::endl;
+
+	if (!_hasGoal)
+	{
+		for (int i = 0; i < 42; i++)
+		{
+			for (int j = 0; j < 34; j++)
+			{
+				if (GetNodeState(i, j, NODE_COORDS) == spExit)
+				{
+					_hasGoal = true;
+					_itemGoal = true;
+					CalculatePathFromXYtoXY(botXPos, botYPos, i, j, NODE_COORDS);
+					std::cout << "FOUND EXIT" << std::endl;
+					return 0;
+				}
+			}
+		}
+	}
 	
-	_headingLeft = true;
-	_goLeft = true;
+	if (botXPos < (GetNextPathXPos(botXPos, botYPos, NODE_COORDS)))
+	{
+		_headingRight = _goRight = true;
+		_headingLeft = _goLeft = false;
+	}
+	else
+	{
+		_headingRight = _goRight = false;
+		_headingLeft = _goLeft = true;
+	}
+
+	//_headingLeft = true;
+	//_goLeft = true;
 	return 1;
 }
 

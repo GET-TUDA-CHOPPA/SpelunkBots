@@ -214,7 +214,7 @@ SaveSpiderwebsToFilePROC SaveSpiderwebsToFile = (SaveSpiderwebsToFilePROC)GetPro
 typedef double(__cdecl *SaveLevelLayoutToFilePROC)();
 SaveLevelLayoutToFilePROC SaveLevelLayoutToFile = (SaveLevelLayoutToFilePROC)GetProcAddress(spelunkbots_hModule, "SetScrSaveLevelLayoutToFileeenXYWH");
 
-typedef double(__cdecl *CalculatePathFromXYtoXYPROC)(double x1, double y1, double x2, double y2);
+typedef double(__cdecl *CalculatePathFromXYtoXYPROC)(double x1, double y1, double x2, double y2, double usingPixelCoords);
 CalculatePathFromXYtoXYPROC CalculatePathFromXYtoXY = (CalculatePathFromXYtoXYPROC)GetProcAddress(spelunkbots_hModule, "CalculatePathFromXYtoXY");
 
 typedef double(__cdecl *GetNextPathXPosPROC)(double x, double y, double usingPixelCoords);

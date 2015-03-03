@@ -1,149 +1,27 @@
-START START X: 27 START Y: 11END END X: 24 END Y: 11searching Current X: 27 Current Y: 11
+START START X: 1 START Y: 6END END X: 10 END Y: 6searching Current X: 1 Current Y: 6
 closed or not walkable
-searching Current X: 26 Current Y: 11
 closed or not walkable
+searching Current X: 2 Current Y: 6
 closed or not walkable
-searching Current X: 25 Current Y: 11
+searching Current X: 3 Current Y: 6
 closed or not walkable
 closed or not walkable
+searching Current X: 4 Current Y: 6
 closed or not walkable
-searching Current X: 25 Current Y: 10
 closed or not walkable
-searching Current X: 24 Current Y: 10
+searching Current X: 5 Current Y: 6
 closed or not walkable
 closed or not walkable
-searching Current X: 26 Current Y: 10
+searching Current X: 6 Current Y: 6
 closed or not walkable
 closed or not walkable
-searching Current X: 28 Current Y: 11
+searching Current X: 7 Current Y: 6
 closed or not walkable
 closed or not walkable
-searching Current X: 27 Current Y: 10
+searching Current X: 8 Current Y: 6
 closed or not walkable
 closed or not walkable
-searching Current X: 27 Current Y: 9
+searching Current X: 9 Current Y: 6
 closed or not walkable
-searching Current X: 29 Current Y: 11
 closed or not walkable
-closed or not walkable
-searching Current X: 28 Current Y: 10
-closed or not walkable
-closed or not walkable
-searching Current X: 26 Current Y: 9
-closed or not walkable
-closed or not walkable
-searching Current X: 24 Current Y: 9
-closed or not walkable
-searching Current X: 23 Current Y: 10
-closed or not walkable
-searching Current X: 23 Current Y: 11
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 25 Current Y: 9
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 25 Current Y: 8
-closed or not walkable
-searching Current X: 22 Current Y: 11
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 22 Current Y: 10
-closed or not walkable
-closed or not walkable
-searching Current X: 24 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 23 Current Y: 9
-closed or not walkable
-closed or not walkable
-searching Current X: 26 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 30 Current Y: 11
-closed or not walkable
-closed or not walkable
-searching Current X: 29 Current Y: 10
-closed or not walkable
-closed or not walkable
-searching Current X: 28 Current Y: 9
-closed or not walkable
-closed or not walkable
-searching Current X: 27 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 27 Current Y: 7
-closed or not walkable
-searching Current X: 28 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 29 Current Y: 9
-closed or not walkable
-closed or not walkable
-searching Current X: 31 Current Y: 11
-closed or not walkable
-closed or not walkable
-searching Current X: 30 Current Y: 10
-closed or not walkable
-closed or not walkable
-searching Current X: 26 Current Y: 7
-closed or not walkable
-closed or not walkable
-searching Current X: 24 Current Y: 7
-closed or not walkable
-searching Current X: 23 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 22 Current Y: 9
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 21 Current Y: 10
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 25 Current Y: 7
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 25 Current Y: 6
-closed or not walkable
-searching Current X: 20 Current Y: 10
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 22 Current Y: 8
-closed or not walkable
-closed or not walkable
-closed or not walkable
-searching Current X: 24 Current Y: 6
-closed or not walkable
-closed or not walkable
-searching Current X: 23 Current Y: 7
-closed or not walkable
-closed or not walkable
-searching Current X: 26 Current Y: 6
-closed or not walkable
-closed or not walkable
-searching Current X: 32 Current Y: 11
-closed or not walkable
-closed or not walkable
-searching Current X: 31 Current Y: 10
-closed or not walkable
-closed or not walkable
-searching Current X: 30 Current Y: 9
-closed or not walkable
-closed or not walkable
-searching Current X: 29 Current Y: 8
-closed or not walkable
-closed or not walkable
-searching Current X: 28 Current Y: 7
-closed or not walkable
-closed or not walkable
-searching Current X: 27 Current Y: 6
-closed or not walkable
-closed or not walkable
-searching Current X: 27 Current Y: 5
-closed or not walkable
+searching Current X: 10 Current Y: 6end reached
