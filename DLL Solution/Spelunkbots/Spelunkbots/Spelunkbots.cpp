@@ -372,8 +372,11 @@ GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 	return -1;
 }
 
-GMEXPORT double GetFogState(double x, double y)
+GMEXPORT double GetFogState(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	return mapFog[(int)x][(int)y];
 }
 
@@ -427,8 +430,11 @@ GMEXPORT double NodeContainsBat(double x, double y)
 }
 
 // Returns the number of bats for a given node.
-GMEXPORT double GetNodeContainsBat(double x, double y)
+GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	if (mapFog[(int)x][(int)y] == 0)
 	{
 		return bats[(int)x][(int)y];
@@ -558,8 +564,11 @@ GMEXPORT double RemoveEnemyWithID(double id)
 	return 0;
 }
 
-GMEXPORT double NumberOfWebsInNode(double x, double y)
+GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	if (mapFog[(int)x][(int)y] == 0)
 	{
 		return spiderWebs[(int)x][(int)y];
@@ -567,8 +576,11 @@ GMEXPORT double NumberOfWebsInNode(double x, double y)
 	return 0;
 }
 
-GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y)
+GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
+	if (usingPixelCoords)
+		TranslateToNodeCoordinates(x, y);
+
 	int cSize = enemiesList.size();
 	double count = 0;
 	if (mapFog[(int)x][(int)y] == 0)

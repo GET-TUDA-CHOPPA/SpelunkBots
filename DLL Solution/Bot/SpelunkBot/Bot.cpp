@@ -26,15 +26,17 @@
 
 SPELUNKBOT_API double Initialise(void)
 {
+	_targetX = 0;
+	_targetY = 0;
+	_pathCount = 0;
+	_tempID = 0;
+	_waitTimer = 0;
 	_hasGoal = false;
 	_spIsInAir = false;
 	_spIsJetpacking = false;
 	_itemGoal = false;
-	_pathCount = 0;
-	_tempID = 0;
 	_fogGoal = true;
 	_endGoal = false;
-	_waitTimer = 0;
 	_headingRight = false;
 	_headingLeft = false;
 	_goRight = false;
@@ -45,19 +47,22 @@ SPELUNKBOT_API double Initialise(void)
 
 SPELUNKBOT_API double Update(double botXPos, double botYPos)
 {
-	//std::cout << "X = " << botXPos << "\t" << "Y = " << botYPos << std::endl;
+	double botXPixelPos = botXPos * PIXELS_IN_NODES;
+	double botYPixelPos = botYPos * PIXELS_IN_NODES;
 
 	if (!_hasGoal)
 	{
-		for (int i = 0; i < 42; i++)
+		for (int y = 0; y < Y_NODES; y++)
 		{
-			for (int j = 0; j < 34; j++)
+			for (int x = 0; x < X_NODES; x++)
 			{
-				if (GetNodeState(i, j, NODE_COORDS) == spExit)
+				if (GetNodeState(x, y, NODE_COORDS) == spExit)
 				{
 					_hasGoal = true;
 					_itemGoal = true;
-					CalculatePathFromXYtoXY(botXPos, botYPos, i, j, NODE_COORDS);
+					_targetX = x * PIXELS_IN_NODES;
+					_targetY = y * PIXELS_IN_NODES;
+					CalculatePathFromXYtoXY(botXPixelPos, botYPixelPos, _targetX, _targetY, PIXEL_COORDS);
 					std::cout << "FOUND EXIT" << std::endl;
 					return 0;
 				}
@@ -75,9 +80,6 @@ SPELUNKBOT_API double Update(double botXPos, double botYPos)
 		_headingRight = _goRight = false;
 		_headingLeft = _goLeft = true;
 	}
-
-	//_headingLeft = true;
-	//_goLeft = true;
 	return 1;
 }
 
@@ -153,5 +155,13 @@ SPELUNKBOT_API double GetGoLeft(void)
 SPELUNKBOT_API double GetJump(void)
 {
 	return ConvertBoolToDouble(_jump);
+}
+SPELUNKBOT_API double GetTargetX(void)
+{
+	return _targetX;
+}
+SPELUNKBOT_API double GetTargetY(void)
+{
+	return _targetY;
 }
 #pragma endregion

@@ -4,10 +4,10 @@ d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\release\stdafx.obj
 d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\release\dllmain.obj
 d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\release\spelunkbotsconsoleoutput.obj
 d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\release\spelunkbots.obj
-d:\github\spelunkbots\dll solution\spelunkbots\release\spelunkbots.dll
-d:\github\spelunkbots\dll solution\spelunkbots\release\spelunkbots.pdb
-d:\github\spelunkbots\dll solution\spelunkbots\release\spelunkbots.lib
-d:\github\spelunkbots\dll solution\spelunkbots\release\spelunkbots.exp
+d:\github\spelunkbots\source\spelunky_1_1\spelunkbots.dll
+d:\github\spelunkbots\source\spelunky_1_1\spelunkbots.pdb
+d:\github\spelunkbots\source\spelunky_1_1\spelunkbots.lib
+d:\github\spelunkbots\source\spelunky_1_1\spelunkbots.exp
 d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\..\..\..\source\spelunky_1_1\spelunkbots.dll
 d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\release\spelunkbots.tlog\cl.command.1.tlog
 d:\github\spelunkbots\dll solution\spelunkbots\spelunkbots\release\spelunkbots.tlog\cl.read.1.tlog
