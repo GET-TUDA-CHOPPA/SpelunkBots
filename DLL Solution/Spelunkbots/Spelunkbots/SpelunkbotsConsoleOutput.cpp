@@ -47,3 +47,27 @@ void SpelunkbotsConsoleOutput::DisplayVariables()
 		updated = false;
 	}
 }
+
+
+SpelunkbotsConsoleOutput spelunkbotConsoleOutput;
+
+GMEXPORT double UpdatePlayerVariables(char *name, char *value, double type)
+{
+	std::string varName = name;
+	std::string varValue = value;
+
+	if (type == 0)
+	{
+		varValue = (varValue == "1" ? "True" : "False");
+	}
+
+	spelunkbotConsoleOutput.UpdateVariable(varName, varValue);
+	return 0;
+}
+
+
+GMEXPORT double DisplayMessages()
+{
+	spelunkbotConsoleOutput.DisplayVariables();
+	return 0;
+}

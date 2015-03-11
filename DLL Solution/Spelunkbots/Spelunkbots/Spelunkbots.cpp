@@ -83,8 +83,6 @@ double bats[X_NODES][Y_NODES];
 std::vector<collectableObject> collectablesList;
 std::vector<collectableObject> enemiesList;
 
-SpelunkbotsConsoleOutput spelunkbotConsoleOutput;
-
 double hasResetMap = 0;
 
 double screenX;
@@ -103,38 +101,34 @@ bool shopkeepersAngered;
 
 using namespace std;
 
-// Convert pixel coordinates into node coordinates
+/*
+	TranslateToNodeCoordinates converts pixels coordinates into node coordinates.
+
+	x: x coordinate of the node to convert
+	y: y coordinate of the node to convert
+
+	This function is only used within the Spelunkbots DLL.
+*/
 void TranslateToNodeCoordinates(double &x, double &y)
 {
 	x /= 16;
 	y /= 16;
 }
 
+/*
+	TranslateToNodeCoordinates converts pixels coordinates into node coordinates.
+
+	x1: x coordinate of first node to convert
+	y1: y coordinate of the first node to convert
+	x2: x coordinate of the second node to convert
+	y2: y coordinate of the second node to convert
+
+	This function is only used within the Spelunkbots DLL.
+*/
 void TranslateToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
 {
 	TranslateToNodeCoordinates(x1, y1);
 	TranslateToNodeCoordinates(x2, y2);
-}
-
-
-GMEXPORT double UpdatePlayerVariables(char *name, char *value, double type)
-{
-	std::string varName = name;
-	std::string varValue = value;
-
-	if (type == 0)
-	{
-		varValue = (varValue == "1" ? "True" : "False");
-	}
-
-	spelunkbotConsoleOutput.UpdateVariable(varName, varValue);
-	return 0;
-}
-
-GMEXPORT double DisplayMessages()
-{
-	spelunkbotConsoleOutput.DisplayVariables();
-	return 0;
 }
 
 GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
@@ -146,6 +140,9 @@ GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 	return 0;
 }
 
+/*
+	A sample functions. All functions to be accessed should follow this format.
+*/
 GMEXPORT double SampleFunction(double a, double b) {
 	return a * b;
 }
@@ -178,7 +175,11 @@ GMEXPORT double SetUdjatEye(double d)
 	return 0;
 }
 
-// Call this each time a new level is loaded
+/*
+	ResetFogForNewLevel resets the map data when a new level is loaded
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double ResetFogForNewLevel()
 {
 	for (int i = 0; i < X_NODES; i++)
@@ -325,10 +326,12 @@ GMEXPORT double GetLiquidValue(double x, double y)
 
 GMEXPORT double SpringPadAtPosition(double x, double y)
 {
-
 	return 0;
 }
 
+/*
+	TODO
+*/
 GMEXPORT double FillShopkeeperArea(double x, double y)
 {
 	// TODO
@@ -339,11 +342,13 @@ GMEXPORT double FillShopkeeperArea(double x, double y)
 }
 
 /*
-Call this each time a new level is loaded in a loop in GameMaker
-Setting the state of the block as to whether there is a terrain block
-in that coordinate.
+	Call this each time a new level is loaded in a loop in GameMaker
+	Setting the state of the block as to whether there is a terrain block
+	in that coordinate.
 
-Should also be called when a terrain block is destroyed by *anything*
+	Should also be called when a terrain block is destroyed by *anything*
+
+	This function should not be used or changed when implementing a bot
 */
 GMEXPORT double SetMapCoord(double x, double y, double state)
 {
@@ -351,15 +356,34 @@ GMEXPORT double SetMapCoord(double x, double y, double state)
 	return state;
 }
 
-/// Call this each time a new square is discovered in the map
+/*
+	ClearFogFromSquare removes the fog from a give node.
+
+	x: x coordinate of the node
+	y: y coordinate of the node
+
+	This function should not be used or changed when implemtning a bot
+*/
 GMEXPORT double ClearFogFromSquare(double x, double y)
 {
 	mapFog[(int)x][(int)y] = 0;
 	return 0;
 }
 
-// returns whether a node has terrain or not
-// if the section has not been discovered then it returns false
+/*
+	GetNodeState returns an integer associated with a particular state.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: x coordinate of the node to check
+	y: y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: Empty Node: 0, Standard Terrain: 1, Ladder: 2, Exit: 3, Entrance: 4, Alter: 5, Arrow Trap Right: 6, Arrow Trap Left: 7, Is In Shop: 8, Ice: 9, Spike: 10, Spear Trap: 11, Game Entrance: 12
+
+	If a node is in fog a value of -1 is returned.
+
+	GM script: GetNodeState
+*/
 GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -372,6 +396,13 @@ GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 	return -1;
 }
 
+/*
+	GetFogState returns an integer on the fog state of a node; 1 if the node is in fog, 0 otherwise.
+
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	GM script: GetFogState
+*/
 GMEXPORT double GetFogState(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -381,6 +412,9 @@ GMEXPORT double GetFogState(double x, double y, double usingPixelCoords)
 }
 
 
+/*
+	TODO
+*/
 GMEXPORT bool IsClearPathToExit()
 {
 	return 0;
@@ -389,6 +423,11 @@ GMEXPORT bool IsClearPathToExit()
 
 #pragma section "Dynamic Objects"
 
+/*
+	ClearDynamicObjects removes push blocks and bats from the level.
+
+	This function should not be used or changed whem implemtning a bot
+*/
 GMEXPORT double ClearDynamicObjects()
 {
 	for (int i = 0; i < X_NODES; i++)
@@ -402,13 +441,27 @@ GMEXPORT double ClearDynamicObjects()
 	return 0;
 }
 
-// push blocks
+/*
+	NodeContainsPushBlock sets a node to contain a dynamic block in a given node.
+
+	This function should not be used or changed whem implementing a bot
+*/
 GMEXPORT double NodeContainsPushBlock(double x, double y)
 {
 	pushBlocks[(int)x][(int)y] = 1;
 	return 0;
 }
 
+/*
+	GetNodeContainsPushBlock returns an integer value on whether a node contains a push block; 1 if a node contains a push block, zero others.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: x coordinate of the node to check
+	y: y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	GM script: GetPushBlock
+*/
 GMEXPORT double GetNodeContainsPushBlock(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -421,15 +474,27 @@ GMEXPORT double GetNodeContainsPushBlock(double x, double y, double usingPixelCo
 	return 0;
 }
 
-// enemies
+/*
+	NodeContainsBats increments that number of bats in a given node.
 
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double NodeContainsBat(double x, double y)
 {
 	bats[(int)x][(int)y] += 1;
 	return 0;
 }
 
-// Returns the number of bats for a given node.
+/*
+	GetNodeContainsBat returns the number of bats at a given node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: x coordinate of the node to check
+	y: y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	GM script: GetBatAtNode
+*/
 GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -444,12 +509,27 @@ GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 
 #pragma section "Collectables"
 
+/*
+	ResetCollectables removes all collectables from the collectablesList vector.
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double ResetCollectables()
 {
 	collectablesList.clear();
 	return 0;
 }
 
+/*
+	NodeContainsCollectable adds a collectable to the collectablesList vector.
+
+	x: x coordinate of the collectable
+	y: y coordinate of the collectable
+	type: type of the collectable
+	id: id of the collectable
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double NodeContainsCollectable(double x, double y, double type, double id)
 {
 	collectableObject object;
@@ -461,6 +541,15 @@ GMEXPORT double NodeContainsCollectable(double x, double y, double type, double 
 	return 0;
 }
 
+/*
+	UpdateCollectableAtNode updates a collectable, matching the given an id, in the collectablesList vector.
+
+	x: the new x coordinate
+	y: the new y coorindate
+	id: the id of the collectable to update
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double UpdateCollectableAtNode(double x, double y, double id)
 {
 	int cSize = collectablesList.size();
@@ -479,6 +568,13 @@ GMEXPORT double UpdateCollectableAtNode(double x, double y, double id)
 	return 0;
 }
 
+/*
+	RemoveCollectableWithID removes a collectable with the given id.
+
+	id: the id of the collectable to remove
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double RemoveCollectableWithID(double id)
 {
 	int cSize = collectablesList.size();
@@ -493,6 +589,19 @@ GMEXPORT double RemoveCollectableWithID(double id)
 	return 0;
 }
 
+/*
+	NumberOfCollectableTypeInNode returns the number of collectables in a node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of collectable being searched for
+	x: x coordinate of the node to check
+	y: y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: number of collectables in the node
+
+	GM script: NumberOfCollectableTypeInNode
+*/
 GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -518,12 +627,27 @@ GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, d
 
 #pragma section "Enemies"
 
+/*
+	ResestEnemies removes all enemies from the enemiesList vector.
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double ResetEnemies()
 {
 	enemiesList.clear();
 	return 0;
 }
 
+/*
+	NodeContainsEnemy adds an enemy to the enemiesList vector.
+
+	x: x coordinate of the enemy
+	y: y coordinate of the enemy
+	type: type of the enemy
+	id: id of the enemy
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double NodeContainsEnemy(double x, double y, double type, double id)
 {
 	collectableObject object;
@@ -535,6 +659,15 @@ GMEXPORT double NodeContainsEnemy(double x, double y, double type, double id)
 	return 0;
 }
 
+/*
+	UpdateEnemyAtNode updates the position of an enemy, matching the given id, in the enemyList vector with its current position.
+
+	x: the new x position
+	y: the new y position
+	id: the id of the enemy to update
+
+	This function should not be changed or use whem implementing a bot
+*/
 GMEXPORT double UpdateEnemyAtNode(double x, double y, double id)
 {
 	int cSize = enemiesList.size();
@@ -550,6 +683,13 @@ GMEXPORT double UpdateEnemyAtNode(double x, double y, double id)
 	return 0;
 }
 
+/*
+	RemoveEnemyWithID removes an enemy with the given id.
+
+	id: the id of the enemy to remove
+
+	This function should not be used or changed when implementing a bot
+*/
 GMEXPORT double RemoveEnemyWithID(double id)
 {
 	int cSize = enemiesList.size();
@@ -564,6 +704,18 @@ GMEXPORT double RemoveEnemyWithID(double id)
 	return 0;
 }
 
+/*
+	NumberOfEnemyTypeInNode returns the number of enemies in a node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: number of webs
+
+	GM script: GetNumberOfEnemyTypeInNodeXY
+*/
 GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -576,6 +728,19 @@ GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
 	return 0;
 }
 
+/*
+	NumberOfEnemyTypeInNode returns the number of enemies in a node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of enemy being searched for
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: number of enemies
+
+	GM script: GetNumberOfEnemyTypeInNodeXY
+*/
 GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -603,6 +768,19 @@ GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double 
 	return count;
 }
 
+/*
+	GetIDOfEnemyInNode returns the ID of an enemy in a given node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of enemy being searched for
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: id of the enemy
+
+	GM script: GetIDOfFirstEnemyInNode
+*/
 GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -626,6 +804,19 @@ GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double using
 	return 0;
 }
 
+/*
+	GetIDOfCollectableInNode returns the ID of a collectable, given the coordinates and type of a collectable.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of collectable being searched for
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false if using node coordinates (0)
+
+	returns: ID of the collectable
+
+	GM script: GetIDOfFirstCollectableOfTypeInNode
+*/
 GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -651,6 +842,11 @@ GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double
 
 #pragma section "Debug"
 
+/*
+	SaveDynamicObjectFilesDebug saves each dynamic type of the current level to its associated file.
+
+	This function should not be changed or used when implementing a bot
+*/
 GMEXPORT double SaveDynamicObjectFilesDebug()
 {
 	ofstream fileStream;
@@ -735,6 +931,11 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	return 0;
 }
 
+/*
+	SaveSpiderwebsToFile saves the locations of webs in the current level to a text file.
+
+	This function should not be changed or used whem implementing a bot
+*/
 GMEXPORT double SaveSpiderwebsToFile()
 {
 	ofstream fileStream;
@@ -752,6 +953,11 @@ GMEXPORT double SaveSpiderwebsToFile()
 	return 0;
 }
 
+/*
+	SaveLevelLayoutToFile saves the current level layout into a text file.
+
+	This function should not be changed or used when implementing a bot
+*/
 GMEXPORT double SaveLevelLayoutToFile()
 {
 	ofstream fileStream;
@@ -776,8 +982,9 @@ GMEXPORT double SaveLevelLayoutToFile()
 	return 0;
 }
 
-
-
+/*
+	MapSearchNode is used in the calculation of A* search
+*/
 class MapSearchNode
 {
 public:
@@ -835,6 +1042,18 @@ std::vector<MapSearchNode*> openList;
 
 // http://xpac27.github.io/a-star-pathfinder-c++-implementation.html
 
+/*
+	CalculatePathFromXYtoXY creates a path using the A* Search algorithm by specifying players current node position and the node they wish to reach.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x1: x coordinate of the players position
+	y1: y coordinate of the players position
+	x2: x coordinate of the target location
+	y2: y coordinate of the target location
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	GM script: CreateAStarPathFromXYtoXY
+*/
 GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -1003,6 +1222,18 @@ GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double 
 	return 0;
 }
 
+/*
+	GetNextPathXPos returns the X value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: x coordinate of the players location
+	y: y coordinate of the players location
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: x coordinate of the next node
+
+	GM script: GetNearestXPos
+*/
 GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -1036,6 +1267,18 @@ GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 	return x;
 }
 
+/*
+	GetNextPathXPos returns the Y value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: x coordinate of the players location
+	y: y coordinate of the players location
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: y coordinate of the next node
+
+	GM script: GetNearestYPos
+*/
 GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -1064,9 +1307,18 @@ GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 	return y;
 }
 
-// ===== Example custom functions ===== //
+/*
+	IsEnemyInNode returns an integer based on whether an enemy is in a given node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
 
-// Check if there is any enemy type in a node
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: 1 if an enemy is in the node, 0 otherwise
+
+	GM script: IsEnemyInNode
+*/
 GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -1082,7 +1334,19 @@ GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
 	return 0;
 }
 
-// Check if there is any collectable type in a node
+/*
+	IsCollectableInNode returns an integer based on whether a collectable is in a given node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of enemy being searched for
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: 1 if a collectable is in the node, 0 otherwise
+
+	GM script: IsCollectableInNode
+*/
 GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
@@ -1098,7 +1362,18 @@ GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
 	return 0;
 }
 
-// Check if a node is passable
+/*
+	IsNodePassable returns an integer based on whether a given node is passable.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: 1 if the node is passable, 0 otherwise
+
+	GM script: IsNodePassable
+*/
 GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 {
 	int passableTypes[] = { 0, 2, 3, 4, 12 };
