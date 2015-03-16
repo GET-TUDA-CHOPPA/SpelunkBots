@@ -47,8 +47,12 @@ SPELUNKBOT_API double Initialise(void)
 
 SPELUNKBOT_API double Update(double botXPos, double botYPos)
 {
-	double botXPixelPos = botXPos * PIXELS_IN_NODES;
-	double botYPixelPos = botYPos * PIXELS_IN_NODES;
+	// Sample bot
+
+	_playerPositionX = botXPos;
+	_playerPositionY = botYPos;
+	_playerPositionXNode = botXPos * PIXELS_IN_NODES;
+	_playerPositionYNode = botYPos * PIXELS_IN_NODES;
 
 	if (!_hasGoal)
 	{
@@ -62,7 +66,7 @@ SPELUNKBOT_API double Update(double botXPos, double botYPos)
 					_itemGoal = true;
 					_targetX = x * PIXELS_IN_NODES;
 					_targetY = y * PIXELS_IN_NODES;
-					CalculatePathFromXYtoXY(botXPixelPos, botYPixelPos, _targetX, _targetY, PIXEL_COORDS);
+					CalculatePathFromXYtoXY(_playerPositionXNode, _playerPositionYNode, _targetX, _targetY, PIXEL_COORDS);
 					std::cout << "FOUND EXIT" << std::endl;
 					return 0;
 				}

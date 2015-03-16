@@ -1,4 +1,4 @@
-﻿Build started 05/03/2015 10:01:26.
+﻿Build started 16/03/2015 10:11:29.
      1>Project "D:\GitHub\SpelunkBots\DLL Solution\Bot\SpelunkBot\SpelunkBot.vcxproj" on node 2 (Rebuild target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (SpelunkBot.vcxproj).  This can lead to incorrect clean and rebuild behavior.
@@ -21,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.63
+Time Elapsed 00:00:03.62

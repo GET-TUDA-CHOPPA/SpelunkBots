@@ -13,6 +13,7 @@
 #include <string>
 #include "SpelunkbotsConsoleOutput.h"
 
+// Number of x and y nodes
 #define X_NODES 42
 #define Y_NODES 34
 
@@ -131,6 +132,16 @@ void TranslateToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
 	TranslateToNodeCoordinates(x2, y2);
 }
 
+/*
+	SetScreenXYWH does something?
+
+	x:
+	y:
+	w:
+	h:
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 {
 	screenX = x;
@@ -149,6 +160,11 @@ GMEXPORT double SampleFunction(double a, double b) {
 
 #pragma section "Layout"
 
+/*
+	SetCoolGlasses does something?
+
+	d:
+*/
 GMEXPORT double SetCoolGlasses(double d)
 {
 	if (d == 1)
@@ -162,6 +178,11 @@ GMEXPORT double SetCoolGlasses(double d)
 	return 0;
 }
 
+/*
+	SetUdjatEye does something?
+
+	d: 
+*/
 GMEXPORT double SetUdjatEye(double d)
 {
 	if (d == 1)
@@ -176,9 +197,9 @@ GMEXPORT double SetUdjatEye(double d)
 }
 
 /*
-	ResetFogForNewLevel resets the map data when a new level is loaded
+	ResetFogForNewLevel resets the map data when a new level is loaded.
 
-	This function should not be used or changed when implementing a bot
+	This function should not be used or changed when implementing a bot.
 */
 GMEXPORT double ResetFogForNewLevel()
 {
@@ -196,18 +217,42 @@ GMEXPORT double ResetFogForNewLevel()
 	return 1;
 }
 
+/*
+	TerrainWasDestroyed updates the map data when a node is destroyed.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainWasDestroyed(double x, double y)
 {
 	spmap[(int)x][(int)y] = 0;
 	return 0;
 }
 
+/*
+	SpiderWebCreated increments a node spider web count
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double SpiderWebCreated(double x, double y)
 {
 	spiderWebs[(int)x][(int)y] += 1;
 	return 0;
 }
 
+/*
+	SpiderWebWasRemoved decrements a nodes spider web count.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double SpiderWebWasRemoved(double x, double y)
 {
 	if (spiderWebs[(int)x][(int)y] > 0)
@@ -217,113 +262,262 @@ GMEXPORT double SpiderWebWasRemoved(double x, double y)
 	return 0;
 }
 
+/*
+	DestroyFog removes the fog from a node.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double DestroyFog(double x, double y)
 {
 	mapFog[(int)x][(int)y] = 0;
 	return 0;
 }
 
+/*
+	TerrainIsLadder updates a nodes state to a ladder.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsLadder(double x, double y)
 {
 	spmap[(int)x][(int)y] = 2;
 	return 0;
 }
 
+/*
+	TerrainIsGoal sets a node to be the exit.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsGoal(double x, double y)
 {
 	spmap[(int)x][(int)y] = 3;
 	return 0;
 }
 
+/*
+	TerrainIsStart sets a node to be the entrance.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsStart(double x, double y)
 {
 	spmap[(int)x][(int)y] = 4;
 	return 0;
 }
 
+/*
+	TerrainIsAlter sets a node to be an alter.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsAltar(double x, double y)
 {
 	spmap[(int)x][(int)y] = 5;
 	return 0;
 }
 
+/*
+	TerrainIsArrowTrapRight sets a node to be a right-facing arrow trap
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsArrowTrapRight(double x, double y)
 {
 	spmap[(int)x][(int)y] = 6;
 	return 0;
 }
 
+/*
+	TerrainIsArrowTrapLeft sets a node to be a left-facing arrow trap
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsArrowTrapLeft(double x, double y)
 {
 	spmap[(int)x][(int)y] = 7;
 	return 0;
 }
 
+/*
+	TerrainIsShopKeeperArea sets a node to be a shop keeper.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsShopKeeperArea(double x, double y)
 {
 	spmap[(int)x][(int)y] = 8;
 	return 0;
 }
 
+/*
+	TerrainIsIce sets a node to be ice.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsIce(double x, double y)
 {
 	spmap[(int)x][(int)y] = 9;
 	return 0;
 }
 
+/*
+	TerrainIsSpike sets a node be a spike.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsSpike(double x, double y)
 {
 	spmap[(int)x][(int)y] = 10;
 	return 0;
 }
 
+/*
+	TerrainIsSpearTrap sets a node to be a spear trap.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsSpearTrap(double x, double y)
 {
 	spmap[(int)x][(int)y] = 11;
 	return 0;
 }
 
+/*
+	TerrainIsSwimWater sets a node to be water.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsSwimWater(double x, double y)
 {
 	mapLiquids[(int)x][(int)y] = 1;
 	return 0;
 }
 
+/*
+	TerrainIsLave sets a node to be lava.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsLava(double x, double y)
 {
 	mapLiquids[(int)x][(int)y] = 2;
 	return 0;
 }
 
+/*
+	TerrainIsGameEntrance sets a node to be the game entrance.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsGameEntrance(double x, double y)
 {
 	spmap[(int)x][(int)y] = 12;
 	return 0;
 }
 
+/*
+	TerrainIsTree sets a node to be a tree.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsTree(double x, double y)
 {
 	spmap[(int)x][(int)y] = 13;
 	return 0;
 }
 
+/*
+	TerrainIsTreeBranchLeaf sets a node to be a tree branch.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsTreeBranchLeaf(double x, double y)
 {
 	spmap[(int)x][(int)y] = 14;
 	return 0;
 }
 
+/*
+	TerrainIsEmpty sets a node to be empty.
+
+	x: x location of the node
+	y: y location of the node
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double TerrainIsEmpty(double x, double y)
 {
 	mapLiquids[(int)x][(int)y] = 0;
 	return 0;
 }
 
+/*
+	GetLiquidValues returns the liquid state of a node.
+
+	x: x location of the node
+	y: y location of the node
+
+	returns: Empty : 0, Water : 1, Lava : 2
+
+	This function should not be used or changed whem implementing a bot.
+*/
 GMEXPORT double GetLiquidValue(double x, double y)
 {
 	return mapLiquids[(int)x][(int)y];
 }
 
+/*
+	TODO
+*/
 GMEXPORT double SpringPadAtPosition(double x, double y)
 {
 	return 0;
