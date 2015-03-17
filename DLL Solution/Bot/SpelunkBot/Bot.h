@@ -10,11 +10,38 @@
 #define SPELUNKBOT_API extern "C" __declspec(dllimport)
 #endif
 
-SPELUNKBOT_API double Initialise(void);
-SPELUNKBOT_API double Update(double botXPos, double botYPos);
+#pragma region Function Declarations
 
+/*
+	All DLL functions to be called from Game Maker need to return a string or a double.
+
+	Use these functions to convert values are required.
+*/
 double ConvertBoolToDouble(bool valToConvert);
 char* ConvertBoolToChar(bool valToConvert);
+
+/*
+	ResetBotVariables is used to reset any bot variables e.g. _goLeft or _goRight
+*/
+void ResetBotVariables(void);
+
+/*
+	Initialise is used to setup any variables when a bot enters a room.
+
+	Add any additional variable initialisation here.
+*/
+SPELUNKBOT_API double Initialise(void);
+/*
+	Update contains the main logic for a C++ bot. 
+	
+	Use this function to perform the logic for your bot.
+*/
+SPELUNKBOT_API double Update(double botXPos, double botYPos);
+/*
+	Getter functions for variables.
+
+	Add additional functions as required.
+*/
 SPELUNKBOT_API double GetHasGoal(void);
 SPELUNKBOT_API double GetIsInAir(void);
 SPELUNKBOT_API double GetIsJetpacking(void);
@@ -31,27 +58,35 @@ SPELUNKBOT_API double GetGoLeft(void);
 SPELUNKBOT_API double GetJump(void);
 SPELUNKBOT_API double GetTargetX(void);
 SPELUNKBOT_API double GetTargetY(void);
+SPELUNKBOT_API double GetAttack(void);
 
-double _pathCount = 0;
-double _tempID = 0;
-double _waitTimer = 0;
-double _targetX = 0;
-double _targetY = 0;
+#pragma endregion
+
+#pragma region Variables
+
+double _pathCount;
+double _tempID;
+double _waitTimer;
+double _targetX;
+double _targetY;
 double _playerPositionX;
 double _playerPositionY;
 double _playerPositionXNode;
 double _playerPositionYNode;
-bool _hasGoal = false;
-bool _spIsInAir = false;
-bool _spIsJetpacking = false;
-bool _itemGoal = false;
-bool _fogGoal = true;
-bool _endGoal = false;
-bool _headingRight = false;
-bool _headingLeft = false;
-bool _goRight = false;
-bool _goLeft = false;
-bool _jump = false;
+bool _hasGoal;
+bool _spIsInAir;
+bool _spIsJetpacking;
+bool _itemGoal;
+bool _fogGoal;
+bool _endGoal;
+bool _headingRight;
+bool _headingLeft;
+bool _goRight;
+bool _goLeft;
+bool _jump;
+bool _attack;
+
+#pragma endregion
 
 #pragma region API Imports
 

@@ -13,16 +13,23 @@
 #include <string>
 #include "SpelunkbotsConsoleOutput.h"
 
+using namespace std;
+
+#pragma region Defines
+
+// Use GMEXPORT on all functions that are to be accessed
+#define GMEXPORT extern "C" __declspec (dllexport)
+
 // Number of x and y nodes
 #define X_NODES 42
 #define Y_NODES 34
 
+#pragma endregion
+
+#pragma region Entry
+
 // entry point
-BOOL WINAPI DllMain(
-	HANDLE hinstDLL,
-	DWORD dwReason,
-	LPVOID lpvReserved
-	)
+BOOL WINAPI DllMain(HANDLE hinstDLL, DWORD dwReason, LPVOID lpvReserved)
 {
 	AllocConsole();
 	freopen("CON", "w", stdout);
@@ -37,6 +44,10 @@ BOOL WINAPI DllMain(
 	}
 	return TRUE;
 }
+
+#pragma endregion
+
+#pragma region Structures
 
 struct collectableObject {
 	int type;
@@ -53,6 +64,10 @@ struct enemyObject {
 	double directionFacing;
 	double status;
 };
+
+#pragma endregion
+
+#pragma region Variables
 
 int screenTop;
 int screenBottom;
@@ -98,26 +113,26 @@ bool coolGlasses;
 // Game State
 bool shopkeepersAngered;
 
-#define GMEXPORT extern "C" __declspec (dllexport)
+#pragma endregion
 
-using namespace std;
+#pragma region Convert Methods
 
 /*
-	TranslateToNodeCoordinates converts pixels coordinates into node coordinates.
+	ConvertToNodeCoordinates converts pixels coordinates into node coordinates.
 
 	x: x coordinate of the node to convert
 	y: y coordinate of the node to convert
 
 	This function is only used within the Spelunkbots DLL.
 */
-void TranslateToNodeCoordinates(double &x, double &y)
+void ConvertToNodeCoordinates(double &x, double &y)
 {
 	x /= 16;
 	y /= 16;
 }
 
 /*
-	TranslateToNodeCoordinates converts pixels coordinates into node coordinates.
+	ConvertToNodeCoordinates converts pixels coordinates into node coordinates.
 
 	x1: x coordinate of first node to convert
 	y1: y coordinate of the first node to convert
@@ -126,11 +141,15 @@ void TranslateToNodeCoordinates(double &x, double &y)
 
 	This function is only used within the Spelunkbots DLL.
 */
-void TranslateToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
+void ConvertToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
 {
-	TranslateToNodeCoordinates(x1, y1);
-	TranslateToNodeCoordinates(x2, y2);
+	ConvertToNodeCoordinates(x1, y1);
+	ConvertToNodeCoordinates(x2, y2);
 }
+
+#pragma endregion
+
+#pragma region Map Data Methods
 
 /*
 	SetScreenXYWH does something?
@@ -158,7 +177,7 @@ GMEXPORT double SampleFunction(double a, double b) {
 	return a * b;
 }
 
-#pragma section "Layout"
+//#pragma section "Layout"
 
 /*
 	SetCoolGlasses does something?
@@ -564,6 +583,10 @@ GMEXPORT double ClearFogFromSquare(double x, double y)
 	return 0;
 }
 
+#pragma endregion
+
+#pragma region Node State Methods
+
 /*
 	GetNodeState returns an integer associated with a particular state.
 	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
@@ -581,7 +604,7 @@ GMEXPORT double ClearFogFromSquare(double x, double y)
 GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	if (mapFog[(int)x][(int)y] == 0)
 	{
@@ -600,22 +623,14 @@ GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 GMEXPORT double GetFogState(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	return mapFog[(int)x][(int)y];
 }
 
+#pragma endregion
 
-/*
-	TODO
-*/
-GMEXPORT bool IsClearPathToExit()
-{
-	return 0;
-}
-
-
-#pragma section "Dynamic Objects"
+#pragma region Dynamic Objects
 
 /*
 	ClearDynamicObjects removes push blocks and bats from the level.
@@ -659,7 +674,7 @@ GMEXPORT double NodeContainsPushBlock(double x, double y)
 GMEXPORT double GetNodeContainsPushBlock(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	if (mapFog[(int)x][(int)y] == 0)
 	{
@@ -692,7 +707,7 @@ GMEXPORT double NodeContainsBat(double x, double y)
 GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	if (mapFog[(int)x][(int)y] == 0)
 	{
@@ -701,7 +716,33 @@ GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 	return 0;
 }
 
-#pragma section "Collectables"
+/*
+	NumberOfWebsInNode returns the number of webs in a node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: number of webs
+
+	GM script: GetNumberOfEnemyTypeInNodeXY
+*/
+GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
+{
+	if (usingPixelCoords)
+		ConvertToNodeCoordinates(x, y);
+
+	if (mapFog[(int)x][(int)y] == 0)
+	{
+		return spiderWebs[(int)x][(int)y];
+	}
+	return 0;
+}
+
+#pragma endregion
+
+#pragma region Collectables
 
 /*
 	ResetCollectables removes all collectables from the collectablesList vector.
@@ -799,7 +840,7 @@ GMEXPORT double RemoveCollectableWithID(double id)
 GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	int cSize = collectablesList.size();
 	double count = 0;
@@ -819,7 +860,73 @@ GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, d
 	return count;
 }
 
-#pragma section "Enemies"
+/*
+	GetIDOfCollectableInNode returns the ID of a collectable, given the coordinates and type of a collectable.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of collectable being searched for
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false if using node coordinates (0)
+
+	returns: ID of the collectable
+
+	GM script: GetIDOfFirstCollectableOfTypeInNode
+*/
+GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double usingPixelCoords)
+{
+	if (usingPixelCoords)
+		ConvertToNodeCoordinates(x, y);
+
+	int cSize = collectablesList.size();
+	double count = 0;
+	if (mapFog[(int)x][(int)y] == 0)
+	{
+		for (int i = 0; i < cSize; i++)
+		{
+			if (collectablesList.at(i).type == type)
+			{
+				if ((int)collectablesList.at(i).x == (int)x && (int)collectablesList.at(i).y == (int)y)
+				{
+					return collectablesList.at(i).id;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+/*
+	IsCollectableInNode returns an integer based on whether a collectable is in a given node.
+	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+
+	type: the type of enemy being searched for
+	x: the x coordinate of the node to check
+	y: the y coordinate of the node to check
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
+
+	returns: 1 if a collectable is in the node, 0 otherwise
+
+	GM script: IsCollectableInNode
+*/
+GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
+{
+	if (usingPixelCoords)
+		ConvertToNodeCoordinates(x, y);
+
+	for (unsigned ID = 1; ID < 36; ID++)
+	{
+		if (GetIDOfCollectableInNode(ID, x, y, false))
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
+#pragma endregion
+
+#pragma region Enemies
 
 /*
 	ResestEnemies removes all enemies from the enemiesList vector.
@@ -902,30 +1009,6 @@ GMEXPORT double RemoveEnemyWithID(double id)
 	NumberOfEnemyTypeInNode returns the number of enemies in a node.
 	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
 
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: number of webs
-
-	GM script: GetNumberOfEnemyTypeInNodeXY
-*/
-GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
-{
-	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
-
-	if (mapFog[(int)x][(int)y] == 0)
-	{
-		return spiderWebs[(int)x][(int)y];
-	}
-	return 0;
-}
-
-/*
-	NumberOfEnemyTypeInNode returns the number of enemies in a node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
 	type: the type of enemy being searched for
 	x: the x coordinate of the node to check
 	y: the y coordinate of the node to check
@@ -938,7 +1021,7 @@ GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
 GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	int cSize = enemiesList.size();
 	double count = 0;
@@ -978,7 +1061,7 @@ GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double 
 GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	int cSize = enemiesList.size();
 	double count = 0;
@@ -999,42 +1082,35 @@ GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double using
 }
 
 /*
-	GetIDOfCollectableInNode returns the ID of a collectable, given the coordinates and type of a collectable.
+	IsEnemyInNode returns an integer based on whether an enemy is in a given node.
 	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
 
-	type: the type of collectable being searched for
 	x: the x coordinate of the node to check
 	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false if using node coordinates (0)
+	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
 
-	returns: ID of the collectable
+	returns: 1 if an enemy is in the node, 0 otherwise
 
-	GM script: GetIDOfFirstCollectableOfTypeInNode
+	GM script: IsEnemyInNode
 */
-GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double usingPixelCoords)
+GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
-	int cSize = collectablesList.size();
-	double count = 0;
-	if (mapFog[(int)x][(int)y] == 0)
+	for (unsigned ID = 1; ID < 38; ID++)
 	{
-		for (int i = 0; i < cSize; i++)
+		if (GetIDOfEnemyInNode(ID, x, y, false) > 0)
 		{
-			if (collectablesList.at(i).type == type)
-			{
-				if ((int)collectablesList.at(i).x == (int)x && (int)collectablesList.at(i).y == (int)y)
-				{
-					return collectablesList.at(i).id;
-				}
-			}
+			return 1;
 		}
 	}
 	return 0;
 }
 
-#pragma section "Debug"
+#pragma endregion
+
+#pragma region Debug
 
 /*
 	SaveDynamicObjectFilesDebug saves each dynamic type of the current level to its associated file.
@@ -1176,6 +1252,10 @@ GMEXPORT double SaveLevelLayoutToFile()
 	return 0;
 }
 
+#pragma endregion
+
+#pragma region Navigation
+
 /*
 	MapSearchNode is used in the calculation of A* search
 */
@@ -1219,20 +1299,10 @@ public:
 	}
 };
 
-struct nodeValue {
-	MapSearchNode node;
-	double value;
-};
-
-MapSearchNode goal;
-
 // A-Star pathfinding.
 // heavily based upon http://www.raywenderlich.com/4946/introduction-to-a-pathfinding
 
 std::vector<MapSearchNode*> m_PathList;
-std::vector<MapSearchNode*> openList;
-
-
 
 // http://xpac27.github.io/a-star-pathfinder-c++-implementation.html
 
@@ -1251,7 +1321,7 @@ std::vector<MapSearchNode*> openList;
 GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x1, y1, x2, y2);
+		ConvertToNodeCoordinates(x1, y1, x2, y2);
 
 	if (x1 != x2 || y1 != y2)
 	{
@@ -1417,6 +1487,14 @@ GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double 
 }
 
 /*
+	TODO
+*/
+GMEXPORT bool IsClearPathToExit()
+{
+	return 0;
+}
+
+/*
 	GetNextPathXPos returns the X value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
 	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
 
@@ -1431,7 +1509,7 @@ GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double 
 GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	ofstream fileStream;
 	fileStream.open("distance.txt");
@@ -1476,7 +1554,7 @@ GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 {
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	float smallestDistance = 0;
 	int pos = 0;
@@ -1502,61 +1580,6 @@ GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 }
 
 /*
-	IsEnemyInNode returns an integer based on whether an enemy is in a given node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: 1 if an enemy is in the node, 0 otherwise
-
-	GM script: IsEnemyInNode
-*/
-GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
-{
-	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
-
-	for (unsigned ID = 1; ID < 38; ID++)
-	{
-		if (GetIDOfEnemyInNode(ID, x, y, false) > 0)
-		{
-			return 1;
-		}
-	}
-	return 0;
-}
-
-/*
-	IsCollectableInNode returns an integer based on whether a collectable is in a given node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	type: the type of enemy being searched for
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: 1 if a collectable is in the node, 0 otherwise
-
-	GM script: IsCollectableInNode
-*/
-GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
-{
-	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
-
-	for (unsigned ID = 1; ID < 36; ID++)
-	{
-		if (GetIDOfCollectableInNode(ID, x, y, false))
-		{
-			return 1;
-		}
-	}
-	return 0;
-}
-
-/*
 	IsNodePassable returns an integer based on whether a given node is passable.
 	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
 
@@ -1573,7 +1596,7 @@ GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 	int passableTypes[] = { 0, 2, 3, 4, 12 };
 
 	if (usingPixelCoords)
-		TranslateToNodeCoordinates(x, y);
+		ConvertToNodeCoordinates(x, y);
 
 	// Can't walk through pushable blocks
 	if (GetNodeContainsPushBlock(x, y, false))
@@ -1589,3 +1612,5 @@ GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 
 	return 0;
 }
+
+#pragma endregion

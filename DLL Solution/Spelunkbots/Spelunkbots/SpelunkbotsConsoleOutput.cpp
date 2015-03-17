@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SpelunkbotsConsoleOutput.h"
 
+SpelunkbotsConsoleOutput spelunkbotConsoleOutput;
+
 SpelunkbotsConsoleOutput::SpelunkbotsConsoleOutput()
 {
 	updated = false;
@@ -47,9 +49,6 @@ void SpelunkbotsConsoleOutput::DisplayVariables()
 		updated = false;
 	}
 }
-
-
-SpelunkbotsConsoleOutput spelunkbotConsoleOutput;
 
 GMEXPORT double UpdatePlayerVariables(char *name, char *value, double type)
 {

@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "Bot.h"
 
-#pragma region DEFINES
+#pragma region Defines
 
 // Use for functions that take either pixel or node coordinates
 #define NODE_COORDS 0
@@ -24,6 +24,8 @@
 
 #pragma endregion
 
+#pragma region Setup
+
 SPELUNKBOT_API double Initialise(void)
 {
 	_targetX = 0;
@@ -31,6 +33,10 @@ SPELUNKBOT_API double Initialise(void)
 	_pathCount = 0;
 	_tempID = 0;
 	_waitTimer = 0;
+	_playerPositionX = 0;
+	_playerPositionY = 0;
+	_playerPositionXNode = 0;
+	_playerPositionYNode = 0;
 	_hasGoal = false;
 	_spIsInAir = false;
 	_spIsJetpacking = false;
@@ -42,20 +48,29 @@ SPELUNKBOT_API double Initialise(void)
 	_goRight = false;
 	_goLeft = false;
 	_jump = false;
+	_attack = false;
 	return 1;
 }
+
+#pragma endregion
+
+#pragma region Bot Logic
 
 SPELUNKBOT_API double Update(double botXPos, double botYPos)
 {
 	// Sample bot
 
-	_playerPositionX = botXPos;
-	_playerPositionY = botYPos;
-	_playerPositionXNode = botXPos * PIXELS_IN_NODES;
-	_playerPositionYNode = botYPos * PIXELS_IN_NODES;
+	ResetBotVariables();
+
+	// Store bot positions
+	_playerPositionX = botXPos * PIXELS_IN_NODES;
+	_playerPositionY = botYPos * PIXELS_IN_NODES;
+	_playerPositionXNode = botXPos;
+	_playerPositionYNode = botYPos;
 
 	if (!_hasGoal)
 	{
+		// If no goal, search for the exit
 		for (int y = 0; y < Y_NODES; y++)
 		{
 			for (int x = 0; x < X_NODES; x++)
@@ -66,28 +81,44 @@ SPELUNKBOT_API double Update(double botXPos, double botYPos)
 					_itemGoal = true;
 					_targetX = x * PIXELS_IN_NODES;
 					_targetY = y * PIXELS_IN_NODES;
-					CalculatePathFromXYtoXY(_playerPositionXNode, _playerPositionYNode, _targetX, _targetY, PIXEL_COORDS);
+					CalculatePathFromXYtoXY(_playerPositionX, _playerPositionY, _targetX, _targetY, PIXEL_COORDS);
 					std::cout << "FOUND EXIT" << std::endl;
 					return 0;
 				}
 			}
 		}
 	}
-	
-	if (botXPos < (GetNextPathXPos(botXPos, botYPos, NODE_COORDS)))
-	{
-		_headingRight = _goRight = true;
-		_headingLeft = _goLeft = false;
-	}
 	else
 	{
-		_headingRight = _goRight = false;
-		_headingLeft = _goLeft = true;
+		// If goal, move towards it
+		if (_playerPositionXNode < (GetNextPathXPos(_playerPositionXNode, _playerPositionYNode, NODE_COORDS)))
+		{
+			_goRight = true;
+		}
+		else
+		{
+			_goLeft = true;
+		}
 	}
+
 	return 1;
 }
 
+// Reset variables as required each frame
+void ResetBotVariables(void)
+{
+	_headingRight = false;
+	_headingLeft = false;
+	_goRight = false;
+	_goLeft = false;
+	_jump = false;
+	_attack = false;
+}
+
+#pragma endregion
+
 #pragma region Get functions for GM
+
 double ConvertBoolToDouble(bool valToConvert)
 {
 	if (valToConvert)
@@ -168,4 +199,9 @@ SPELUNKBOT_API double GetTargetY(void)
 {
 	return _targetY;
 }
+SPELUNKBOT_API double GetAttack(void)
+{
+	return ConvertBoolToDouble(_attack);
+}
+
 #pragma endregion
