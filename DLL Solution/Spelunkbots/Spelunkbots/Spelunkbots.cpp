@@ -117,13 +117,13 @@ bool shopkeepersAngered;
 
 #pragma region Convert Methods
 
-/*
-	ConvertToNodeCoordinates converts pixels coordinates into node coordinates.
-
-	x: x coordinate of the node to convert
-	y: y coordinate of the node to convert
-
-	This function is only used within the Spelunkbots DLL.
+/**
+ * \brief ConvertToNodeCoordinates converts pixels coordinates into node coordinates.
+ *
+ * @param x The x coordinate of the node to convert
+ * @param y The y coordinate of the node to convert
+ *
+ * \note This function is only used within the Spelunkbots DLL.
 */
 void ConvertToNodeCoordinates(double &x, double &y)
 {
@@ -131,15 +131,15 @@ void ConvertToNodeCoordinates(double &x, double &y)
 	y /= 16;
 }
 
-/*
-	ConvertToNodeCoordinates converts pixels coordinates into node coordinates.
-
-	x1: x coordinate of first node to convert
-	y1: y coordinate of the first node to convert
-	x2: x coordinate of the second node to convert
-	y2: y coordinate of the second node to convert
-
-	This function is only used within the Spelunkbots DLL.
+/**
+ * \brief ConvertToNodeCoordinates converts pixels coordinates into node coordinates.
+ *
+ * @param x1 The x coordinate of first node to convert
+ * @param y1 The y coordinate of the first node to convert
+ * @param x2 The x coordinate of the second node to convert
+ * @param y2 The y coordinate of the second node to convert
+ *
+ * \note This function is only used within the Spelunkbots DLL.
 */
 void ConvertToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
 {
@@ -151,15 +151,15 @@ void ConvertToNodeCoordinates(double &x1, double &y1, double &x2, double &y2)
 
 #pragma region Map Data Methods
 
-/*
-	SetScreenXYWH does something?
-
-	x:
-	y:
-	w:
-	h:
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \todo Needs documenting
+ *
+ * @param x
+ * @param y:
+ * @param w:
+ * @param h:
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 {
@@ -170,19 +170,20 @@ GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 	return 0;
 }
 
-/*
-	A sample functions. All functions to be accessed should follow this format.
+/**
+ * A sample functions. All functions to be accessed should follow this format.
 */
-GMEXPORT double SampleFunction(double a, double b) {
+GMEXPORT double SampleFunction(double a, double b) 
+{
 	return a * b;
 }
 
 //#pragma section "Layout"
 
 /*
-	SetCoolGlasses does something?
+	\todo Needs documenting
 
-	d:
+	@param d
 */
 GMEXPORT double SetCoolGlasses(double d)
 {
@@ -198,9 +199,9 @@ GMEXPORT double SetCoolGlasses(double d)
 }
 
 /*
-	SetUdjatEye does something?
+	\todo Needs documenting
 
-	d: 
+	@param d 
 */
 GMEXPORT double SetUdjatEye(double d)
 {
@@ -215,10 +216,10 @@ GMEXPORT double SetUdjatEye(double d)
 	return 0;
 }
 
-/*
-	ResetFogForNewLevel resets the map data when a new level is loaded.
-
-	This function should not be used or changed when implementing a bot.
+/**
+ * \brief ResetFogForNewLevel resets the map data when a new level is loaded.
+ *
+ * \note This function should not be used or changed when implementing a bot.
 */
 GMEXPORT double ResetFogForNewLevel()
 {
@@ -236,13 +237,13 @@ GMEXPORT double ResetFogForNewLevel()
 	return 1;
 }
 
-/*
-	TerrainWasDestroyed updates the map data when a node is destroyed.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainWasDestroyed updates the map data when a node is destroyed.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \brief This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainWasDestroyed(double x, double y)
 {
@@ -250,13 +251,13 @@ GMEXPORT double TerrainWasDestroyed(double x, double y)
 	return 0;
 }
 
-/*
-	SpiderWebCreated increments a node spider web count
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief SpiderWebCreated increments a node spider web count
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double SpiderWebCreated(double x, double y)
 {
@@ -264,13 +265,13 @@ GMEXPORT double SpiderWebCreated(double x, double y)
 	return 0;
 }
 
-/*
-	SpiderWebWasRemoved decrements a nodes spider web count.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief SpiderWebWasRemoved decrements a nodes spider web count.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double SpiderWebWasRemoved(double x, double y)
 {
@@ -281,13 +282,13 @@ GMEXPORT double SpiderWebWasRemoved(double x, double y)
 	return 0;
 }
 
-/*
-	DestroyFog removes the fog from a node.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief DestroyFog removes the fog from a node.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double DestroyFog(double x, double y)
 {
@@ -295,13 +296,13 @@ GMEXPORT double DestroyFog(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsLadder updates a nodes state to a ladder.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsLadder updates a nodes state to a ladder.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsLadder(double x, double y)
 {
@@ -309,13 +310,13 @@ GMEXPORT double TerrainIsLadder(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsGoal sets a node to be the exit.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsGoal sets a node to be the exit.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsGoal(double x, double y)
 {
@@ -323,13 +324,13 @@ GMEXPORT double TerrainIsGoal(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsStart sets a node to be the entrance.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsStart sets a node to be the entrance.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsStart(double x, double y)
 {
@@ -337,13 +338,13 @@ GMEXPORT double TerrainIsStart(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsAlter sets a node to be an alter.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsAlter sets a node to be an alter.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsAltar(double x, double y)
 {
@@ -351,13 +352,13 @@ GMEXPORT double TerrainIsAltar(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsArrowTrapRight sets a node to be a right-facing arrow trap
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsArrowTrapRight sets a node to be a right-facing arrow trap
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsArrowTrapRight(double x, double y)
 {
@@ -365,13 +366,13 @@ GMEXPORT double TerrainIsArrowTrapRight(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsArrowTrapLeft sets a node to be a left-facing arrow trap
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsArrowTrapLeft sets a node to be a left-facing arrow trap
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsArrowTrapLeft(double x, double y)
 {
@@ -379,13 +380,13 @@ GMEXPORT double TerrainIsArrowTrapLeft(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsShopKeeperArea sets a node to be a shop keeper.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * TerrainIsShopKeeperArea sets a node to be a shop keeper.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsShopKeeperArea(double x, double y)
 {
@@ -393,13 +394,13 @@ GMEXPORT double TerrainIsShopKeeperArea(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsIce sets a node to be ice.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsIce sets a node to be ice.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsIce(double x, double y)
 {
@@ -407,13 +408,13 @@ GMEXPORT double TerrainIsIce(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsSpike sets a node be a spike.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsSpike sets a node be a spike.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsSpike(double x, double y)
 {
@@ -421,13 +422,13 @@ GMEXPORT double TerrainIsSpike(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsSpearTrap sets a node to be a spear trap.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ *\brief TerrainIsSpearTrap sets a node to be a spear trap.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsSpearTrap(double x, double y)
 {
@@ -435,13 +436,13 @@ GMEXPORT double TerrainIsSpearTrap(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsSwimWater sets a node to be water.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsSwimWater sets a node to be water.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsSwimWater(double x, double y)
 {
@@ -449,13 +450,13 @@ GMEXPORT double TerrainIsSwimWater(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsLave sets a node to be lava.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsLave sets a node to be lava.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsLava(double x, double y)
 {
@@ -463,13 +464,13 @@ GMEXPORT double TerrainIsLava(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsGameEntrance sets a node to be the game entrance.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsGameEntrance sets a node to be the game entrance.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsGameEntrance(double x, double y)
 {
@@ -477,13 +478,13 @@ GMEXPORT double TerrainIsGameEntrance(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsTree sets a node to be a tree.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsTree sets a node to be a tree.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsTree(double x, double y)
 {
@@ -491,13 +492,13 @@ GMEXPORT double TerrainIsTree(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsTreeBranchLeaf sets a node to be a tree branch.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsTreeBranchLeaf sets a node to be a tree branch.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsTreeBranchLeaf(double x, double y)
 {
@@ -505,13 +506,13 @@ GMEXPORT double TerrainIsTreeBranchLeaf(double x, double y)
 	return 0;
 }
 
-/*
-	TerrainIsEmpty sets a node to be empty.
-
-	x: x location of the node
-	y: y location of the node
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief TerrainIsEmpty sets a node to be empty.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double TerrainIsEmpty(double x, double y)
 {
@@ -519,31 +520,34 @@ GMEXPORT double TerrainIsEmpty(double x, double y)
 	return 0;
 }
 
-/*
-	GetLiquidValues returns the liquid state of a node.
-
-	x: x location of the node
-	y: y location of the node
-
-	returns: Empty : 0, Water : 1, Lava : 2
-
-	This function should not be used or changed whem implementing a bot.
+/**
+ * \brief GetLiquidValues returns the liquid state of a node.
+ *
+ * @param x The x location of the node
+ * @param y The y location of the node
+ *
+ * @return Empty : 0, Water : 1, Lava : 2
+ *
+ * \note This function should not be used or changed whem implementing a bot.
 */
 GMEXPORT double GetLiquidValue(double x, double y)
 {
 	return mapLiquids[(int)x][(int)y];
 }
 
-/*
-	TODO
+/**
+ * \todo Implment function and comment.
 */
 GMEXPORT double SpringPadAtPosition(double x, double y)
 {
 	return 0;
 }
 
-/*
-	TODO
+/**
+ * \todo Needs documenting
+ *
+ * @param x
+ * @param y
 */
 GMEXPORT double FillShopkeeperArea(double x, double y)
 {
@@ -554,14 +558,14 @@ GMEXPORT double FillShopkeeperArea(double x, double y)
 	return 0;
 }
 
-/*
-	Call this each time a new level is loaded in a loop in GameMaker
-	Setting the state of the block as to whether there is a terrain block
-	in that coordinate.
-
-	Should also be called when a terrain block is destroyed by *anything*
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief Call this each time a new level is loaded in a loop in GameMaker
+ * Setting the state of the block as to whether there is a terrain block
+ * in that coordinate.
+ *
+ * \brief Should also be called when a terrain block is destroyed by *anything*
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double SetMapCoord(double x, double y, double state)
 {
@@ -569,13 +573,13 @@ GMEXPORT double SetMapCoord(double x, double y, double state)
 	return state;
 }
 
-/*
-	ClearFogFromSquare removes the fog from a give node.
-
-	x: x coordinate of the node
-	y: y coordinate of the node
-
-	This function should not be used or changed when implemtning a bot
+/**
+ * \brief ClearFogFromSquare removes the fog from a give node.
+ *
+ * @param x The x coordinate of the node
+ * @param y The y coordinate of the node
+ *
+ * \note This function should not be used or changed when implemtning a bot
 */
 GMEXPORT double ClearFogFromSquare(double x, double y)
 {
@@ -587,19 +591,19 @@ GMEXPORT double ClearFogFromSquare(double x, double y)
 
 #pragma region Node State Methods
 
-/*
-	GetNodeState returns an integer associated with a particular state.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: x coordinate of the node to check
-	y: y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: Empty Node: 0, Standard Terrain: 1, Ladder: 2, Exit: 3, Entrance: 4, Alter: 5, Arrow Trap Right: 6, Arrow Trap Left: 7, Is In Shop: 8, Ice: 9, Spike: 10, Spear Trap: 11, Game Entrance: 12
-
-	If a node is in fog a value of -1 is returned.
-
-	GM script: GetNodeState
+/**
+ * \brief GetNodeState returns an integer associated with a particular state.
+ * Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return Empty Node: 0, Standard Terrain: 1, Ladder: 2, Exit: 3, Entrance: 4, Alter: 5, Arrow Trap Right: 6, Arrow Trap Left: 7, Is In Shop: 8, Ice: 9, Spike: 10, Spear Trap: 11, Game Entrance: 12
+ *
+ * \brief If a node is in fog a value of -1 is returned.
+ *
+ * \note GM script: GetNodeState
 */
 GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 {
@@ -613,12 +617,18 @@ GMEXPORT double GetNodeState(double x, double y, double usingPixelCoords)
 	return -1;
 }
 
-/*
-	GetFogState returns an integer on the fog state of a node; 1 if the node is in fog, 0 otherwise.
-
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	GM script: GetFogState
+/**
+ * \brief GetFogState returns an integer on the fog state of a node; 1 if the node is in fog, 0 otherwise.
+ *
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return The state of the fog: 1 if there is fog, 0 otherwse
+ *
+ * \note GM script: GetFogState
 */
 GMEXPORT double GetFogState(double x, double y, double usingPixelCoords)
 {
@@ -632,10 +642,10 @@ GMEXPORT double GetFogState(double x, double y, double usingPixelCoords)
 
 #pragma region Dynamic Objects
 
-/*
-	ClearDynamicObjects removes push blocks and bats from the level.
-
-	This function should not be used or changed whem implemtning a bot
+/**
+ * \brief ClearDynamicObjects removes push blocks and bats from the level.
+ *
+ * \note This function should not be used or changed whem implemtning a bot
 */
 GMEXPORT double ClearDynamicObjects()
 {
@@ -650,10 +660,10 @@ GMEXPORT double ClearDynamicObjects()
 	return 0;
 }
 
-/*
-	NodeContainsPushBlock sets a node to contain a dynamic block in a given node.
-
-	This function should not be used or changed whem implementing a bot
+/**
+ * \brief NodeContainsPushBlock sets a node to contain a dynamic block in a given node.
+ *
+ * \note This function should not be used or changed whem implementing a bot
 */
 GMEXPORT double NodeContainsPushBlock(double x, double y)
 {
@@ -661,15 +671,17 @@ GMEXPORT double NodeContainsPushBlock(double x, double y)
 	return 0;
 }
 
-/*
-	GetNodeContainsPushBlock returns an integer value on whether a node contains a push block; 1 if a node contains a push block, zero others.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: x coordinate of the node to check
-	y: y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	GM script: GetPushBlock
+/**
+ * \brief GetNodeContainsPushBlock returns an integer value on whether a node contains a push block; 1 if a node contains a push block, zero others.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return 1 if node contains a push block, 0 otherwise
+ *
+ * \note GM script: GetPushBlock
 */
 GMEXPORT double GetNodeContainsPushBlock(double x, double y, double usingPixelCoords)
 {
@@ -683,10 +695,10 @@ GMEXPORT double GetNodeContainsPushBlock(double x, double y, double usingPixelCo
 	return 0;
 }
 
-/*
-	NodeContainsBats increments that number of bats in a given node.
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief NodeContainsBats increments that number of bats in a given node.
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double NodeContainsBat(double x, double y)
 {
@@ -694,15 +706,15 @@ GMEXPORT double NodeContainsBat(double x, double y)
 	return 0;
 }
 
-/*
-	GetNodeContainsBat returns the number of bats at a given node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: x coordinate of the node to check
-	y: y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	GM script: GetBatAtNode
+/**
+ * \brief GetNodeContainsBat returns the number of bats at a given node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * \note GM script: GetBatAtNode
 */
 GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 {
@@ -716,17 +728,17 @@ GMEXPORT double GetNodeContainsBat(double x, double y, double usingPixelCoords)
 	return 0;
 }
 
-/*
-	NumberOfWebsInNode returns the number of webs in a node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: number of webs
-
-	GM script: GetNumberOfEnemyTypeInNodeXY
+/**
+ * \brief NumberOfWebsInNode returns the number of webs in a node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return number of webs
+ *
+ * \note GM script: GetNumberOfEnemyTypeInNodeXY
 */
 GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
 {
@@ -739,15 +751,14 @@ GMEXPORT double NumberOfWebsInNode(double x, double y, double usingPixelCoords)
 	}
 	return 0;
 }
-
 #pragma endregion
 
 #pragma region Collectables
 
-/*
-	ResetCollectables removes all collectables from the collectablesList vector.
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief ResetCollectables removes all collectables from the collectablesList vector.
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double ResetCollectables()
 {
@@ -755,15 +766,15 @@ GMEXPORT double ResetCollectables()
 	return 0;
 }
 
-/*
-	NodeContainsCollectable adds a collectable to the collectablesList vector.
-
-	x: x coordinate of the collectable
-	y: y coordinate of the collectable
-	type: type of the collectable
-	id: id of the collectable
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief NodeContainsCollectable adds a collectable to the collectablesList vector.
+ *
+ * @param x The x coordinate of the collectable
+ * @param y The y coordinate of the collectable
+ * @param type The type of the collectable
+ * @param id The id of the collectable
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double NodeContainsCollectable(double x, double y, double type, double id)
 {
@@ -776,14 +787,14 @@ GMEXPORT double NodeContainsCollectable(double x, double y, double type, double 
 	return 0;
 }
 
-/*
-	UpdateCollectableAtNode updates a collectable, matching the given an id, in the collectablesList vector.
-
-	x: the new x coordinate
-	y: the new y coorindate
-	id: the id of the collectable to update
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief UpdateCollectableAtNode updates a collectable, matching the given an id, in the collectablesList vector.
+ *
+ * @param x The new x coordinate
+ * @param y The new y coorindate
+ * @param id The id of the collectable to update
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double UpdateCollectableAtNode(double x, double y, double id)
 {
@@ -803,12 +814,12 @@ GMEXPORT double UpdateCollectableAtNode(double x, double y, double id)
 	return 0;
 }
 
-/*
-	RemoveCollectableWithID removes a collectable with the given id.
-
-	id: the id of the collectable to remove
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief RemoveCollectableWithID removes a collectable with the given id.
+ *
+ * @param id The id of the collectable to remove
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double RemoveCollectableWithID(double id)
 {
@@ -824,18 +835,18 @@ GMEXPORT double RemoveCollectableWithID(double id)
 	return 0;
 }
 
-/*
-	NumberOfCollectableTypeInNode returns the number of collectables in a node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	type: the type of collectable being searched for
-	x: x coordinate of the node to check
-	y: y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: number of collectables in the node
-
-	GM script: NumberOfCollectableTypeInNode
+/**
+ * \brief NumberOfCollectableTypeInNode returns the number of collectables in a node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param type The type of collectable being searched for
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return The number of collectables in the node
+ *
+ * \note GM script: NumberOfCollectableTypeInNode
 */
 GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
@@ -860,18 +871,18 @@ GMEXPORT double NumberOfCollectableTypeInNode(double type, double x, double y, d
 	return count;
 }
 
-/*
-	GetIDOfCollectableInNode returns the ID of a collectable, given the coordinates and type of a collectable.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	type: the type of collectable being searched for
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false if using node coordinates (0)
-
-	returns: ID of the collectable
-
-	GM script: GetIDOfFirstCollectableOfTypeInNode
+/**
+ * \brief GetIDOfCollectableInNode returns the ID of a collectable, given the coordinates and type of a collectable.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param type The type of collectable being searched for
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return The ID of the collectable
+ *
+ * \note GM script: GetIDOfFirstCollectableOfTypeInNode
 */
 GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double usingPixelCoords)
 {
@@ -896,18 +907,17 @@ GMEXPORT double GetIDOfCollectableInNode(double type, double x, double y, double
 	return 0;
 }
 
-/*
-	IsCollectableInNode returns an integer based on whether a collectable is in a given node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	type: the type of enemy being searched for
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: 1 if a collectable is in the node, 0 otherwise
-
-	GM script: IsCollectableInNode
+/**
+ * \brief IsCollectableInNode returns an integer based on whether a collectable is in a given node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return 1 if a collectable is in the node, 0 otherwise
+ *
+ * \note GM script: IsCollectableInNode
 */
 GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
 {
@@ -928,10 +938,10 @@ GMEXPORT double IsCollectableInNode(double x, double y, double usingPixelCoords)
 
 #pragma region Enemies
 
-/*
-	ResestEnemies removes all enemies from the enemiesList vector.
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief ResestEnemies removes all enemies from the enemiesList vector.
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double ResetEnemies()
 {
@@ -939,15 +949,15 @@ GMEXPORT double ResetEnemies()
 	return 0;
 }
 
-/*
-	NodeContainsEnemy adds an enemy to the enemiesList vector.
-
-	x: x coordinate of the enemy
-	y: y coordinate of the enemy
-	type: type of the enemy
-	id: id of the enemy
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief NodeContainsEnemy adds an enemy to the enemiesList vector.
+ *
+ * @param x The x coordinate of the enemy
+ * @param y The y coordinate of the enemy
+ * @param type The type of the enemy
+ * @param id The id of the enemy
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double NodeContainsEnemy(double x, double y, double type, double id)
 {
@@ -960,14 +970,14 @@ GMEXPORT double NodeContainsEnemy(double x, double y, double type, double id)
 	return 0;
 }
 
-/*
-	UpdateEnemyAtNode updates the position of an enemy, matching the given id, in the enemyList vector with its current position.
-
-	x: the new x position
-	y: the new y position
-	id: the id of the enemy to update
-
-	This function should not be changed or use whem implementing a bot
+/**
+ * \brief UpdateEnemyAtNode updates the position of an enemy, matching the given id, in the enemyList vector with its current position.
+ *
+ * @param x The new x position
+ * @param y The new y position
+ * @param id The id of the enemy to update
+ *
+ * \note This function should not be changed or use whem implementing a bot
 */
 GMEXPORT double UpdateEnemyAtNode(double x, double y, double id)
 {
@@ -984,12 +994,12 @@ GMEXPORT double UpdateEnemyAtNode(double x, double y, double id)
 	return 0;
 }
 
-/*
-	RemoveEnemyWithID removes an enemy with the given id.
-
-	id: the id of the enemy to remove
-
-	This function should not be used or changed when implementing a bot
+/**
+ * \brief RemoveEnemyWithID removes an enemy with the given id.
+ *
+ * @param id The id of the enemy to remove
+ *
+ * \note This function should not be used or changed when implementing a bot
 */
 GMEXPORT double RemoveEnemyWithID(double id)
 {
@@ -1005,18 +1015,18 @@ GMEXPORT double RemoveEnemyWithID(double id)
 	return 0;
 }
 
-/*
-	NumberOfEnemyTypeInNode returns the number of enemies in a node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	type: the type of enemy being searched for
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: number of enemies
-
-	GM script: GetNumberOfEnemyTypeInNodeXY
+/**
+ * \brief NumberOfEnemyTypeInNode returns the number of enemies in a node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param type The type of enemy being searched for
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return The number of enemies
+ *
+ * \note GM script: GetNumberOfEnemyTypeInNodeXY
 */
 GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double usingPixelCoords)
 {
@@ -1045,18 +1055,18 @@ GMEXPORT double NumberOfEnemyTypeInNode(double type, double x, double y, double 
 	return count;
 }
 
-/*
-	GetIDOfEnemyInNode returns the ID of an enemy in a given node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	type: the type of enemy being searched for
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: id of the enemy
-
-	GM script: GetIDOfFirstEnemyInNode
+/**
+ * \brief GetIDOfEnemyInNode returns the ID of an enemy in a given node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param type The type of enemy being searched for
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return The ID of the enemy
+ *
+ * \note GM script: GetIDOfFirstEnemyInNode
 */
 GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double usingPixelCoords)
 {
@@ -1081,17 +1091,17 @@ GMEXPORT double GetIDOfEnemyInNode(double type, double x, double y, double using
 	return 0;
 }
 
-/*
-	IsEnemyInNode returns an integer based on whether an enemy is in a given node.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: 1 if an enemy is in the node, 0 otherwise
-
-	GM script: IsEnemyInNode
+/**
+ * \brief IsEnemyInNode returns an integer based on whether an enemy is in a given node.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return 1 if an enemy is in the node, 0 otherwise
+ *
+ * \note GM script: IsEnemyInNode
 */
 GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
 {
@@ -1112,10 +1122,10 @@ GMEXPORT double IsEnemyInNode(double x, double y, double usingPixelCoords)
 
 #pragma region Debug
 
-/*
-	SaveDynamicObjectFilesDebug saves each dynamic type of the current level to its associated file.
-
-	This function should not be changed or used when implementing a bot
+/**
+ * \brief SaveDynamicObjectFilesDebug saves each dynamic type of the current level to its associated file.
+ *
+ * \note This function should not be changed or used when implementing a bot
 */
 GMEXPORT double SaveDynamicObjectFilesDebug()
 {
@@ -1201,10 +1211,10 @@ GMEXPORT double SaveDynamicObjectFilesDebug()
 	return 0;
 }
 
-/*
-	SaveSpiderwebsToFile saves the locations of webs in the current level to a text file.
-
-	This function should not be changed or used whem implementing a bot
+/**
+ * \brief SaveSpiderwebsToFile saves the locations of webs in the current level to a text file.
+ *
+ * \note This function should not be changed or used whem implementing a bot
 */
 GMEXPORT double SaveSpiderwebsToFile()
 {
@@ -1223,10 +1233,10 @@ GMEXPORT double SaveSpiderwebsToFile()
 	return 0;
 }
 
-/*
-	SaveLevelLayoutToFile saves the current level layout into a text file.
-
-	This function should not be changed or used when implementing a bot
+/**
+ * \brief SaveLevelLayoutToFile saves the current level layout into a text file.
+ *
+ * \note This function should not be changed or used when implementing a bot
 */
 GMEXPORT double SaveLevelLayoutToFile()
 {
@@ -1256,8 +1266,8 @@ GMEXPORT double SaveLevelLayoutToFile()
 
 #pragma region Navigation
 
-/*
-	MapSearchNode is used in the calculation of A* search
+/**
+ * \brief MapSearchNode is used in the calculation of A* search
 */
 class MapSearchNode
 {
@@ -1306,17 +1316,17 @@ std::vector<MapSearchNode*> m_PathList;
 
 // http://xpac27.github.io/a-star-pathfinder-c++-implementation.html
 
-/*
-	CalculatePathFromXYtoXY creates a path using the A* Search algorithm by specifying players current node position and the node they wish to reach.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x1: x coordinate of the players position
-	y1: y coordinate of the players position
-	x2: x coordinate of the target location
-	y2: y coordinate of the target location
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	GM script: CreateAStarPathFromXYtoXY
+/**
+ * \brief CalculatePathFromXYtoXY creates a path using the A* Search algorithm by specifying players current node position and the node they wish to reach.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x1 The x coordinate of the players position
+ * @param y1 The y coordinate of the players position
+ * @param x2 The x coordinate of the target location
+ * @param y2 The y coordinate of the target location
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * \note GM script: CreateAStarPathFromXYtoXY
 */
 GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double y2, double usingPixelCoords)
 {
@@ -1486,25 +1496,25 @@ GMEXPORT double CalculatePathFromXYtoXY(double x1, double y1, double x2, double 
 	return 0;
 }
 
-/*
-	TODO
+/**
+ * \todo Implement and comment
 */
 GMEXPORT bool IsClearPathToExit()
 {
 	return 0;
 }
 
-/*
-	GetNextPathXPos returns the X value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: x coordinate of the players location
-	y: y coordinate of the players location
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: x coordinate of the next node
-
-	GM script: GetNearestXPos
+/**
+ * \brief GetNextPathXPos returns the X value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the players location
+ * @param y The y coordinate of the players location
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @returns x coordinate of the next node
+ *
+ * \note GM script: GetNearestXPos
 */
 GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 {
@@ -1539,17 +1549,17 @@ GMEXPORT double GetNextPathXPos(double x, double y, double usingPixelCoords)
 	return x;
 }
 
-/*
-	GetNextPathXPos returns the Y value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: x coordinate of the players location
-	y: y coordinate of the players location
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: y coordinate of the next node
-
-	GM script: GetNearestYPos
+/**
+ * \brief GetNextPathXPos returns the Y value of the next node along the path created by the A* search; calculatePathFromXYtoXY must be called before using this function.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the players location
+ * @param y The y coordinate of the players location
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return The y coordinate of the next node
+ *
+ * \note GM script: GetNearestYPos
 */
 GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 {
@@ -1579,17 +1589,17 @@ GMEXPORT double GetNextPathYPos(double x, double y, double usingPixelCoords)
 	return y;
 }
 
-/*
-	IsNodePassable returns an integer based on whether a given node is passable.
-	Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
-
-	x: the x coordinate of the node to check
-	y: the y coordinate of the node to check
-	usingPixelCoords: true (1) if using pixel coordinates, false (0) if using node coordinates
-
-	returns: 1 if the node is passable, 0 otherwise
-
-	GM script: IsNodePassable
+/**
+ * \brief IsNodePassable returns an integer based on whether a given node is passable.
+ * \brief Node coordinates or pixel coordinates may be used, using the third paramter, usingPixelCoords.
+ *
+ * @param x The x coordinate of the node to check
+ * @param y The y coordinate of the node to check
+ * @param usingPixelCoords A bool to inform the API what coordinate system to use; true (1) if using pixel coordinates, false (0) if using node coordinates
+ *
+ * @return 1 if the node is passable, 0 otherwise
+ *
+ * \note GM script: IsNodePassable
 */
 GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 {
