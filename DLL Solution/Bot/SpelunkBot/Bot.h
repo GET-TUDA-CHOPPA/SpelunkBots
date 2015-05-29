@@ -32,11 +32,9 @@ void ResetBotVariables(void);
 */
 SPELUNKBOT_API double Initialise(void);
 /*
-	Update contains the main logic for a C++ bot. 
-	
-	Use this function to perform the logic for your bot.
+	Update is used to update the bot position and chose which bot function to use.
 */
-SPELUNKBOT_API double Update(double botXPos, double botYPos);
+SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos);
 /*
 	Getter functions for variables.
 
@@ -59,6 +57,9 @@ SPELUNKBOT_API double GetJump(void);
 SPELUNKBOT_API double GetTargetX(void);
 SPELUNKBOT_API double GetTargetY(void);
 SPELUNKBOT_API double GetAttack(void);
+
+// Functions that perform different bot behaviours should be placed here
+double BasicBotExampleOne(void);
 
 #pragma endregion
 

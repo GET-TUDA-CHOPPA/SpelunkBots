@@ -56,7 +56,7 @@ SPELUNKBOT_API double Initialise(void)
 
 #pragma region Bot Logic
 
-SPELUNKBOT_API double Update(double botXPos, double botYPos)
+SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos)
 {
 	// Sample bot
 
@@ -68,6 +68,19 @@ SPELUNKBOT_API double Update(double botXPos, double botYPos)
 	_playerPositionXNode = botXPos;
 	_playerPositionYNode = botYPos;
 
+	// Add additional bots here
+	if (botSelector == 1)
+	{
+		return BasicBotExampleOne();
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+double BasicBotExampleOne(void)
+{
 	if (!_hasGoal)
 	{
 		// If no goal, search for the exit
