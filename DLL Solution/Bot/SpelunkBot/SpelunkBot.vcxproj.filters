@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Bots">
+      <UniqueIdentifier>{212c05ef-9411-413f-b618-17eee0d2515e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bots">
+      <UniqueIdentifier>{ec45f0e0-f9b6-4a14-9d5b-b5a990784e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bots\Base">
+      <UniqueIdentifier>{b50a694f-f56b-4e46-bd03-b698755d8d85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bots\Base">
+      <UniqueIdentifier>{e4543eb9-14cd-4c8c-8409-ea0afee14fa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bots\Examples">
+      <UniqueIdentifier>{c9aa5b5c-8c03-45c5-b0c2-a4cebf7e0b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bots\Examples">
+      <UniqueIdentifier>{b7d69d58-d454-4f46-b67c-2c3be8c5ee54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -27,6 +45,18 @@
     <ClInclude Include="Bot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BasicBotExampleTwo.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicBotExampleOne.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="IBot.h">
+      <Filter>Header Files\Bots\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BotExampleThree.h">
+      <Filter>Header Files\Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -37,6 +67,18 @@
     </ClCompile>
     <ClCompile Include="Bot.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicBotExampleTwo.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicBotExampleOne.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="IBot.cpp">
+      <Filter>Source Files\Bots\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BotExampleThree.cpp">
+      <Filter>Source Files\Bots</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

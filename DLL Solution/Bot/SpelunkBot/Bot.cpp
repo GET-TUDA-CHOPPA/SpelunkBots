@@ -3,134 +3,13 @@
 
 #include "stdafx.h"
 #include "Bot.h"
+#include "IBot.h"
+#include "BasicBotExampleOne.h"
+#include "BasicBotExampleTwo.h"
+#include "BotExampleThree.h"
+#include <memory>
 
-#pragma region Defines
-
-// Use for functions that take either pixel or node coordinates
-#define NODE_COORDS 0
-#define PIXEL_COORDS 1
-
-// Nodes in the x and y axes
-#define Y_NODES 34
-#define X_NODES 42
-
-// Number of pixels in each node
-#define PIXELS_IN_NODES 16
-
-// Variable types - useful for when calling UpdatePlayerVariables()
-#define BOOLEAN 0
-#define DOUBLE 1
-#define STRING 2
-
-#pragma endregion
-
-#pragma region Setup
-
-SPELUNKBOT_API double Initialise(void)
-{
-	_targetX = 0;
-	_targetY = 0;
-	_pathCount = 0;
-	_tempID = 0;
-	_waitTimer = 0;
-	_playerPositionX = 0;
-	_playerPositionY = 0;
-	_playerPositionXNode = 0;
-	_playerPositionYNode = 0;
-	_hasGoal = false;
-	_spIsInAir = false;
-	_spIsJetpacking = false;
-	_itemGoal = false;
-	_fogGoal = true;
-	_endGoal = false;
-	_headingRight = false;
-	_headingLeft = false;
-	_goRight = false;
-	_goLeft = false;
-	_jump = false;
-	_attack = false;
-	return 1;
-}
-
-#pragma endregion
-
-#pragma region Bot Logic
-
-SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos)
-{
-	// Sample bot
-
-	ResetBotVariables();
-
-	// Store bot positions
-	_playerPositionX = botXPos * PIXELS_IN_NODES;
-	_playerPositionY = botYPos * PIXELS_IN_NODES;
-	_playerPositionXNode = botXPos;
-	_playerPositionYNode = botYPos;
-
-	// Add additional bots here
-	if (botSelector == 1)
-	{
-		return BasicBotExampleOne();
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-double BasicBotExampleOne(void)
-{
-	if (!_hasGoal)
-	{
-		// If no goal, search for the exit
-		for (int y = 0; y < Y_NODES; y++)
-		{
-			for (int x = 0; x < X_NODES; x++)
-			{
-				if (GetNodeState(x, y, NODE_COORDS) == spExit)
-				{
-					_hasGoal = true;
-					_itemGoal = true;
-					_targetX = x * PIXELS_IN_NODES;
-					_targetY = y * PIXELS_IN_NODES;
-					CalculatePathFromXYtoXY(_playerPositionX, _playerPositionY, _targetX, _targetY, PIXEL_COORDS);
-					std::cout << "FOUND EXIT" << std::endl;
-					return 0;
-				}
-			}
-		}
-	}
-	else
-	{
-		// If goal, move towards it
-		if (_playerPositionXNode < (GetNextPathXPos(_playerPositionXNode, _playerPositionYNode, NODE_COORDS)))
-		{
-			_goRight = true;
-		}
-		else
-		{
-			_goLeft = true;
-		}
-	}
-
-	return 1;
-}
-
-// Reset variables as required each frame
-void ResetBotVariables(void)
-{
-	_headingRight = false;
-	_headingLeft = false;
-	_goRight = false;
-	_goLeft = false;
-	_jump = false;
-	_attack = false;
-}
-
-#pragma endregion
-
-#pragma region Get functions for GM
+std::unique_ptr<IBot> bot;
 
 double ConvertBoolToDouble(bool valToConvert)
 {
@@ -148,73 +27,129 @@ char* ConvertBoolToChar(bool valToConvert)
 	}
 	return "0";
 }
+
+// Add additional bots here
+void CreateBot(double botSelector)
+{
+	if (botSelector == 1)
+	{
+		bot = std::make_unique<BasicBotExampleOne>();
+	}
+	else if (botSelector = 2)
+	{
+		bot = std::make_unique<BotExampleThree>();
+	}
+	else
+	{
+		bot = std::make_unique<BasicBotExampleTwo>();
+	}
+}
+
+#pragma region Setup
+
+SPELUNKBOT_API double Initialise(void)
+{
+	if (bot)
+	{
+		// Reset ALL variables when entering a new room.
+		bot->InitialiseVariables();
+	}
+
+	return 1;
+}
+
+#pragma endregion
+
+#pragma region Get functions for GM
+
 SPELUNKBOT_API double GetHasGoal(void)
 {
-	return ConvertBoolToDouble(_hasGoal);
+	return bot->GetHasGoal();
 }
 SPELUNKBOT_API double GetIsInAir(void)
 {
-	return ConvertBoolToDouble(_spIsInAir);
+	return bot->GetHasGoal();
 }
 SPELUNKBOT_API double GetIsJetpacking(void)
 {
-	return ConvertBoolToDouble(_spIsJetpacking);
+	return bot->GetIsJetpacking();
 }
 SPELUNKBOT_API double GetItemGoal(void)
 {
-	return ConvertBoolToDouble(_itemGoal);
+	return bot->GetItemGoal();
 }
 SPELUNKBOT_API double GetPathCount(void)
 {
-	return _pathCount;
+	return bot->GetPathCount();
 }
 SPELUNKBOT_API double GetTempID(void)
 {
-	return _tempID;
+	return bot->GetTempID();
 }
 SPELUNKBOT_API double GetFogGoal(void)
 {
-	return ConvertBoolToDouble(_fogGoal);
+	return bot->GetFogGoal();
 }
 SPELUNKBOT_API double GetEndGoal(void)
 {
-	return ConvertBoolToDouble(_endGoal);
+	return bot->GetEndGoal();
 }
 SPELUNKBOT_API double GetWaitTimer(void)
 {
-	return _waitTimer;
+	return bot->GetWaitTimer();
 }
 SPELUNKBOT_API double GetHeadingRight(void)
 {
-	return ConvertBoolToDouble(_headingRight);
+	return bot->GetHeadingRight();
 }
 SPELUNKBOT_API double GetHeadingLeft(void)
 {
-	return ConvertBoolToDouble(_headingLeft);
+	return bot->GetHeadingLeft();
 }
 SPELUNKBOT_API double GetGoRight(void)
 {
-	return ConvertBoolToDouble(_goRight);
+	return bot->GetGoRight();
 }
 SPELUNKBOT_API double GetGoLeft(void)
 {
-	return ConvertBoolToDouble(_goLeft);
+	return bot->GetGoLeft();
 }
 SPELUNKBOT_API double GetJump(void)
 {
-	return ConvertBoolToDouble(_jump);
+	return bot->GetJump();
 }
 SPELUNKBOT_API double GetTargetX(void)
 {
-	return _targetX;
+	return bot->GetTargetX();
 }
 SPELUNKBOT_API double GetTargetY(void)
 {
-	return _targetY;
+	return bot->GetTargetY();
 }
 SPELUNKBOT_API double GetAttack(void)
 {
-	return ConvertBoolToDouble(_attack);
+	return bot->GetAttack();
+}
+
+#pragma endregion
+
+#pragma region Bot Logic
+
+SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos)
+{
+	if (!bot)
+	{
+		CreateBot(botSelector);
+	}
+	else
+	{
+		// Use Update to select a bot to run
+		bot->Reset();
+		bot->UpdateBotPosition(botXPos, botYPos);
+		bot->Update();
+	}
+
+	return 1;
 }
 
 #pragma endregion
