@@ -11,8 +11,6 @@
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS 
 
 #include <windows.h>
-#include <atlbase.h>
-#include <atlstr.h>
 #include <iostream>
 
 enum TerrainType
