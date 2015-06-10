@@ -5,8 +5,8 @@
 class BasicBotExampleOne : public IBot
 {
 public:
-	BasicBotExampleOne() { };
-	virtual ~BasicBotExampleOne() { };
+	BasicBotExampleOne() { }
+	virtual ~BasicBotExampleOne() { }
 
 	void Update() override;
 };

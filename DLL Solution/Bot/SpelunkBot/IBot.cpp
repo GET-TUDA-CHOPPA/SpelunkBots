@@ -106,8 +106,8 @@ void IBot::InitialiseDLLFunctions()
 
 void IBot::Reset()
 {
-	_headingRight = false;
-	_headingLeft = false;
+	//_headingRight = false;
+	//_headingLeft = false;
 	_goRight = false;
 	_goLeft = false;
 	_jump = false;

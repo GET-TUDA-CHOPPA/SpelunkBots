@@ -3,10 +3,18 @@
 
 class BasicBotExampleTwo : public IBot
 {
-public:
-	BasicBotExampleTwo() { };
-	virtual ~BasicBotExampleTwo() { };
+private:
+	bool					_canGoRight;
+	bool					_canGoLeft;
+	bool					_canJumpRight;
+	bool					_canJumpLeft;
+	bool					_canJumpGrabRight;
+	bool					_canJumpGrabLeft;
 
-	void Update() override;
+public:
+	BasicBotExampleTwo() { }
+	virtual ~BasicBotExampleTwo() { }
+
+	void					Update() override;
 };
 

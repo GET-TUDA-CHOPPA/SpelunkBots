@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "BasicBotExampleOne.h"
 
+/*
+	BasicBotExampleOne is a very simple bot. If the exit is within sight when the bot enters a
+	room it will move towards it. However, if the exit is not within sight, the bot does nothing.
+*/
 void BasicBotExampleOne::Update()
 {
 	if (!_hasGoal)

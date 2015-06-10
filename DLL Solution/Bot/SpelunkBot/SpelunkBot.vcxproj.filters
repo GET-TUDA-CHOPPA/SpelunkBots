@@ -54,8 +54,8 @@
     <ClInclude Include="IBot.h">
       <Filter>Header Files\Bots\Base</Filter>
     </ClInclude>
-    <ClInclude Include="BotExampleThree.h">
-      <Filter>Header Files\Bots</Filter>
+    <ClInclude Include="BasicBotExampleThree.h">
+      <Filter>Header Files\Bots\Examples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,8 +77,8 @@
     <ClCompile Include="IBot.cpp">
       <Filter>Source Files\Bots\Base</Filter>
     </ClCompile>
-    <ClCompile Include="BotExampleThree.cpp">
-      <Filter>Source Files\Bots</Filter>
+    <ClCompile Include="BasicBotExampleThree.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

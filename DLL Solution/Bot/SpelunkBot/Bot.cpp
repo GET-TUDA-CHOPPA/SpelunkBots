@@ -6,7 +6,7 @@
 #include "IBot.h"
 #include "BasicBotExampleOne.h"
 #include "BasicBotExampleTwo.h"
-#include "BotExampleThree.h"
+#include "BasicBotExampleThree.h"
 #include <memory>
 
 std::unique_ptr<IBot> bot;
@@ -37,11 +37,11 @@ void CreateBot(double botSelector)
 	}
 	else if (botSelector = 2)
 	{
-		bot = std::make_unique<BotExampleThree>();
+		bot = std::make_unique<BasicBotExampleTwo>();
 	}
 	else
 	{
-		bot = std::make_unique<BasicBotExampleTwo>();
+		bot = std::make_unique<BasicBotExampleThree>();
 	}
 }
 
