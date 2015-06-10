@@ -57,6 +57,24 @@
     <ClInclude Include="BasicBotExampleThree.h">
       <Filter>Header Files\Bots\Examples</Filter>
     </ClInclude>
+    <ClInclude Include="SeanBean.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="DiscoveryDan.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="FishBot.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldDigger.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Indie.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="NotSoSolidSnake.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +96,24 @@
       <Filter>Source Files\Bots\Base</Filter>
     </ClCompile>
     <ClCompile Include="BasicBotExampleThree.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="SeanBean.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="GoldDigger.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="DiscoveryDan.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="NotSoSolidSnake.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="Indie.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="FishBot.cpp">
       <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
   </ItemGroup>

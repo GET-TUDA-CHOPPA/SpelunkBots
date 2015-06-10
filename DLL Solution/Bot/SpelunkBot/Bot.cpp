@@ -7,6 +7,12 @@
 #include "BasicBotExampleOne.h"
 #include "BasicBotExampleTwo.h"
 #include "BasicBotExampleThree.h"
+#include "SeanBean.h"
+#include "GoldDigger.h"
+#include "DiscoveryDan.h"
+#include "NotSoSolidSnake.h"
+#include "Indie.h"
+#include "FishBot.h"
 #include <memory>
 
 std::unique_ptr<IBot> bot;
@@ -31,17 +37,37 @@ char* ConvertBoolToChar(bool valToConvert)
 // Add additional bots here
 void CreateBot(double botSelector)
 {
-	if (botSelector == 1)
+	switch ((int)botSelector)
 	{
-		bot = std::make_unique<BasicBotExampleOne>();
-	}
-	else if (botSelector = 2)
-	{
-		bot = std::make_unique<BasicBotExampleTwo>();
-	}
-	else
-	{
-		bot = std::make_unique<BasicBotExampleThree>();
+		case 1:
+			bot = std::make_unique<BasicBotExampleOne>();
+			break;
+		case 2:
+			bot = std::make_unique<BasicBotExampleTwo>();
+			break;
+		case 3:
+			bot = std::make_unique<BasicBotExampleThree>();
+			break;
+		case 4:
+			bot = std::make_unique<SeanBean>();
+			break;
+		case 5:
+			bot = std::make_unique<GoldDigger>();
+			break;
+		case 6:
+			bot = std::make_unique<DiscoveryDan>();
+			break;
+		case 7:
+			bot = std::make_unique<NotSoSolidSnake>();
+			break;
+		case 8:
+			bot = std::make_unique<Indie>();
+			break;
+		case 9:
+			bot = std::make_unique<FishBot>();
+			break;
+		default:
+			break;
 	}
 }
 
