@@ -92,6 +92,10 @@ SPELUNKBOT_API double GetHasGoal(void)
 {
 	return bot->GetHasGoal();
 }
+SPELUNKBOT_API double GetHoldingItem(void)
+{
+	return bot->GetHoldingItem();
+}
 SPELUNKBOT_API double GetIsInAir(void)
 {
 	return bot->GetHasGoal();
@@ -99,6 +103,10 @@ SPELUNKBOT_API double GetIsInAir(void)
 SPELUNKBOT_API double GetIsJetpacking(void)
 {
 	return bot->GetIsJetpacking();
+}
+SPELUNKBOT_API double GetIsHanging(void)
+{
+	return bot->GetIsHanging();
 }
 SPELUNKBOT_API double GetItemGoal(void)
 {
@@ -155,6 +163,14 @@ SPELUNKBOT_API double GetTargetY(void)
 SPELUNKBOT_API double GetAttack(void)
 {
 	return bot->GetAttack();
+}
+SPELUNKBOT_API double GetLookUp(void)
+{
+	return bot->GetLookUp();
+}
+SPELUNKBOT_API double GetDuck(void)
+{
+	return bot->GetDuck();
 }
 
 #pragma endregion

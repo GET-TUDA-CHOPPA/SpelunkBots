@@ -87,6 +87,7 @@ protected:
 	bool _hasGoal;
 	bool _spIsInAir;
 	bool _spIsJetpacking;
+	bool _isHanging;
 	bool _itemGoal;
 	bool _fogGoal;
 	bool _endGoal;
@@ -96,6 +97,9 @@ protected:
 	bool _goLeft;
 	bool _jump;
 	bool _attack;
+	bool _lookUp;
+	bool _duck;
+	bool _holdingItem;
 
 public:
 	IBot();
@@ -167,6 +171,10 @@ public:
 	{
 		return ConvertBoolToDouble(_hasGoal);
 	}
+	inline double GetHoldingItem(void)
+	{
+		return ConvertBoolToDouble(_holdingItem);
+	}
 	inline double GetIsInAir(void)
 	{
 		return ConvertBoolToDouble(_spIsInAir);
@@ -174,6 +182,10 @@ public:
 	inline double GetIsJetpacking(void)
 	{
 		return ConvertBoolToDouble(_spIsJetpacking);
+	}
+	inline double GetIsHanging(void)
+	{
+		return ConvertBoolToDouble(_isHanging);
 	}
 	inline double GetItemGoal(void)
 	{
@@ -210,6 +222,14 @@ public:
 	inline double GetAttack(void)
 	{
 		return ConvertBoolToDouble(_attack);
+	}
+	inline double GetLookUp(void)
+	{
+		return ConvertBoolToDouble(_lookUp);
+	}
+	inline double GetDuck(void)
+	{
+		return ConvertBoolToDouble(_duck);
 	}
 	inline double GetTargetX(void)
 	{

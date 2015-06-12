@@ -43,9 +43,72 @@ enum Collectable
 	spDiamond,
 	spGoldNugget,
 	spGoldChunk,
+
+	spChest,
+	spLockedChest,
+	spKey,
+	spCrate,
+	spFlareCrate,
+	spBombBag,
+	spBombBox,
+	spPaste,
+	spRopePile,
+	spParachute,
+	spCompass,
+	spSpringShoes,
+	spSpikeShoes,
+	spJordans,
+	spSpecs,
+	spUdjat,
+	spCrown,
+
+	spKapala,
+	spAnkh,
+	spGloves,
+	spMitt,
+	spJetpack,
+	spCape,
+	spRopeBag,
+
+	// TODO IMPLEMENT THESE
+	//spRope = 36;
+	spBomb = 37,
+	spFireFrogBomb,
+	spRock,
+	spDice,
+
+	spMattockHead,
+
+	// spBasketball = 42;
+
+	spShotgun = 43,
+
+	spPistol,
+	spWebCannon,
+	spTeleporter,
+
+	spBow,
+	spMachete,
+	spSceptre,
+	spMattock,
+	spJar,
+	spSkull,
+	spArrow,
+
+	spFishBone,
+	spFlare,
+	spGoldIdol,
+	spCrystalSkull,
+	spLampItem,
+
+	spDamsel = 64,
+
+	spBlock,
+	spPushBlock,
+	spDarkFall
 };
 
-enum Enemy
+enum Threats
 {
 	spGhost = 1,
 	spBat,
@@ -83,6 +146,12 @@ enum Enemy
 	spOlmecDebris,
 	spSnake,
 	spSpiderHang,
-	spMagmaMan,
-	spShopKeeper,
+	//spMagmaMan,
+	spShopKeeper = 38,
+
+	spBones = 60,
+	spSmashTrap,
+	spCeilingTrap,
+	spBoulder,
+	spSpringTrap = 99
 };

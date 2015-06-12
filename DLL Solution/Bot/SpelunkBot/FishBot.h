@@ -8,4 +8,8 @@ public:
 	~FishBot() { }
 
 	void Update() override;
+
+private:
+	int facing;
+	int numberOfCreatures;
 };

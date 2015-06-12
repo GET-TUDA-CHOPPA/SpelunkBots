@@ -24,6 +24,7 @@ void IBot::InitialiseVariables()
 	_playerPositionXNode = 0;
 	_playerPositionYNode = 0;
 	_hasGoal = false;
+	_holdingItem = false;
 	_spIsInAir = false;
 	_spIsJetpacking = false;
 	_itemGoal = false;
@@ -35,6 +36,8 @@ void IBot::InitialiseVariables()
 	_goLeft = false;
 	_jump = false;
 	_attack = false;
+	_lookUp = false;
+	_duck = false;
 }
 
 void IBot::InitialiseDLLFunctions()

@@ -65,8 +65,10 @@ SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos)
 	Add additional functions as required.
 */
 SPELUNKBOT_API double GetHasGoal(void);
+SPELUNKBOT_API double GetHoldingItem(void);
 SPELUNKBOT_API double GetIsInAir(void);
 SPELUNKBOT_API double GetIsJetpacking(void);
+SPELUNKBOT_API double GetIsHanging(void);
 SPELUNKBOT_API double GetItemGoal(void);
 SPELUNKBOT_API double GetPathCount(void);
 SPELUNKBOT_API double GetTempID(void);
@@ -81,5 +83,7 @@ SPELUNKBOT_API double GetJump(void);
 SPELUNKBOT_API double GetTargetX(void);
 SPELUNKBOT_API double GetTargetY(void);
 SPELUNKBOT_API double GetAttack(void);
+SPELUNKBOT_API double GetLookUp(void);
+SPELUNKBOT_API double GetDuck(void);
 
 #pragma endregion
