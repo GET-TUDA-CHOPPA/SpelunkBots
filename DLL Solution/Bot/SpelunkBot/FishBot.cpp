@@ -4,34 +4,34 @@
 void FishBot::Update()
 {
 	// Evaluate the surrounding blocks
-	double block = GetNodeState((_playerPositionXNode) + 1, (_playerPositionYNode), NODE_COORDS);
+	double block = GetNodeState((_playerPositionXNode) + 1, _playerPositionYNode, NODE_COORDS);
 	bool canMoveRight = (block == spEmptyNode);
 
-	block = GetNodeState((_playerPositionXNode) - 1, (_playerPositionYNode), NODE_COORDS);
+	block = GetNodeState((_playerPositionXNode) - 1, _playerPositionYNode, NODE_COORDS);
 	bool canMoveLeft = (block == spEmptyNode);
 
 	if (_headingRight)
 	{
-		facing = 1;
+		_facing = 1;
 	}
 	else
 	{
-		facing = -1;
+		_facing = -1;
 	}
 
 	bool canJump;
 	bool canFall;
 
-	canJump = (GetNodeState(_playerPositionXNode + facing, _playerPositionYNode - 1, NODE_COORDS) == spEmptyNode);
-	canFall = (GetNodeState(_playerPositionXNode + facing, _playerPositionYNode + 1, NODE_COORDS) == spEmptyNode);
+	canJump = (GetNodeState(_playerPositionXNode + _facing, _playerPositionYNode - 1, NODE_COORDS) == spEmptyNode);
+	canFall = (GetNodeState(_playerPositionXNode + _facing, _playerPositionYNode + 1, NODE_COORDS) == spEmptyNode);
 
 	// Detect creature in front
 	for (int creature = spGhost; creature <= spSpiderHang; creature += 1)
 	{
-		numberOfCreatures = NumberOfEnemyTypeInNode(creature, _playerPositionXNode + facing, _playerPositionYNode, NODE_COORDS);
+		_numberOfCreatures = NumberOfEnemyTypeInNode(creature, _playerPositionXNode + _facing, _playerPositionYNode, NODE_COORDS);
 		int creatureType = creature;
 
-		if (numberOfCreatures > 0)
+		if (_numberOfCreatures > 0)
 		{
 			break;
 		}
@@ -45,7 +45,7 @@ void FishBot::Update()
 		_jump = true;
 		_isHanging = false;
 	}
-	else if (numberOfCreatures > 0)
+	else if (_numberOfCreatures > 0)
 	{
 		_attack = true;
 	}
@@ -59,13 +59,13 @@ void FishBot::Update()
 			do
 			{
 				heightCount += 1;
-				searchingForGround = (GetNodeState(_playerPositionXNode + facing, _playerPositionYNode + heightCount, NODE_COORDS) == spEmptyNode);
+				searchingForGround = GetNodeState(_playerPositionXNode + _facing, _playerPositionYNode + heightCount, NODE_COORDS) == spEmptyNode;
 			} while (searchingForGround == false);
 
 			if (heightCount > 8)
 			{
 				_duck = true;
-				//_ropep = true;
+				_ropep = true;
 				std::cout << "place rope?" << std::endl;
 				_goRight = true;
 			}
@@ -103,13 +103,13 @@ void FishBot::Update()
 			do
 			{
 				heightCount += 1;
-				searchingForGround = (GetNodeState(_playerPositionXNode + facing, _playerPositionYNode + heightCount, NODE_COORDS) == spEmptyNode);
+				searchingForGround = (GetNodeState(_playerPositionXNode + _facing, _playerPositionYNode + heightCount, NODE_COORDS) == spEmptyNode);
 			} while (searchingForGround == false);
 
 			if (heightCount >= 8)
 			{
 				_duck = true;
-				//_ropep = true;
+				_ropep = true;
 				std::cout << "place rope?" << std::endl;
 			}
 			else if (heightCount > 4)

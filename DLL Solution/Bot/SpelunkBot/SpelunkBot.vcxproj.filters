@@ -45,17 +45,11 @@
     <ClInclude Include="Bot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BasicBotExampleTwo.h">
-      <Filter>Header Files\Bots\Examples</Filter>
-    </ClInclude>
     <ClInclude Include="BasicBotExampleOne.h">
       <Filter>Header Files\Bots\Examples</Filter>
     </ClInclude>
     <ClInclude Include="IBot.h">
       <Filter>Header Files\Bots\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicBotExampleThree.h">
-      <Filter>Header Files\Bots\Examples</Filter>
     </ClInclude>
     <ClInclude Include="SeanBean.h">
       <Filter>Header Files\Bots\Examples</Filter>
@@ -75,6 +69,9 @@
     <ClInclude Include="NotSoSolidSnake.h">
       <Filter>Header Files\Bots\Examples</Filter>
     </ClInclude>
+    <ClInclude Include="JordanBot.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -86,17 +83,11 @@
     <ClCompile Include="Bot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BasicBotExampleTwo.cpp">
-      <Filter>Source Files\Bots\Examples</Filter>
-    </ClCompile>
     <ClCompile Include="BasicBotExampleOne.cpp">
       <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
     <ClCompile Include="IBot.cpp">
       <Filter>Source Files\Bots\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicBotExampleThree.cpp">
-      <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
     <ClCompile Include="SeanBean.cpp">
       <Filter>Source Files\Bots\Examples</Filter>
@@ -114,6 +105,9 @@
       <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
     <ClCompile Include="FishBot.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="JordanBot.cpp">
       <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
   </ItemGroup>

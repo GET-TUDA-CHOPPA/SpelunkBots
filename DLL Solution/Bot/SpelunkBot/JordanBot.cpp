@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "BasicBotExampleTwo.h"
+#include "JordanBot.h"
 
-void BasicBotExampleTwo::Update()
+void JordanBot::Update()
 {
 	_canGoRight = IsNodePassable(_playerPositionXNode + 1, _playerPositionYNode, NODE_COORDS);
 	_canGoLeft = IsNodePassable(_playerPositionXNode - 1, _playerPositionYNode, NODE_COORDS);

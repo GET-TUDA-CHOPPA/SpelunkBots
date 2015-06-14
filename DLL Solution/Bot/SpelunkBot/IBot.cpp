@@ -38,6 +38,9 @@ void IBot::InitialiseVariables()
 	_attack = false;
 	_lookUp = false;
 	_duck = false;
+	_ropep = false;
+	_hanging = false;
+	_isHanging = false;
 }
 
 void IBot::InitialiseDLLFunctions()
@@ -109,8 +112,6 @@ void IBot::InitialiseDLLFunctions()
 
 void IBot::Reset()
 {
-	//_headingRight = false;
-	//_headingLeft = false;
 	_goRight = false;
 	_goLeft = false;
 	_jump = false;

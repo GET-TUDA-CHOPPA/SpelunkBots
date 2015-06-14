@@ -4,12 +4,12 @@
 class FishBot : public IBot
 {
 public:
-	FishBot() { }
+	FishBot() : _facing{ 1 }, _numberOfCreatures{ 0 } { }
 	~FishBot() { }
 
 	void Update() override;
 
 private:
-	int facing;
-	int numberOfCreatures;
+	int _facing;
+	int _numberOfCreatures;
 };

@@ -14,25 +14,6 @@
 #define SPELUNKBOT_API extern "C" __declspec(dllimport)
 #endif
 
-#pragma region Defines
-
-// Use for functions that take either pixel or node coordinates
-#define NODE_COORDS 0
-#define PIXEL_COORDS 1
-
-// Nodes in the x and y axes
-#define Y_NODES 34
-#define X_NODES 42
-
-// Number of pixels in each node
-#define PIXELS_IN_NODES 16
-
-// Variable types - useful for when calling UpdatePlayerVariables()
-#define BOOLEAN 0
-#define DOUBLE 1
-#define STRING 2
-
-#pragma endregion
 
 #pragma region Function Declarations
 
@@ -85,5 +66,7 @@ SPELUNKBOT_API double GetTargetY(void);
 SPELUNKBOT_API double GetAttack(void);
 SPELUNKBOT_API double GetLookUp(void);
 SPELUNKBOT_API double GetDuck(void);
+SPELUNKBOT_API double GetHanging(void);
+SPELUNKBOT_API double GetRopep(void);
 
 #pragma endregion

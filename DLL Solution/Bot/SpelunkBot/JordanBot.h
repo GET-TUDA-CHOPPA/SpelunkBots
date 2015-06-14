@@ -1,7 +1,7 @@
 #pragma once
 #include "IBot.h"
 
-class BasicBotExampleTwo : public IBot
+class JordanBot : public IBot
 {
 private:
 	bool					_canGoRight;
@@ -12,8 +12,8 @@ private:
 	bool					_canJumpGrabLeft;
 
 public:
-	BasicBotExampleTwo() { }
-	virtual ~BasicBotExampleTwo() { }
+	JordanBot() { }
+	virtual ~JordanBot() { }
 
 	void					Update() override;
 };

@@ -13,6 +13,19 @@
 #include <windows.h>
 #include <iostream>
 
+const int NODE_COORDS = 0;
+const int PIXEL_COORDS = 1;
+
+const int Y_NODES = 34;
+const int X_NODES = 42;
+
+const int PIXELS_IN_NODES = 16;
+
+enum VariableType
+{
+	TYPE_BOOLEAN = 0, TYPE_STRING, TYPE_DOUBLE
+};
+
 enum TerrainType
 {
 	spEmptyNode = 0,

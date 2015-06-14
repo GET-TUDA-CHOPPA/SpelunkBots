@@ -81,8 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BasicBotExampleOne.h" />
-    <ClInclude Include="BasicBotExampleThree.h" />
-    <ClInclude Include="BasicBotExampleTwo.h" />
+    <ClInclude Include="JordanBot.h" />
     <ClInclude Include="Bot.h" />
     <ClInclude Include="DiscoveryDan.h" />
     <ClInclude Include="FishBot.h" />
@@ -96,8 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicBotExampleOne.cpp" />
-    <ClCompile Include="BasicBotExampleThree.cpp" />
-    <ClCompile Include="BasicBotExampleTwo.cpp" />
+    <ClCompile Include="JordanBot.cpp" />
     <ClCompile Include="DiscoveryDan.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

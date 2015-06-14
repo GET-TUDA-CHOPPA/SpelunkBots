@@ -5,8 +5,7 @@
 #include "Bot.h"
 #include "IBot.h"
 #include "BasicBotExampleOne.h"
-#include "BasicBotExampleTwo.h"
-#include "BasicBotExampleThree.h"
+#include "JordanBot.h"
 #include "SeanBean.h"
 #include "GoldDigger.h"
 #include "DiscoveryDan.h"
@@ -43,27 +42,24 @@ void CreateBot(double botSelector)
 			bot = std::make_unique<BasicBotExampleOne>();
 			break;
 		case 2:
-			bot = std::make_unique<BasicBotExampleTwo>();
+			bot = std::make_unique<JordanBot>();
 			break;
 		case 3:
-			bot = std::make_unique<BasicBotExampleThree>();
-			break;
-		case 4:
 			bot = std::make_unique<SeanBean>();
 			break;
-		case 5:
+		case 4:
 			bot = std::make_unique<GoldDigger>();
 			break;
-		case 6:
+		case 5:
 			bot = std::make_unique<DiscoveryDan>();
 			break;
-		case 7:
+		case 6:
 			bot = std::make_unique<NotSoSolidSnake>();
 			break;
-		case 8:
+		case 7:
 			bot = std::make_unique<Indie>();
 			break;
-		case 9:
+		case 8:
 			bot = std::make_unique<FishBot>();
 			break;
 		default:
@@ -171,6 +167,14 @@ SPELUNKBOT_API double GetLookUp(void)
 SPELUNKBOT_API double GetDuck(void)
 {
 	return bot->GetDuck();
+}
+SPELUNKBOT_API double GetHanging(void)
+{
+	return bot->GetHanging();
+}
+SPELUNKBOT_API double GetRopep(void)
+{
+	return bot->GetRopep();
 }
 
 #pragma endregion

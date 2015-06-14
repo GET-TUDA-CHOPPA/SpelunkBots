@@ -100,6 +100,8 @@ protected:
 	bool _lookUp;
 	bool _duck;
 	bool _holdingItem;
+	bool _hanging;
+	bool _ropep;
 
 public:
 	IBot();
@@ -230,6 +232,14 @@ public:
 	inline double GetDuck(void)
 	{
 		return ConvertBoolToDouble(_duck);
+	}
+	inline double GetHanging(void)
+	{
+		return ConvertBoolToDouble(_hanging);
+	}
+	inline double GetRopep(void)
+	{
+		return ConvertBoolToDouble(_ropep);
 	}
 	inline double GetTargetX(void)
 	{
