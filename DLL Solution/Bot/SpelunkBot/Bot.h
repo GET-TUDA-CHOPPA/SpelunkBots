@@ -41,6 +41,11 @@ SPELUNKBOT_API double Initialise(void);
 */
 SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos);
 /*
+	NewLevel is called whenever the bot enters a new level, and can be used to reset known data about
+	the previous level without resetting all the bots' varables. 
+*/
+SPELUNKBOT_API double NewLevel(void);
+/*
 	Getter functions for variables.
 
 	Add additional functions as required.

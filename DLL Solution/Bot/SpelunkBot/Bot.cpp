@@ -198,4 +198,14 @@ SPELUNKBOT_API double Update(double botSelector, double botXPos, double botYPos)
 	return 1;
 }
 
+SPELUNKBOT_API double NewLevel(void)
+{
+	if (bot)
+	{
+		bot->NewLevel();
+	}
+
+	return 1;
+}
+
 #pragma endregion

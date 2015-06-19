@@ -264,6 +264,7 @@ public:
 
 	virtual void Update() = 0;
 	virtual void Reset();
+	virtual void NewLevel();
 
 	void UpdateBotPosition(double nodeX, double nodeY);
 
