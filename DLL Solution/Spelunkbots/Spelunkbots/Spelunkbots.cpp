@@ -11,6 +11,7 @@
 #include <map>
 #include <ostream>
 #include <string>
+#include <math.h>
 #include "SpelunkbotsConsoleOutput.h"
 
 using namespace std;

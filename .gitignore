@@ -194,3 +194,10 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Ignore swap files
+*.swp
+
+# Ignore build directories of makefile
+DLL Solution/Bot/build
+DLL Solution/Spelunkbots/build

@@ -126,3 +126,7 @@ void IBot::UpdateBotPosition(double nodeX, double nodeY)
 	_playerPositionXNode = nodeX;
 	_playerPositionYNode = nodeY;
 }
+
+void IBot::NewLevel()
+{
+}
