@@ -5,4 +5,6 @@
 // If you wish to build your application for a previous Windows platform, include WinSDKVer.h and
 // set the _WIN32_WINNT macro to the platform you wish to support before including SDKDDKVer.h.
 
+#ifndef LINUX_CROSS_COMPILE_FLAG
 #include <SDKDDKVer.h>
+#endif

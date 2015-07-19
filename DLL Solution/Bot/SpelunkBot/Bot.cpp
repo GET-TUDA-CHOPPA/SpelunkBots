@@ -12,6 +12,7 @@
 #include "NotSoSolidSnake.h"
 #include "Indie.h"
 #include "FishBot.h"
+#include "MoveRightBot.h"
 #include <memory>
 
 std::unique_ptr<IBot> bot;
@@ -61,6 +62,9 @@ void CreateBot(double botSelector)
 			break;
 		case 8:
 			bot = std::make_unique<FishBot>();
+			break;
+		case 9:
+			bot = std::make_unique<MoveRightBot>();
 			break;
 		default:
 			break;

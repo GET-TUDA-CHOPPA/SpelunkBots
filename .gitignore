@@ -194,3 +194,29 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Ignore swap files
+*.swp
+
+# Ignore build directories of makefile and output of Linux build
+DLL Solution/Bot/build
+DLL Solution/Bot/Bot.dll
+DLL Solution/Bot/Bot.lib
+DLL Solution/Spelunkbots/build
+DLL Solution/Spelunkbots/Spelunkbots.dll
+DLL Solution/Spelunkbots/Spelunkbots.lib
+
+# This stuff all appears to be built from other sources in the project
+# It really ought to be git ignored
+Source/spelunky_1_1/Bot.dll
+Source/spelunky_1_1/Bot.exp
+Source/spelunky_1_1/Bot.lib
+Source/spelunky_1_1/Bot.pdb
+Source/spelunky_1_1/distance.txt
+Source/spelunky_1_1/level_layout.txt
+Source/spelunky_1_1/level_webs.txt
+Source/spelunky_1_1/spelunkbots.exe
+Source/spelunky_1_1/spelunkbots.gb1
+Source/spelunky_1_1/Spelunky.exe
+Source/spelunky_1_1/Spelunky.gb1
+Source/spelunky_1_1/stats.txt

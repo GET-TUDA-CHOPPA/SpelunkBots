@@ -11,6 +11,11 @@
 #include <map>
 #include <ostream>
 #include <string>
+
+#ifdef LINUX_CROSS_COMPILE_FLAG
+#include <math.h>
+#endif
+
 #include "SpelunkbotsConsoleOutput.h"
 
 using namespace std;
