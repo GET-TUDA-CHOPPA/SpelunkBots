@@ -201,3 +201,18 @@ FakesAssemblies/
 # Ignore build directories of makefile
 DLL Solution/Bot/build
 DLL Solution/Spelunkbots/build
+
+# This stuff all appears to be built from other sources in the project
+# It really ought to be git ignored
+Source/spelunky_1_1/Bot.dll
+Source/spelunky_1_1/Bot.exp
+Source/spelunky_1_1/Bot.lib
+Source/spelunky_1_1/Bot.pdb
+Source/spelunky_1_1/distance.txt
+Source/spelunky_1_1/level_layout.txt
+Source/spelunky_1_1/level_webs.txt
+Source/spelunky_1_1/spelunkbots.exe
+Source/spelunky_1_1/spelunkbots.gb1
+Source/spelunky_1_1/Spelunky.exe
+Source/spelunky_1_1/Spelunky.gb1
+Source/spelunky_1_1/stats.txt

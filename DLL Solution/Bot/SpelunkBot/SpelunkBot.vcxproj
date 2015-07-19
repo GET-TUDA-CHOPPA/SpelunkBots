@@ -88,6 +88,7 @@
     <ClInclude Include="GoldDigger.h" />
     <ClInclude Include="IBot.h" />
     <ClInclude Include="Indie.h" />
+    <ClInclude Include="MoveRightBot.h" />
     <ClInclude Include="NotSoSolidSnake.h" />
     <ClInclude Include="SeanBean.h" />
     <ClInclude Include="stdafx.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="GoldDigger.cpp" />
     <ClCompile Include="IBot.cpp" />
     <ClCompile Include="Indie.cpp" />
+    <ClCompile Include="MoveRightBot.cpp" />
     <ClCompile Include="NotSoSolidSnake.cpp" />
     <ClCompile Include="SeanBean.cpp" />
     <ClCompile Include="stdafx.cpp">

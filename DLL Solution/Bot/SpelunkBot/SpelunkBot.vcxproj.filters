@@ -72,6 +72,9 @@
     <ClInclude Include="JordanBot.h">
       <Filter>Header Files\Bots\Examples</Filter>
     </ClInclude>
+    <ClInclude Include="MoveRightBot.h">
+      <Filter>Header Files\Bots\Examples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -108,6 +111,9 @@
       <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
     <ClCompile Include="JordanBot.cpp">
+      <Filter>Source Files\Bots\Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveRightBot.cpp">
       <Filter>Source Files\Bots\Examples</Filter>
     </ClCompile>
   </ItemGroup>
