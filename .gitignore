@@ -198,9 +198,13 @@ FakesAssemblies/
 # Ignore swap files
 *.swp
 
-# Ignore build directories of makefile
+# Ignore build directories of makefile and output of Linux build
 DLL Solution/Bot/build
+DLL Solution/Bot/Bot.dll
+DLL Solution/Bot/Bot.lib
 DLL Solution/Spelunkbots/build
+DLL Solution/Spelunkbots/Spelunkbots.dll
+DLL Solution/Spelunkbots/Spelunkbots.lib
 
 # This stuff all appears to be built from other sources in the project
 # It really ought to be git ignored
