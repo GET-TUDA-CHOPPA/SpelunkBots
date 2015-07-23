@@ -113,6 +113,13 @@ bool coolGlasses;
 // Game State
 bool shopkeepersAngered;
 
+//Level Control
+vector<char*> _levels;
+int _tests = 0;
+int _maxTests = 0;
+string _testType = "";
+int _testSeconds = 0;
+
 #pragma endregion
 
 #pragma region Convert Methods
@@ -1618,5 +1625,34 @@ GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 
 	return 0;
 }
+#pragma endregion
 
+#pragma region Level Control
+GMEXPORT double SetLevelData(char* level)
+{
+	_levels.push_back(level);
+	cout << "Level Added: " << _levels.at(_levels.size() - 1) << endl;
+	return 1;
+}
+
+GMEXPORT double SetMaxTests(double testNumber)
+{
+	_maxTests = testNumber;
+	cout << "Max Tests: " << _maxTests << endl;
+	return 1;
+}
+
+GMEXPORT double SetTestType(char* type)
+{
+	_testType = type;
+	cout << "Test Type: " << _testType << endl;
+	return 1;
+}
+
+GMEXPORT double SetTestTime(double time)
+{
+	_testSeconds = time;
+	cout << "Test Time in Seconds: " << _testSeconds << endl;
+	return 1;
+}
 #pragma endregion
