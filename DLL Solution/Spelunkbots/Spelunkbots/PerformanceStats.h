@@ -15,12 +15,14 @@ public:
 	void Assigner(double val, char* stat);
 	void CalculatePerformance();
 	void Clear();
+	void PerformanceStats::TestMaps();
+	void PerformanceStats::Marathon();
 
 private:
-	vector<int> _gold;
-	vector<int> _successfulAttempts;
+	vector<int> _scores;
 	vector<int> _healthLeft;
 	vector<int> _completionTimes;
+	int _successfulAttempts;
 	string _testType;
 	string _ranking;
 };

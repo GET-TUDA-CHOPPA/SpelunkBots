@@ -189,9 +189,7 @@ GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 */
 GMEXPORT double SampleFunction(double a, double b) 
 {
-	cout << "Here: " << a << endl;
-	//return a * b;
-	return 1;
+	return a * b;
 }
 
 /*
@@ -1673,6 +1671,8 @@ GMEXPORT double SetTestTime(double time)
 
 GMEXPORT char* CheckNextLevel()
 {
+	startTime = NULL;
+
 	_tests++;
 	if (_tests >= _maxTests)
 	{
@@ -1695,7 +1695,6 @@ GMEXPORT double TimePassed()
 	_secondsLeft = difftime(startTime + _testSeconds, time(0));
 	if (_secondsLeft <= 0)
 	{
-		startTime = NULL;
 		return 1;
 	}
 	return 0;
@@ -1705,7 +1704,18 @@ GMEXPORT double TimePassed()
 #pragma region Perfomance Stats
 GMEXPORT double RecordStats(double val, char* stat)
 {
-	pStats.Assigner(val, stat);
+	if (strcmp(stat, "ATTEMPT") == 0)
+	{
+		pStats.Assigner(val, stat);
+		val = _testSeconds - _secondsLeft;
+		stat = "TIME";
+		pStats.Assigner(val, stat);
+	}
+	else
+	{
+		pStats.Assigner(val, stat);
+	}
+	
 	return 1;
 }
 #pragma endregion
