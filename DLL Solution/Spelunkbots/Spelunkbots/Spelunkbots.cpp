@@ -2,6 +2,7 @@
 // Spelunkbots Source code written by Daniel Scales t:@DanielCake
 
 #include "stdafx.h"
+#include "PerformanceStats.h"
 #include <windows.h>
 #include <iostream>
 #include <fstream>
@@ -11,6 +12,7 @@
 #include <map>
 #include <ostream>
 #include <string>
+#include <time.h>
 #include "SpelunkbotsConsoleOutput.h"
 
 using namespace std;
@@ -114,11 +116,16 @@ bool coolGlasses;
 bool shopkeepersAngered;
 
 //Level Control
-vector<char*> _levels;
+vector<char*> _levels = { "" };
+int _levelNum = 0;
 int _tests = 0;
 int _maxTests = 0;
-string _testType = "";
-int _testSeconds = 0;
+int _testSeconds = 0; // seconds to complete level. //do not edit
+int _secondsLeft = 0; // seconds left to complete level. //do not edit
+time_t startTime = NULL; //do not edit
+
+//Performance Stats
+PerformanceStats pStats;
 
 #pragma endregion
 
@@ -182,7 +189,9 @@ GMEXPORT double SetScreenXYWH(double x, double y, double w, double h)
 */
 GMEXPORT double SampleFunction(double a, double b) 
 {
-	return a * b;
+	cout << "Here: " << a << endl;
+	//return a * b;
+	return 1;
 }
 
 /*
@@ -1628,10 +1637,16 @@ GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 #pragma endregion
 
 #pragma region Level Control
+GMEXPORT double Output(char* output)
+{
+	cout << output << endl;
+	return 1;
+}
+
 GMEXPORT double SetLevelData(char* level)
 {
-	_levels.push_back(level);
-	cout << "Level Added: " << _levels.at(_levels.size() - 1) << endl;
+	_levels.insert(_levels.end()- 1, level);
+	cout << "Level Added: " << _levels.at(_levels.size()-2) << endl;
 	return 1;
 }
 
@@ -1642,10 +1657,10 @@ GMEXPORT double SetMaxTests(double testNumber)
 	return 1;
 }
 
-GMEXPORT double SetTestType(char* type)
+GMEXPORT double SetTestType(char* type, char* rankingSystem)
 {
-	_testType = type;
-	cout << "Test Type: " << _testType << endl;
+	pStats.SetTestType(type);
+	pStats.SetRanking(rankingSystem);
 	return 1;
 }
 
@@ -1653,6 +1668,44 @@ GMEXPORT double SetTestTime(double time)
 {
 	_testSeconds = time;
 	cout << "Test Time in Seconds: " << _testSeconds << endl;
+	return 1;
+}
+
+GMEXPORT char* CheckNextLevel()
+{
+	_tests++;
+	if (_tests >= _maxTests)
+	{
+		pStats.CalculatePerformance();
+		pStats.Clear();
+		_tests = 0;
+		_levelNum++;
+		return _levels.at(_levelNum);
+	}
+	return _levels.at(_levelNum);
+}
+
+GMEXPORT double TimePassed()
+{
+	if (startTime == NULL)
+	{
+		startTime = time(0);
+	}
+
+	_secondsLeft = difftime(startTime + _testSeconds, time(0));
+	if (_secondsLeft <= 0)
+	{
+		startTime = NULL;
+		return 1;
+	}
+	return 0;
+}
+#pragma endregion
+
+#pragma region Perfomance Stats
+GMEXPORT double RecordStats(double val, char* stat)
+{
+	pStats.Assigner(val, stat);
 	return 1;
 }
 #pragma endregion
