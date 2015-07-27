@@ -39,22 +39,18 @@ void PerformanceStats::Assigner(double val, char* stat)
 	if (strcmp(stat, "SCORE")==0)
 	{
 		_scores.push_back(val);
-		cout << "Score: " << val << endl;
 	}
 	else if (strcmp(stat, "ATTEMPT") == 0)
 	{
 		_successfulAttempts++;
-		cout << "Successful Attemps: " << val << endl;
 	}
 	else if (strcmp(stat, "HEALTH") == 0)
 	{
 		_healthLeft.push_back(val);
-		cout << "Health: " << val << endl;
 	}
 	else if (strcmp(stat, "TIME") == 0)
 	{
 		_completionTimes.push_back(val);
-		cout << "Time: " << val << endl;
 	}
 }
 
@@ -85,17 +81,20 @@ void PerformanceStats::Clear()
 
 void PerformanceStats::TestMaps()
 {
-	if (_ranking.compare("SCORE")==0)
+	// The reason for not putting avgScore and avgTime behind the if statements that check the ranking below (even though they may not be used depending on the ranking) 
+	// is beacuse the performance impact of doing some simple calculations is less than setting up two new loop structures that will loop through data that was already looped through previously.
+	if (_ranking.compare("SCORE") == 0 || _ranking.compare("TIME") == 0)
 	{
 		int bestScore = 0;
 		int avgScore = 0;
 		int avgHealth = 0;
-		int bestTime = -1;
+		int avgTime = 0;
+		int bestTime = 0;
 		if (!_completionTimes.empty())
 		{
 			bestTime = _completionTimes.at(0);
 		}
-		
+
 
 		for (int i = 0; i < _scores.size(); i++)
 		{
@@ -113,28 +112,40 @@ void PerformanceStats::TestMaps()
 
 		for (int k = 0; k < _completionTimes.size(); k++)
 		{
+			avgTime += _completionTimes.at(k);
 			if (_completionTimes.at(k) < bestTime)
 			{
 				bestTime = _completionTimes.at(k);
 			}
 		}
 
+		if (!_completionTimes.empty())
+		{
+			avgTime = avgTime / _completionTimes.size();
+		}
+
 		//Put in file saving code later.
-		cout << endl << "Best Score: " << "\t\t\t" << bestScore << endl;
-		cout << "Average Score: " << "\t\t\t" << avgScore << endl;
-		cout << "Successful Attempts: " << "\t\t" << _successfulAttempts << endl;
-		cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
-		cout << "Best Time: " << "\t\t\t" << bestTime << endl;
-
-	}
-	else if (_ranking.compare("TIME")==0)
-	{
-
+		if (_ranking.compare("SCORE") == 0)
+		{
+			cout << endl << "Best Score: " << "\t\t\t" << bestScore << endl;
+			cout << "Average Score: " << "\t\t\t" << avgScore << endl;
+			cout << "Successful Attempts: " << "\t\t" << _successfulAttempts << endl;
+			cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
+			cout << "Best Time: " << "\t\t\t" << bestTime << endl;
+		}
+		else if (_ranking.compare("TIME") == 0)
+		{
+			cout << endl << "Best Time: " << "\t\t\t" << bestTime << endl;
+			cout << "Successful Attempts: " << "\t\t" << _successfulAttempts << endl;
+			cout << "Average Time: " << "\t\t\t" << avgTime << endl;
+			cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
+			cout << "Best Score: " << "\t\t\t" << bestScore << endl;
+		}
 	}
 	else
 	{
 		cout << "Ranking not recognised. Performance Statistics will not be generated." << endl;
-	}
+	}	
 }
 
 void PerformanceStats::Marathon()
