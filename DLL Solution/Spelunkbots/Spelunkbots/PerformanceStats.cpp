@@ -147,7 +147,6 @@ void PerformanceStats::Marathon()
 		int health = 0;
 		int time = 0;
 		bool bestFound = false;
-		bool betterFound = false;
 
 		// Find a initial "best" score.
 		for (int i = 0; i < _scores.size(); i++)
@@ -175,36 +174,31 @@ void PerformanceStats::Marathon()
 		location = -1;
 		while (!bestFound)
 		{
-			bestFound = true;
-
 			for (int k = 0; k < _scores.size(); k++)
 			{
 				if (_scores.at(k) == bestScore)
 				{
-					bestFound = false;
 					if (_attempts.at(k) > completed)
 					{
 						location = k;
+						break;
 					}
 					else if (_healthLeft.at(k) > health)
 					{
 						location = k;
+						break;
 					}
 					else if (_times.at(k) < time)
 					{
 						location = k;
-					}
-
-					if (location != -1)
-					{
-						betterFound = true;
-						location = -1;
+						break;
 					}
 				}
 			}
 
-			if (betterFound == true)
+			if (location != -1)
 			{
+				location = -1;
 				// Get accompanying data.
 				completed = _attempts.at(location);
 				health = _healthLeft.at(location);
