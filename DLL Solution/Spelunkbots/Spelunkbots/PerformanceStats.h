@@ -21,8 +21,8 @@ public:
 private:
 	vector<int> _scores;
 	vector<int> _healthLeft;
-	vector<int> _completionTimes;
-	int _successfulAttempts;
+	vector<int> _times;
+	vector<int> _attempts;
 	string _testType;
 	string _ranking;
 };

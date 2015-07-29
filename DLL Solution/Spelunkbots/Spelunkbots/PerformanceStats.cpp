@@ -6,16 +6,15 @@ PerformanceStats::PerformanceStats()
 {
 	string testType = "";
 	string ranking = "";
-	_successfulAttempts = 0;
 }
 
 
 PerformanceStats::~PerformanceStats()
 {
 	_scores.clear();
-	_successfulAttempts = 0;
+	_attempts.clear();
 	_healthLeft.clear();
-	_completionTimes.clear();
+	_times.clear();
 }
 
 void PerformanceStats::SetTestType(char* testType)
@@ -42,7 +41,7 @@ void PerformanceStats::Assigner(double val, char* stat)
 	}
 	else if (strcmp(stat, "ATTEMPT") == 0)
 	{
-		_successfulAttempts++;
+		_attempts.push_back(val);
 	}
 	else if (strcmp(stat, "HEALTH") == 0)
 	{
@@ -50,7 +49,7 @@ void PerformanceStats::Assigner(double val, char* stat)
 	}
 	else if (strcmp(stat, "TIME") == 0)
 	{
-		_completionTimes.push_back(val);
+		_times.push_back(val);
 	}
 }
 
@@ -74,9 +73,9 @@ void PerformanceStats::CalculatePerformance()
 void PerformanceStats::Clear()
 {
 	_scores.clear();
-	_successfulAttempts = 0;
+	_attempts.clear();
 	_healthLeft.clear();
-	_completionTimes.clear();
+	_times.clear();
 }
 
 void PerformanceStats::TestMaps()
@@ -89,54 +88,44 @@ void PerformanceStats::TestMaps()
 		int avgScore = 0;
 		int avgHealth = 0;
 		int avgTime = 0;
-		int bestTime = 0;
-		if (!_completionTimes.empty())
-		{
-			bestTime = _completionTimes.at(0);
-		}
+		int bestTime = _times.at(0);
+		int successes = 0;
 
 
 		for (int i = 0; i < _scores.size(); i++)
 		{
 			avgScore += _scores.at(i);
 			avgHealth += _healthLeft.at(i);
+			successes += _attempts.at(i);
+			avgTime += _times.at(i);
 
 			if (_scores.at(i) > bestScore)
 			{
 				bestScore = _scores.at(i);
 			}
+			if (_times.at(i) < bestTime)
+			{
+				bestTime = _times.at(i);
+			}
 		}
 
 		avgScore = avgScore / _scores.size();
 		avgHealth = avgHealth / _healthLeft.size();
-
-		for (int k = 0; k < _completionTimes.size(); k++)
-		{
-			avgTime += _completionTimes.at(k);
-			if (_completionTimes.at(k) < bestTime)
-			{
-				bestTime = _completionTimes.at(k);
-			}
-		}
-
-		if (!_completionTimes.empty())
-		{
-			avgTime = avgTime / _completionTimes.size();
-		}
+		avgTime = avgTime / _times.size();
 
 		//Put in file saving code later.
 		if (_ranking.compare("SCORE") == 0)
 		{
 			cout << endl << "Best Score: " << "\t\t\t" << bestScore << endl;
 			cout << "Average Score: " << "\t\t\t" << avgScore << endl;
-			cout << "Successful Attempts: " << "\t\t" << _successfulAttempts << endl;
+			cout << "Successful Attempts: " << "\t\t" << successes << endl;
 			cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
 			cout << "Best Time: " << "\t\t\t" << bestTime << endl;
 		}
 		else if (_ranking.compare("TIME") == 0)
 		{
 			cout << endl << "Best Time: " << "\t\t\t" << bestTime << endl;
-			cout << "Successful Attempts: " << "\t\t" << _successfulAttempts << endl;
+			cout << "Successful Attempts: " << "\t\t" << successes << endl;
 			cout << "Average Time: " << "\t\t\t" << avgTime << endl;
 			cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
 			cout << "Best Score: " << "\t\t\t" << bestScore << endl;
@@ -150,5 +139,105 @@ void PerformanceStats::TestMaps()
 
 void PerformanceStats::Marathon()
 {
+	if (_ranking.compare("SCORE") == 0 || _ranking.compare("TIME") == 0)
+	{
+		int bestScore = 0;
+		int location = 0;
+		int completed = 0;
+		int health = 0;
+		int time = 0;
+		bool bestFound = false;
+		bool betterFound = false;
 
+		// Find a initial "best" score.
+		for (int i = 0; i < _scores.size(); i++)
+		{
+			if (_scores.at(i) > bestScore)
+			{
+				bestScore = _scores.at(i);
+				location = i;
+			}
+		}
+
+		// Get accompanying data.
+		completed = _attempts.at(location);
+		health = _healthLeft.at(location);
+		time = _times.at(location);
+		bestScore = _scores.at(location);
+
+		// Delete entry from vectors.
+		_scores.erase(_scores.begin() + location);
+		_healthLeft.erase(_healthLeft.begin() + location);
+		_times.erase(_times.begin() + location);
+		_attempts.erase(_attempts.begin() + location);
+
+		// Check to see if the best score is repeated
+		location = -1;
+		while (!bestFound)
+		{
+			bestFound = true;
+
+			for (int k = 0; k < _scores.size(); k++)
+			{
+				if (_scores.at(k) == bestScore)
+				{
+					bestFound = false;
+					if (_attempts.at(k) > completed)
+					{
+						location = k;
+					}
+					else if (_healthLeft.at(k) > health)
+					{
+						location = k;
+					}
+					else if (_times.at(k) < time)
+					{
+						location = k;
+					}
+
+					if (location != -1)
+					{
+						betterFound = true;
+						location = -1;
+					}
+				}
+			}
+
+			if (betterFound == true)
+			{
+				// Get accompanying data.
+				completed = _attempts.at(location);
+				health = _healthLeft.at(location);
+				time = _times.at(location);
+				bestScore = _scores.at(location);
+
+				// Delete entry from vectors.
+				_scores.erase(_scores.begin() + location);
+				_healthLeft.erase(_healthLeft.begin() + location);
+				_times.erase(_times.begin() + location);
+				_attempts.erase(_attempts.begin() + location);
+			}
+			else
+			{
+				bestFound = true;
+			}
+		}
+
+		cout << endl << "Best Score: " << "\t" << bestScore << endl;
+		if (completed == 0)
+		{
+			cout << "Completed?: " << "\t" << "NO" << endl;
+		}
+		else
+		{
+			cout << "Completed?: " << "\t" << "YES"<< endl;
+		}
+		cout << "Health: " << "\t" << health << endl;
+		cout << "Time Taken: " << "\t" << time << endl;
+
+	}
+	else
+	{
+		cout << "Ranking not recognised. Performance Statistics will not be generated." << endl;
+	}
 }

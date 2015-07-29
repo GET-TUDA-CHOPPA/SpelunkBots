@@ -1703,19 +1703,23 @@ GMEXPORT double TimePassed()
 
 #pragma region Perfomance Stats
 GMEXPORT double RecordStats(double val, char* stat)
-{
-	if (strcmp(stat, "ATTEMPT") == 0)
+{	
+	if (strcmp(stat, "TIME") == 0)
 	{
-		pStats.Assigner(val, stat);
-		val = _testSeconds - _secondsLeft;
-		stat = "TIME";
+		if (val == 0)
+		{
+			val = _testSeconds -_secondsLeft;
+		}
+		else
+		{
+			val = _testSeconds;
+		}
 		pStats.Assigner(val, stat);
 	}
 	else
 	{
 		pStats.Assigner(val, stat);
 	}
-	
 	return 1;
 }
 #pragma endregion
