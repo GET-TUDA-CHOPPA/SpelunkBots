@@ -1669,20 +1669,39 @@ GMEXPORT double SetTestTime(double time)
 	return 1;
 }
 
-GMEXPORT char* CheckNextLevel()
+GMEXPORT double ResetClock()
 {
 	startTime = NULL;
+	return 1;
+}
 
+GMEXPORT char* CheckNextLevel()
+{
 	_tests++;
-	if (_tests >= _maxTests)
+	string testType = pStats.GetTestType();
+	if (testType.compare("TESTMAPS") == 0)
+	{
+		
+		if (_tests >= _maxTests)
+		{
+			pStats.CalculatePerformance();
+			pStats.Clear();
+			_tests = 0;
+			_levelNum++;
+			return _levels.at(_levelNum);
+		}
+	}
+	else if (testType.compare("MARATHON") == 0)
 	{
 		pStats.CalculatePerformance();
 		pStats.Clear();
-		_tests = 0;
-		_levelNum++;
-		return _levels.at(_levelNum);
+		if (_tests >= _maxTests)
+		{			
+			_tests = 0;
+			return "EXIT";
+		}
+		return "NEXT SEED"; // placeholder untill figure out what to send back.
 	}
-	return _levels.at(_levelNum);
 }
 
 GMEXPORT double TimePassed()
@@ -1705,15 +1724,8 @@ GMEXPORT double TimePassed()
 GMEXPORT double RecordStats(double val, char* stat)
 {	
 	if (strcmp(stat, "TIME") == 0)
-	{
-		if (val == 0)
-		{
-			val = _testSeconds -_secondsLeft;
-		}
-		else
-		{
-			val = _testSeconds;
-		}
+	{		
+		val = _testSeconds -_secondsLeft;
 		pStats.Assigner(val, stat);
 	}
 	else

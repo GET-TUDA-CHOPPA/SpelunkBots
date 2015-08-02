@@ -6,6 +6,12 @@ PerformanceStats::PerformanceStats()
 {
 	string testType = "";
 	string ranking = "";
+	_entranceX = 0;
+	_entranceY = 0;
+	_exitX = 0;
+	_exitY = 0;
+	_botX = 0;
+	_botY = 0;
 }
 
 
@@ -15,6 +21,14 @@ PerformanceStats::~PerformanceStats()
 	_attempts.clear();
 	_healthLeft.clear();
 	_times.clear();
+	_testType = "";
+	_ranking = "";
+	_entranceX = 0;
+	_entranceY = 0;
+	_exitX = 0;
+	_exitY = 0;
+	_botX = 0;
+	_botY = 0;
 }
 
 void PerformanceStats::SetTestType(char* testType)
@@ -33,6 +47,13 @@ void PerformanceStats::SetRanking(char* ranking)
 	cout << "Ranking: " << _ranking << endl;
 }
 
+
+string PerformanceStats::GetTestType()
+{
+	return _testType;
+}
+
+
 void PerformanceStats::Assigner(double val, char* stat)
 {
 	if (strcmp(stat, "SCORE")==0)
@@ -50,6 +71,30 @@ void PerformanceStats::Assigner(double val, char* stat)
 	else if (strcmp(stat, "TIME") == 0)
 	{
 		_times.push_back(val);
+	}
+	else if (strcmp(stat, "EXITX") == 0)
+	{
+		_exitX = val;
+	}
+	else if (strcmp(stat, "EXITY") == 0)
+	{
+		_exitY = val;
+	}
+	else if (strcmp(stat, "ENTRANCEX") == 0)
+	{
+		_entranceX = val;
+	}
+	else if (strcmp(stat, "ENTRANCEY") == 0)
+	{
+		_entranceY = val;
+	}
+	else if (strcmp(stat, "BOTX") == 0)
+	{
+		_botX = val;
+	}
+	else if (strcmp(stat, "BOTY") == 0)
+	{
+		_botY = val;
 	}
 }
 
@@ -76,6 +121,12 @@ void PerformanceStats::Clear()
 	_attempts.clear();
 	_healthLeft.clear();
 	_times.clear();
+	_entranceX = 0;
+	_entranceY = 0;
+	_exitX = 0;
+	_exitY = 0;
+	_botX = 0;
+	_botY = 0;
 }
 
 void PerformanceStats::TestMaps()
@@ -141,97 +192,99 @@ void PerformanceStats::Marathon()
 {
 	if (_ranking.compare("SCORE") == 0 || _ranking.compare("TIME") == 0)
 	{
-		int bestScore = 0;
-		int location = 0;
-		int completed = 0;
-		int health = 0;
-		int time = 0;
-		bool bestFound = false;
-
-		// Find a initial "best" score.
-		for (int i = 0; i < _scores.size(); i++)
+		int timeTaken = 0;
+		for (int i = 0; i < _times.size(); i++)
 		{
-			if (_scores.at(i) > bestScore)
-			{
-				bestScore = _scores.at(i);
-				location = i;
-			}
+			timeTaken += _times.at(i);
 		}
 
-		// Get accompanying data.
-		completed = _attempts.at(location);
-		health = _healthLeft.at(location);
-		time = _times.at(location);
-		bestScore = _scores.at(location);
-
-		// Delete entry from vectors.
-		_scores.erase(_scores.begin() + location);
-		_healthLeft.erase(_healthLeft.begin() + location);
-		_times.erase(_times.begin() + location);
-		_attempts.erase(_attempts.begin() + location);
-
-		// Check to see if the best score is repeated
-		location = -1;
-		while (!bestFound)
+		//Put data in files
+		if (_ranking.compare("SCORE") == 0)
 		{
-			for (int k = 0; k < _scores.size(); k++)
+			
+			cout << endl << "Score: " << "\t" << _scores.at(0) << endl;
+			if (_attempts.at(0) != 16)
 			{
-				if (_scores.at(k) == bestScore)
-				{
-					if (_attempts.at(k) > completed)
-					{
-						location = k;
-						break;
-					}
-					else if (_healthLeft.at(k) > health)
-					{
-						location = k;
-						break;
-					}
-					else if (_times.at(k) < time)
-					{
-						location = k;
-						break;
-					}
-				}
-			}
-
-			if (location != -1)
-			{
-				location = -1;
-				// Get accompanying data.
-				completed = _attempts.at(location);
-				health = _healthLeft.at(location);
-				time = _times.at(location);
-				bestScore = _scores.at(location);
-
-				// Delete entry from vectors.
-				_scores.erase(_scores.begin() + location);
-				_healthLeft.erase(_healthLeft.begin() + location);
-				_times.erase(_times.begin() + location);
-				_attempts.erase(_attempts.begin() + location);
+				cout << "Completed?: " << "\t" << "NO" << endl;
+				cout << "Time Taken: " << "\t" << timeTaken << endl;
 			}
 			else
 			{
-				bestFound = true;
+				cout << "Completed?: " << "\t" << "YES" << endl;
+				cout << "Time Taken: " << "\t" << timeTaken << endl;
+				cout << "Health: " << "\t" << _healthLeft.at(0) << endl;
 			}
 		}
-
-		cout << endl << "Best Score: " << "\t" << bestScore << endl;
-		if (completed == 0)
+		else if (_ranking.compare("TIME") == 0)
 		{
-			cout << "Completed?: " << "\t" << "NO" << endl;
+			cout << endl;
+			if (_attempts.at(0) != 16)
+			{
+				cout << "Completed?: " << "\t\t\t\t" << "NO" << endl;
+				for (int i = 0; i < _times.size() -1; i++)
+				{
+					cout << "Time Taken to complete Level " << i + 1 << ": " << "\t" << _times.at(i) << endl;
+				}
+				cout << "Time Taken until death on Level " << _times.size() << ": " << "\t" << _times.at(_times.size() - 1) << endl;
+				cout << "Time Taken Overall: " << "\t\t\t" << timeTaken << endl;
+				cout << "Distance travelled to exit: " << "\t\t" << CalcDistanceTraveled() << "%" << endl;
+				cout << "Score: " << "\t\t\t\t\t" << _scores.at(0) << endl;
+			}
+			else
+			{
+				cout << "Completed?: " << "\t\t\t" << "YES" << endl;
+				for (int i = 0; i < _times.size(); i++)
+				{
+					cout << "Time Taken to complete Level " << i + 1 << ": " << "\t" << _times.at(i) << endl;
+				}
+				cout << "Time Taken Overall: " << "\t\t\t" << timeTaken << endl;
+			}			
 		}
-		else
-		{
-			cout << "Completed?: " << "\t" << "YES"<< endl;
-		}
-		cout << "Health: " << "\t" << health << endl;
-		cout << "Time Taken: " << "\t" << time << endl;
-
 	}
 	else
 	{
 		cout << "Ranking not recognised. Performance Statistics will not be generated." << endl;
 	}
+}
+
+int PerformanceStats::CalcDistanceTraveled()
+{
+	double startDistanceX = 0;
+	double startDistanceY = 0;
+	double botDistanceX = 0;
+	double botDistanceY = 0;
+	double distanceTraveled = 0;
+
+	startDistanceX = _exitX - _entranceX;
+	startDistanceX = startDistanceX * startDistanceX;
+	startDistanceX = abs(startDistanceX);
+
+	startDistanceY = _exitY - _entranceY;
+	startDistanceY = startDistanceY * startDistanceY;
+	startDistanceY = abs(startDistanceY);
+
+	double result1 = sqrt(startDistanceX + startDistanceY);
+
+	botDistanceX = _exitX - _botX;
+	botDistanceX = botDistanceX * botDistanceX;
+	botDistanceX = abs(botDistanceX);
+
+	botDistanceY = _exitY - _botY;
+	botDistanceY = botDistanceY * botDistanceY;
+	botDistanceY = abs(botDistanceY);
+
+	double result2 = sqrt(botDistanceX + botDistanceY);
+
+	result2 = result1 - result2;
+
+	if (result2 < 0)
+	{
+		distanceTraveled = 0;
+	}
+	else
+	{
+		distanceTraveled = (result2 / result1) * 100;
+	}
+
+	return distanceTraveled;
 }
