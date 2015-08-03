@@ -1680,16 +1680,15 @@ GMEXPORT char* CheckNextLevel()
 	_tests++;
 	string testType = pStats.GetTestType();
 	if (testType.compare("TESTMAPS") == 0)
-	{
-		
+	{		
 		if (_tests >= _maxTests)
 		{
 			pStats.CalculatePerformance();
 			pStats.Clear();
 			_tests = 0;
 			_levelNum++;
-			return _levels.at(_levelNum);
 		}
+		return _levels.at(_levelNum);
 	}
 	else if (testType.compare("MARATHON") == 0)
 	{
@@ -1698,10 +1697,11 @@ GMEXPORT char* CheckNextLevel()
 		if (_tests >= _maxTests)
 		{			
 			_tests = 0;
-			return "EXIT";
+			return "";
 		}
 		return "NEXT SEED"; // placeholder untill figure out what to send back.
 	}
+	return "";
 }
 
 GMEXPORT double TimePassed()
@@ -1732,6 +1732,12 @@ GMEXPORT double RecordStats(double val, char* stat)
 	{
 		pStats.Assigner(val, stat);
 	}
+	return 1;
+}
+
+GMEXPORT double SetBotID(char* ID)
+{
+	pStats.SetBotID(ID);
 	return 1;
 }
 #pragma endregion

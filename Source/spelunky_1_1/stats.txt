@@ -75,7 +75,7 @@ MISC         DEATHS
  ???        | 0
  CRUSHED    | 20
  LONG FALL  | 34
- SPIKES     | 30
+ SPIKES     | 31
  ???        | 0
  ARROW TRAP | 18
  SPEAR TRAP | 2
@@ -86,7 +86,7 @@ MISC         DEATHS
 
 ENEMY        KILLS
 ------------+------------
- BAT        | 84
+ BAT        | 85
  SNAKE      | 196
  SPIDER     | 58
  G. SPIDER  | 2
@@ -110,4 +110,4 @@ ENEMY        KILLS
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 419
+ TOTAL      | 420

@@ -12,6 +12,9 @@ PerformanceStats::PerformanceStats()
 	_exitY = 0;
 	_botX = 0;
 	_botY = 0;
+	_botID = "";
+	_unrecognisedData = false;
+	_testNumber = 0;
 }
 
 
@@ -29,24 +32,48 @@ PerformanceStats::~PerformanceStats()
 	_exitY = 0;
 	_botX = 0;
 	_botY = 0;
+	_botID = "";
+	_unrecognisedData = false;
+	_testNumber = 0;
 }
 
 void PerformanceStats::SetTestType(char* testType)
 {
 	string str = testType;
 	transform(str.begin(), str.end(), str.begin(), ::toupper);
-	_testType = str;
-	cout << "Test Type: " << _testType << endl;
+	if (str.compare("TESTMAPS") == 0 || str.compare("MARATHON") == 0)
+	{
+		_testType = str;
+		cout << "Test Type: " << _testType << endl;
+	}
+	else
+	{
+		_unrecognisedData = true;
+		cout << "Test type not recognised." << endl;
+	}
 }
 
 void PerformanceStats::SetRanking(char* ranking)
 {
 	string str = ranking;
 	transform(str.begin(), str.end(), str.begin(), ::toupper);
-	_ranking = str;
-	cout << "Ranking: " << _ranking << endl;
+	if (str.compare("SCORE") == 0 || str.compare("TIME") == 0)
+	{
+		_ranking = str;
+		cout << "Ranking: " << _ranking << endl;
+	}
+	else
+	{
+		_unrecognisedData = true;
+		cout << "Ranking not recognised." << endl;
+	}
 }
 
+void PerformanceStats::SetBotID(char* ID)
+{
+	_botID = ID;
+	cout << "BotID: " << _botID << endl;
+}
 
 string PerformanceStats::GetTestType()
 {
@@ -100,18 +127,27 @@ void PerformanceStats::Assigner(double val, char* stat)
 
 void PerformanceStats::CalculatePerformance()
 {
+	if (!_unrecognisedData)
+	{
+		bool error = false;
+		_testNumber++;
+		error = CheckFolderState();
 
-	if (_testType.compare("TESTMAPS")==0)
-	{
-		TestMaps();
-	}
-	else if (_testType.compare("MARATHON")==0)
-	{
-		Marathon();
+		if (!error)
+		{
+			if (_testType.compare("TESTMAPS") == 0)
+			{
+				TestMaps();
+			}
+			else if (_testType.compare("MARATHON") == 0)
+			{
+				Marathon();
+			}
+		}
 	}
 	else
 	{
-		cout << "Test Type not recognised. Performance Statistics will not be generated." << endl;
+		cout << "The test type or ranking you have chosen is unrecongnised. Please modify and restart Spelunky." << endl;
 	}
 }
 
@@ -131,120 +167,142 @@ void PerformanceStats::Clear()
 
 void PerformanceStats::TestMaps()
 {
+	ofstream fileStream;
+	ostringstream concat;
+	string directoryName = "";
 	// The reason for not putting avgScore and avgTime behind the if statements that check the ranking below (even though they may not be used depending on the ranking) 
 	// is beacuse the performance impact of doing some simple calculations is less than setting up two new loop structures that will loop through data that was already looped through previously.
-	if (_ranking.compare("SCORE") == 0 || _ranking.compare("TIME") == 0)
+	int bestScore = 0;
+	int avgScore = 0;
+	int avgHealth = 0;
+	int avgTime = 0;
+	int successes = 0;
+	int bestTime = 0;
+	if (_times.size() > 0)
 	{
-		int bestScore = 0;
-		int avgScore = 0;
-		int avgHealth = 0;
-		int avgTime = 0;
 		int bestTime = _times.at(0);
-		int successes = 0;
+	}
 
-
-		for (int i = 0; i < _scores.size(); i++)
+	for (int i = 0; i < _scores.size(); i++)
+	{
+		avgScore += _scores.at(i);
+		avgHealth += _healthLeft.at(i);
+		successes += _attempts.at(i);
+		if (_scores.at(i) > bestScore)
 		{
-			avgScore += _scores.at(i);
-			avgHealth += _healthLeft.at(i);
-			successes += _attempts.at(i);
-			avgTime += _times.at(i);
-
-			if (_scores.at(i) > bestScore)
-			{
-				bestScore = _scores.at(i);
-			}
-			if (_times.at(i) < bestTime)
-			{
-				bestTime = _times.at(i);
-			}
+			bestScore = _scores.at(i);
 		}
+	}
 
-		avgScore = avgScore / _scores.size();
-		avgHealth = avgHealth / _healthLeft.size();
+	for (int k = 0; k < _times.size(); k++)
+	{
+		avgTime += _times.at(k);
+		if (_times.at(k) < bestTime)
+		{
+			bestTime = _times.at(k);
+		}
+	}
+
+	avgScore = avgScore / _scores.size();
+	avgHealth = avgHealth / _healthLeft.size();
+	if (_times.size() > 0)
+	{
 		avgTime = avgTime / _times.size();
+	}
 
-		//Put in file saving code later.
+	//Put data in files
+	concat.str("");
+	concat << "..\\..\\Performance\\" << _botID << "\\" << _testType << "\\" << _ranking << "\\" << "Result_" << _testNumber << ".txt";
+	directoryName = concat.str();
+	fileStream.open(directoryName.c_str(), ofstream::out);
+	if (fileStream.is_open())
+	{
 		if (_ranking.compare("SCORE") == 0)
 		{
-			cout << endl << "Best Score: " << "\t\t\t" << bestScore << endl;
-			cout << "Average Score: " << "\t\t\t" << avgScore << endl;
-			cout << "Successful Attempts: " << "\t\t" << successes << endl;
-			cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
-			cout << "Best Time: " << "\t\t\t" << bestTime << endl;
+			fileStream << "BEST SCORE,AVERAGE SCORE,SUCCESSFUL ATTEMPTS,AVERAGE REMAINING HEALTH,BEST TIME" << endl;
+			fileStream << bestScore << "," << avgScore << "," << successes << "," << avgHealth << "," << bestTime;
 		}
 		else if (_ranking.compare("TIME") == 0)
 		{
-			cout << endl << "Best Time: " << "\t\t\t" << bestTime << endl;
-			cout << "Successful Attempts: " << "\t\t" << successes << endl;
-			cout << "Average Time: " << "\t\t\t" << avgTime << endl;
-			cout << "Average Remaining Health: " << "\t" << avgHealth << endl;
-			cout << "Best Score: " << "\t\t\t" << bestScore << endl;
+			fileStream << "BEST TIME,SUCCESSFUL ATTEMPTS,AVERAGE TIME,AVERAGE REMAINING HEALTH,BEST SCORE" << endl;
+			fileStream << bestTime << "," << successes << "," << avgTime << "," << avgHealth << "," << bestScore;
 		}
 	}
 	else
 	{
-		cout << "Ranking not recognised. Performance Statistics will not be generated." << endl;
-	}	
+		cout << "Unable to write performance data to file" << endl;
+	}
+	fileStream.close();
 }
 
 void PerformanceStats::Marathon()
 {
-	if (_ranking.compare("SCORE") == 0 || _ranking.compare("TIME") == 0)
-	{
-		int timeTaken = 0;
-		for (int i = 0; i < _times.size(); i++)
-		{
-			timeTaken += _times.at(i);
-		}
+	ofstream fileStream;
+	ostringstream concat;
+	string directoryName = "";
 
-		//Put data in files
+	int timeTaken = 0;
+	for (int i = 0; i < _times.size(); i++)
+	{
+		timeTaken += _times.at(i);
+	}
+
+	//Put data in files
+	concat.str("");
+	concat << "..\\..\\Performance\\" << _botID << "\\" << _testType << "\\" << _ranking << "\\" << "Result_" << _testNumber << ".txt";
+	directoryName = concat.str();
+	fileStream.open(directoryName.c_str(), ofstream::out);
+	if (fileStream.is_open())
+	{
 		if (_ranking.compare("SCORE") == 0)
 		{
-			
-			cout << endl << "Score: " << "\t" << _scores.at(0) << endl;
+			fileStream << "SCORE,COMPLETED,TIME TAKEN,HEALTH" << endl;
 			if (_attempts.at(0) != 16)
 			{
-				cout << "Completed?: " << "\t" << "NO" << endl;
-				cout << "Time Taken: " << "\t" << timeTaken << endl;
+				fileStream << _scores.at(0) << "," << "NO," << timeTaken << "," << 0;
 			}
 			else
 			{
-				cout << "Completed?: " << "\t" << "YES" << endl;
-				cout << "Time Taken: " << "\t" << timeTaken << endl;
-				cout << "Health: " << "\t" << _healthLeft.at(0) << endl;
+				fileStream << _scores.at(0) << "," << "YES," << timeTaken << "," << _healthLeft.at(0);
 			}
 		}
 		else if (_ranking.compare("TIME") == 0)
 		{
-			cout << endl;
-			if (_attempts.at(0) != 16)
-			{
-				cout << "Completed?: " << "\t\t\t\t" << "NO" << endl;
-				for (int i = 0; i < _times.size() -1; i++)
+			fileStream << "COMPLETED,LEVEL DIED,TIME TAKEN UNTIL DEATH ON LEVEL,TIME TAKEN OVERALL,DISTANCE TRAVELLED TO EXIT,SCORE";
+			if (_attempts.at(0) != 16) //Didn't complete game
+			{				
+				for (int i = 0; i < 16; i++)
 				{
-					cout << "Time Taken to complete Level " << i + 1 << ": " << "\t" << _times.at(i) << endl;
+					fileStream << ",Time Taken to complete Level " << i + 1;
 				}
-				cout << "Time Taken until death on Level " << _times.size() << ": " << "\t" << _times.at(_times.size() - 1) << endl;
-				cout << "Time Taken Overall: " << "\t\t\t" << timeTaken << endl;
-				cout << "Distance travelled to exit: " << "\t\t" << CalcDistanceTraveled() << "%" << endl;
-				cout << "Score: " << "\t\t\t\t\t" << _scores.at(0) << endl;
+				fileStream << endl;
+				fileStream << "NO," << _times.size() << "," << _times.at(_times.size() - 1) << "," << timeTaken << "," << CalcDistanceTraveled() << "," << _scores.at(0);
+				for (int k = 0; k < _times.size() - 1; k++)
+				{
+					fileStream << "," << _times.at(k);
+				}
 			}
 			else
 			{
-				cout << "Completed?: " << "\t\t\t" << "YES" << endl;
-				for (int i = 0; i < _times.size(); i++)
+				for (int i = 0; i < 16; i++)
 				{
-					cout << "Time Taken to complete Level " << i + 1 << ": " << "\t" << _times.at(i) << endl;
+					fileStream << ",Time Taken to complete Level " << i + 1;
 				}
-				cout << "Time Taken Overall: " << "\t\t\t" << timeTaken << endl;
-			}			
+				fileStream << endl;
+				fileStream << "YES," << "," << "," << timeTaken << "," << "," << ",";
+				for (int k = 0; k < _times.size() - 1; k++)
+				{
+					fileStream << "," << _times.at(k);
+				}
+			}
 		}
 	}
 	else
 	{
-		cout << "Ranking not recognised. Performance Statistics will not be generated." << endl;
+		cout << "Unable to write performance data to file" << endl;
 	}
+
+	fileStream.close();
 }
 
 int PerformanceStats::CalcDistanceTraveled()
@@ -287,4 +345,83 @@ int PerformanceStats::CalcDistanceTraveled()
 	}
 
 	return distanceTraveled;
+}
+
+bool PerformanceStats::CheckFolderState()
+{
+	ofstream fileStream;
+	ostringstream concat;
+	string directoryName = "";
+	concat.str("");
+	bool error = false;
+
+	concat << "..\\..\\Performance";
+	directoryName = concat.str();
+	CreateDirectoryA(directoryName.c_str(), NULL);
+	if (ERROR_PATH_NOT_FOUND == GetLastError()) //if ERROR_PATH_NOT_FOUND is != GetLastError this measn that GetLastError is probably equal to either ERROR_ALREADY_EXISTS or nothing. If it is either of these two we can create inner folders 
+	{
+		error = true;
+		cout << "Unable to Create Performance Folder." << endl;
+	}
+
+	if (!error)
+	{
+		concat << "..\\..\\Performance\\" << _botID;
+		directoryName = concat.str();
+		CreateDirectoryA(directoryName.c_str(), NULL);
+		if (ERROR_PATH_NOT_FOUND == GetLastError()) //if ERROR_PATH_NOT_FOUND is != GetLastError this measn that GetLastError is probably equal to either ERROR_ALREADY_EXISTS or nothing. If it is either of these two we can create inner folders 
+		{
+			error = true;
+			cout << "Unable to Create " << _botID << " Folder." << endl;
+		}
+	}
+
+	if (!error)
+	{
+		concat.str("");
+		concat << "..\\..\\Performance\\" << _botID << "\\" << _testType;
+		directoryName = concat.str();		
+		CreateDirectoryA(directoryName.c_str(), NULL);
+		if (ERROR_PATH_NOT_FOUND == GetLastError())
+		{
+			error = true;
+			cout << "Unable to Create " << _testType << " Folder." << endl;
+		}
+	}	
+
+	if (!error)
+	{
+		concat.str("");
+		concat << "..\\..\\Performance\\" << _botID << "\\" << _testType << "\\" << _ranking;
+		directoryName = concat.str();
+		CreateDirectoryA(directoryName.c_str(), NULL);
+		if (ERROR_PATH_NOT_FOUND == GetLastError())
+		{
+			error = true;
+			cout << "Unable to Create " << _ranking << " Folder." << endl;
+		}
+	}
+
+	if (!error)
+	{
+		if (_testNumber == 1) // First Run
+		{
+			bool exists = true;
+			while (exists)
+			{
+				concat.str("");
+				concat << "..\\..\\Performance\\" << _botID << "\\" << _testType << "\\" << _ranking << "\\" << "Result_" << _testNumber << ".txt";
+				directoryName = concat.str();
+				fileStream.open(directoryName.c_str(), ofstream::in);
+				if (!fileStream.is_open())
+				{
+					fileStream.close();
+					break;
+				}
+				fileStream.close();
+				_testNumber++;
+			}
+		}
+	}
+	return error;
 }
