@@ -129,6 +129,16 @@ void PerformanceStats::CalculatePerformance()
 {
 	if (!_unrecognisedData)
 	{
+		if (_botID.compare("") == 0)
+		{
+			auto time = std::chrono::system_clock::now();
+			auto time_t = chrono::system_clock::to_time_t(time);
+			stringstream dateString;
+
+			dateString << put_time(std::localtime(&time_t), "%d-%m-%y");
+			_botID = dateString.str();
+		}
+
 		bool error = false;
 		_testNumber++;
 		error = CheckFolderState();
@@ -227,10 +237,11 @@ void PerformanceStats::TestMaps()
 			fileStream << "BEST TIME,SUCCESSFUL ATTEMPTS,AVERAGE TIME,AVERAGE REMAINING HEALTH,BEST SCORE" << endl;
 			fileStream << bestTime << "," << successes << "," << avgTime << "," << avgHealth << "," << bestScore;
 		}
+		cout << "Performance data written to file." << endl;
 	}
 	else
 	{
-		cout << "Unable to write performance data to file" << endl;
+		cout << "Unable to write performance data to file." << endl;
 	}
 	fileStream.close();
 }
@@ -296,10 +307,11 @@ void PerformanceStats::Marathon()
 				}
 			}
 		}
+		cout << "Performance data written to file." << endl;
 	}
 	else
 	{
-		cout << "Unable to write performance data to file" << endl;
+		cout << "Unable to write performance data to file." << endl;
 	}
 
 	fileStream.close();
