@@ -1669,6 +1669,12 @@ GMEXPORT double SetTestTime(double time)
 	return 1;
 }
 
+GMEXPORT double SetBotID(char* ID)
+{
+	pStats.SetBotID(ID);
+	return 1;
+}
+
 GMEXPORT double ResetClock()
 {
 	startTime = NULL;
@@ -1732,12 +1738,6 @@ GMEXPORT double RecordStats(double val, char* stat)
 	{
 		pStats.Assigner(val, stat);
 	}
-	return 1;
-}
-
-GMEXPORT double SetBotID(char* ID)
-{
-	pStats.SetBotID(ID);
 	return 1;
 }
 #pragma endregion
