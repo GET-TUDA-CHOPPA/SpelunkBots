@@ -8,11 +8,11 @@ CHESTS OPENED:      4
 IDOLS GRABBED:      62
 IDOLS CONVERTED:    8
 
-DAMSELS GRABBED:    627
+DAMSELS GRABBED:    628
 KISSES BOUGHT:      0
 DAMSELS BOUGHT:     1
 DAMSELS SAVED:      17
-DAMSELS KILLED:     137
+DAMSELS KILLED:     138
 
 ITEMS BOUGHT:       0
 ITEMS STOLEN:       3
@@ -23,7 +23,7 @@ DICE GAMES LOST:    0
 
 LEVEL        DEATHS
 ------------+------------
- 1          | 346
+ 1          | 349
  2          | 17
  3          | 6
  4          | 8
@@ -40,13 +40,13 @@ LEVEL        DEATHS
  15         | 1
  16         | 4
 ------------+------------
- TOTAL      | 414
+ TOTAL      | 417
 
 ENEMY        DEATHS
 ------------+------------
  ???        | 0
  SNAKE      | 5
- SPIDER     | 6
+ SPIDER     | 8
  ???        | 0
  CAVEMAN    | 1
  SKELETON   | 1
@@ -66,18 +66,18 @@ ENEMY        DEATHS
  SHOPKEEPER | 2
  ???        | 0
  ???        | 0
- OLMEC      | 3
+ OLMEC      | 6
  ???        | 0
 
 MISC         DEATHS
 ------------+------------
  ???        | 0
  ???        | 0
- CRUSHED    | 20
+ CRUSHED    | 31
  LONG FALL  | 34
  SPIKES     | 31
  ???        | 0
- ARROW TRAP | 18
+ ARROW TRAP | 31
  SPEAR TRAP | 2
  SMASH TRAP | 3
  ???        | 0
@@ -86,9 +86,9 @@ MISC         DEATHS
 
 ENEMY        KILLS
 ------------+------------
- BAT        | 85
- SNAKE      | 196
- SPIDER     | 58
+ BAT        | 91
+ SNAKE      | 215
+ SPIDER     | 59
  G. SPIDER  | 2
  CAVEMAN    | 4
  SKELETON   | 16
@@ -110,4 +110,4 @@ ENEMY        KILLS
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 420
+ TOTAL      | 446

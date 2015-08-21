@@ -116,7 +116,8 @@ bool coolGlasses;
 bool shopkeepersAngered;
 
 //Level Control
-vector<char*> _levels = { "" };
+vector<char*> _levels;
+vector<char*> _seeds;
 int _levelNum = 0;
 int _tests = 0;
 int _maxTests = 0;
@@ -1643,8 +1644,15 @@ GMEXPORT double Output(char* output)
 
 GMEXPORT double SetLevelData(char* level)
 {
-	_levels.insert(_levels.end()- 1, level);
-	cout << "Level Added: " << _levels.at(_levels.size()-2) << endl;
+	_levels.insert(_seeds.end(), level);
+	cout << "Level Added: " << _levels.at(_levels.size()-1) << endl;
+	return 1;
+}
+
+GMEXPORT double SetSeedData(char* seed)
+{
+	_seeds.insert(_seeds.end(), seed);
+	cout << "Seed Added: " << _seeds.at(_seeds.size() - 1) << endl;
 	return 1;
 }
 
@@ -1681,12 +1689,12 @@ GMEXPORT double ResetClock()
 	return 1;
 }
 
-GMEXPORT char* CheckNextLevel()
+GMEXPORT double CalculatePerformance() // run this before you run check next level
 {
 	_tests++;
 	string testType = pStats.GetTestType();
 	if (testType.compare("TESTMAPS") == 0)
-	{		
+	{
 		if (_tests >= _maxTests)
 		{
 			pStats.CalculatePerformance();
@@ -1694,19 +1702,45 @@ GMEXPORT char* CheckNextLevel()
 			_tests = 0;
 			_levelNum++;
 		}
-		return _levels.at(_levelNum);
+
+		if (_levelNum > _levels.size() - 1)
+		{
+			_levelNum = 0;
+		}
+		
 	}
 	else if (testType.compare("MARATHON") == 0)
 	{
 		pStats.CalculatePerformance();
 		pStats.Clear();
+		_levelNum++;
 		if (_tests >= _maxTests)
-		{			
+		{
 			_tests = 0;
-			return "";
 		}
-		return "NEXT SEED"; // placeholder untill figure out what to send back.
+		if (_levelNum > _seeds.size() - 1)
+		{
+			_levelNum = 0;
+		}
 	}
+	return 1;
+}
+
+GMEXPORT char* CheckNextLevel()
+{
+	string testType = pStats.GetTestType();
+
+	//cout << "level: " << _levelNum << endl;
+
+	if (testType.compare("TESTMAPS") == 0)
+	{
+		return _levels.at(_levelNum);
+	}
+	else if (testType.compare("MARATHON") == 0)
+	{
+		return _seeds.at(_levelNum);
+	}
+
 	return "";
 }
 
