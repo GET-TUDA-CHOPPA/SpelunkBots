@@ -1730,8 +1730,6 @@ GMEXPORT char* CheckNextLevel()
 {
 	string testType = pStats.GetTestType();
 
-	//cout << "level: " << _levelNum << endl;
-
 	if (testType.compare("TESTMAPS") == 0)
 	{
 		return _levels.at(_levelNum);

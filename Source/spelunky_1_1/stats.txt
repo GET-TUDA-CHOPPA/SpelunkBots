@@ -54,7 +54,7 @@ ENEMY        DEATHS
  ???        | 0
  FROG       | 3
  FIRE FROG  | 1
- MANTRAP    | 2
+ MANTRAP    | 3
  PIRANHA    | 1
  ???        | 0
  ???        | 0
@@ -66,14 +66,14 @@ ENEMY        DEATHS
  SHOPKEEPER | 2
  ???        | 0
  ???        | 0
- OLMEC      | 6
+ OLMEC      | 8
  ???        | 0
 
 MISC         DEATHS
 ------------+------------
  ???        | 0
  ???        | 0
- CRUSHED    | 31
+ CRUSHED    | 44
  LONG FALL  | 34
  SPIKES     | 31
  ???        | 0
@@ -86,15 +86,15 @@ MISC         DEATHS
 
 ENEMY        KILLS
 ------------+------------
- BAT        | 91
- SNAKE      | 215
+ BAT        | 92
+ SNAKE      | 216
  SPIDER     | 59
  G. SPIDER  | 2
  CAVEMAN    | 4
  SKELETON   | 16
  ZOMBIE     | 7
  ???        | 0
- FROG       | 15
+ FROG       | 16
  MONKEY     | 3
  FIRE FROG  | 6
  ???        | 0
@@ -105,9 +105,9 @@ ENEMY        KILLS
  ???        | 0
  ???        | 0
  ???        | 0
- ???        | 0
+ HAWKMAN    | 29
  SHOPKEEPER | 1
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 446
+ TOTAL      | 478

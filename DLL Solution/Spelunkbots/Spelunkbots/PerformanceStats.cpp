@@ -101,19 +101,19 @@ void PerformanceStats::Assigner(double val, char* stat)
 	}
 	else if (strcmp(stat, "EXITX") == 0)
 	{
-		_exitX = val;
+		_exitX = val + 8;
 	}
 	else if (strcmp(stat, "EXITY") == 0)
 	{
-		_exitY = val;
+		_exitY = val + 8;
 	}
 	else if (strcmp(stat, "ENTRANCEX") == 0)
 	{
-		_entranceX = val;
+		_entranceX = val + 8;
 	}
 	else if (strcmp(stat, "ENTRANCEY") == 0)
 	{
-		_entranceY = val;
+		_entranceY = val + 8;
 	}
 	else if (strcmp(stat, "BOTX") == 0)
 	{
@@ -268,7 +268,7 @@ void PerformanceStats::Marathon()
 		if (_ranking.compare("SCORE") == 0)
 		{
 			fileStream << "SCORE,COMPLETED,TIME TAKEN,HEALTH" << endl;
-			if (_attempts.at(0) != 16)
+			if (_attempts.at(0) != 17) // 17 is the number passed when the end room is reached which is counted as a "17th" level. 
 			{
 				fileStream << _scores.at(0) << "," << "NO," << timeTaken << "," << 0;
 			}
@@ -280,13 +280,14 @@ void PerformanceStats::Marathon()
 		else if (_ranking.compare("TIME") == 0)
 		{
 			fileStream << "COMPLETED,LEVEL DIED,TIME TAKEN UNTIL DEATH ON LEVEL,TIME TAKEN OVERALL,DISTANCE TRAVELLED TO EXIT,SCORE";
-			if (_attempts.at(0) != 16) //Didn't complete game
+			for (int i = 0; i < 16; i++)
+			{
+				fileStream << ",Time Taken to complete Level " << i + 1;
+			}
+			fileStream << endl;
+			if (_attempts.at(0) != 17) //Didn't complete game
 			{				
-				for (int i = 0; i < 16; i++)
-				{
-					fileStream << ",Time Taken to complete Level " << i + 1;
-				}
-				fileStream << endl;
+				
 				fileStream << "NO," << _times.size() << "," << _times.at(_times.size() - 1) << "," << timeTaken << "," << CalcDistanceTraveled() << "," << _scores.at(0);
 				for (int k = 0; k < _times.size() - 1; k++)
 				{
@@ -295,13 +296,8 @@ void PerformanceStats::Marathon()
 			}
 			else
 			{
-				for (int i = 0; i < 16; i++)
-				{
-					fileStream << ",Time Taken to complete Level " << i + 1;
-				}
-				fileStream << endl;
-				fileStream << "YES," << "," << "," << timeTaken << "," << "," << ",";
-				for (int k = 0; k < _times.size() - 1; k++)
+				fileStream << "YES," << "," << "," << timeTaken << "," << "," << _scores.at(0);
+				for (int k = 0; k < _times.size(); k++)
 				{
 					fileStream << "," << _times.at(k);
 				}
