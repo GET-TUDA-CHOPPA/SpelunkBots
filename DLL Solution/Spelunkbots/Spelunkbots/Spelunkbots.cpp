@@ -12,7 +12,6 @@
 #include <map>
 #include <ostream>
 #include <string>
-#include <time.h>
 #include "SpelunkbotsConsoleOutput.h"
 
 using namespace std;
@@ -121,9 +120,9 @@ vector<char*> _seeds;
 int _levelNum = 0;
 int _tests = 0;
 int _maxTests = 0;
-int _testSeconds = 0; // seconds to complete level. //do not edit
-int _secondsLeft = 0; // seconds left to complete level. //do not edit
-time_t startTime = NULL; //do not edit
+double _testSeconds = 0.0; // seconds to complete level. //do not edit
+double _secondsLeft = 0.0; // seconds left to complete level. //do not edit
+double _timeMillSeconds = NULL;
 
 //Performance Stats
 PerformanceStats pStats;
@@ -1644,7 +1643,7 @@ GMEXPORT double Output(char* output)
 
 GMEXPORT double SetLevelData(char* level)
 {
-	_levels.insert(_seeds.end(), level);
+	_levels.insert(_levels.end(), level);
 	cout << "Level Added: " << _levels.at(_levels.size()-1) << endl;
 	return 1;
 }
@@ -1685,7 +1684,7 @@ GMEXPORT double SetBotID(char* ID)
 
 GMEXPORT double ResetClock()
 {
-	startTime = NULL;
+	_timeMillSeconds = NULL;
 	return 1;
 }
 
@@ -1701,13 +1700,7 @@ GMEXPORT double CalculatePerformance() // run this before you run check next lev
 			pStats.Clear();
 			_tests = 0;
 			_levelNum++;
-		}
-
-		if (_levelNum > _levels.size() - 1)
-		{
-			_levelNum = 0;
-		}
-		
+		}		
 	}
 	else if (testType.compare("MARATHON") == 0)
 	{
@@ -1717,10 +1710,6 @@ GMEXPORT double CalculatePerformance() // run this before you run check next lev
 		if (_tests >= _maxTests)
 		{
 			_tests = 0;
-		}
-		if (_levelNum > _seeds.size() - 1)
-		{
-			_levelNum = 0;
 		}
 	}
 	return 1;
@@ -1732,11 +1721,28 @@ GMEXPORT char* CheckNextLevel()
 
 	if (testType.compare("TESTMAPS") == 0)
 	{
-		return _levels.at(_levelNum);
+		if (strcmp(_levels.at(_levelNum),"") != 0)
+		{
+			return _levels.at(_levelNum);
+		}
+		else
+		{
+			_levelNum = 0;
+			return "";
+		}
+		
 	}
 	else if (testType.compare("MARATHON") == 0)
 	{
-		return _seeds.at(_levelNum);
+		if (strcmp(_seeds.at(_levelNum), "") != 0)
+		{
+			return _seeds.at(_levelNum);
+		}
+		else
+		{
+			_levelNum = 0;
+			return "";
+		}
 	}
 
 	return "";
@@ -1744,12 +1750,13 @@ GMEXPORT char* CheckNextLevel()
 
 GMEXPORT double TimePassed()
 {
-	if (startTime == NULL)
+	if (_timeMillSeconds == NULL)
 	{
-		startTime = time(0);
+		_timeMillSeconds = GetTickCount();
 	}
 
-	_secondsLeft = difftime(startTime + _testSeconds, time(0));
+	_secondsLeft = (_timeMillSeconds + (_testSeconds*1000)) - GetTickCount();
+	_secondsLeft = _secondsLeft / 1000;
 	if (_secondsLeft <= 0)
 	{
 		return 1;

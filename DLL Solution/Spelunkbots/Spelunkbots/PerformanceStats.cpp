@@ -185,12 +185,12 @@ void PerformanceStats::TestMaps()
 	int bestScore = 0;
 	int avgScore = 0;
 	int avgHealth = 0;
-	int avgTime = 0;
+	double avgTime = 0.0;
 	int successes = 0;
-	int bestTime = 0;
+	double bestTime = 0.0;
 	if (_times.size() > 0)
 	{
-		int bestTime = _times.at(0);
+		bestTime = _times.at(0);
 	}
 
 	for (int i = 0; i < _scores.size(); i++)
@@ -252,7 +252,7 @@ void PerformanceStats::Marathon()
 	ostringstream concat;
 	string directoryName = "";
 
-	int timeTaken = 0;
+	double timeTaken = 0;
 	for (int i = 0; i < _times.size(); i++)
 	{
 		timeTaken += _times.at(i);

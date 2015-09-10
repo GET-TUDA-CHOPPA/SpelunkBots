@@ -31,7 +31,7 @@ public:
 private:
 	vector<int> _scores;
 	vector<int> _healthLeft;
-	vector<int> _times;
+	vector<double> _times;
 	vector<int> _attempts;
 	string _testType;
 	string _ranking;

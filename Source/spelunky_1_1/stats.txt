@@ -24,9 +24,9 @@ DICE GAMES LOST:    0
 LEVEL        DEATHS
 ------------+------------
  1          | 349
- 2          | 17
+ 2          | 18
  3          | 6
- 4          | 8
+ 4          | 9
  5          | 7
  6          | 4
  7          | 1
@@ -40,7 +40,7 @@ LEVEL        DEATHS
  15         | 1
  16         | 4
 ------------+------------
- TOTAL      | 417
+ TOTAL      | 419
 
 ENEMY        DEATHS
 ------------+------------
@@ -87,7 +87,7 @@ MISC         DEATHS
 ENEMY        KILLS
 ------------+------------
  BAT        | 92
- SNAKE      | 216
+ SNAKE      | 218
  SPIDER     | 59
  G. SPIDER  | 2
  CAVEMAN    | 4
@@ -105,9 +105,9 @@ ENEMY        KILLS
  ???        | 0
  ???        | 0
  ???        | 0
- HAWKMAN    | 29
+ HAWKMAN    | 31
  SHOPKEEPER | 1
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 478
+ TOTAL      | 482
