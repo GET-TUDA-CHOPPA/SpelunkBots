@@ -2,6 +2,7 @@
 // Spelunkbots Source code written by Daniel Scales t:@DanielCake
 
 #include "stdafx.h"
+#include "PerformanceStats.h"
 #include <windows.h>
 #include <iostream>
 #include <fstream>
@@ -112,6 +113,19 @@ bool coolGlasses;
 
 // Game State
 bool shopkeepersAngered;
+
+//Level Control
+vector<char*> _levels;				// test levels
+vector<char*> _seeds;				// marathon level seeds
+int _levelNum = 0;					// the current level or seed number
+int _tests = 0;						// number of tests that have been run
+int _maxTests = 0;					// maximum number of tests to run
+double _testSeconds = 0.0;			// total seconds given to complete level.
+double _secondsLeft = 0.0;			// seconds left to complete level.
+double _timeMillSeconds = NULL;		// seconds passed in milliseconds
+
+//Performance Stats
+PerformanceStats pStats;
 
 #pragma endregion
 
@@ -1618,5 +1632,198 @@ GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 
 	return 0;
 }
+#pragma endregion
 
+#pragma region Level Control
+/**
+* \brief Output something to the command line.
+* @param output the text you wish to output.
+*/
+GMEXPORT double Output(char* output)
+{
+	cout << output << endl;
+	return 1;
+}
+
+/**
+* \brief SetLevelData stores the test maps level information.
+* @param level contatins the level name to be added to the _levels vector.
+*/
+GMEXPORT double SetLevelData(char* level)
+{
+	_levels.insert(_levels.end(), level);
+	cout << "Level Added: " << _levels.at(_levels.size()-1) << endl;
+	return 1;
+}
+
+/**
+* \brief SetSeedData stores the seed information for the marathon levels.
+* @param seed contatins the seed number to be added to the _seeds vector.
+*/
+GMEXPORT double SetSeedData(char* seed)
+{
+	_seeds.insert(_seeds.end(), seed);
+	cout << "Seed Added: " << _seeds.at(_seeds.size() - 1) << endl;
+	return 1;
+}
+
+/**
+* \brief SetMaxTests stores the maximum number of tests to be run.
+* @param testNumber contatins the value for the maximum number of tests to be run.
+*/
+GMEXPORT double SetMaxTests(double testNumber)
+{
+	_maxTests = testNumber;
+	cout << "Max Tests: " << _maxTests << endl;
+	return 1;
+}
+
+/**
+* \brief SetTestType stores the test type and ranking to be used when assessing the bot.
+* @param type contatins the test type to be recorded e.g. marathon or test map.
+* @param rankingSystem contatins the ranking system to be recorded e.g. score or time.
+*/
+GMEXPORT double SetTestType(char* type, char* rankingSystem)
+{
+	pStats.SetTestType(type);
+	pStats.SetRanking(rankingSystem);
+	return 1;
+}
+
+/**
+* \brief SetTestTime stores the maximum time given to complete a test level.
+* @param time contatins the value for the maximum time given for a test to be completed.
+*/
+GMEXPORT double SetTestTime(double time)
+{
+	_testSeconds = time;
+	cout << "Test Time in Seconds: " << _testSeconds << endl;
+	return 1;
+}
+
+/**
+* \brief SetBotID stores the bot id value to be used when naming performance files.
+* @param id contatins the value for the id to be used to name and organise the performance files.
+*/
+GMEXPORT double SetBotID(char* id)
+{
+	pStats.SetBotID(id);
+	return 1;
+}
+
+/**
+* \brief ResetClock resets the clock at the end of eatch level so the bot has the maximum time available to complete the next level.
+*/
+GMEXPORT double ResetClock()
+{
+	_timeMillSeconds = NULL;
+	return 1;
+}
+
+/**
+* \brief CalculatePerformance controls when the performance of a bot is calculated and also helps with when the next levels should be used.
+*/
+GMEXPORT double CalculatePerformance() // run this before you run check next level
+{
+	_tests++;
+	string testType = pStats.GetTestType();
+	if (testType.compare("TESTMAPS") == 0)
+	{
+		if (_tests >= _maxTests)
+		{
+			pStats.CalculatePerformance();
+			pStats.Clear();
+			_tests = 0;
+			_levelNum++;
+		}		
+	}
+	else if (testType.compare("MARATHON") == 0)
+	{
+		pStats.CalculatePerformance();
+		pStats.Clear();
+		_levelNum++;
+		if (_tests >= _maxTests)
+		{
+			_tests = 0;
+		}
+	}
+	return 1;
+}
+
+/**
+* \brief CheckNextLevel returns the next level to be used for testing (this can be the same level that is currently being used).
+*/
+GMEXPORT char* CheckNextLevel()
+{
+	string testType = pStats.GetTestType();
+
+	if (testType.compare("TESTMAPS") == 0)
+	{
+		if (strcmp(_levels.at(_levelNum),"") != 0)
+		{
+			return _levels.at(_levelNum);
+		}
+		else
+		{
+			_levelNum = 0;
+			return "";
+		}
+		
+	}
+	else if (testType.compare("MARATHON") == 0)
+	{
+		if (strcmp(_seeds.at(_levelNum), "") != 0)
+		{
+			return _seeds.at(_levelNum);
+		}
+		else
+		{
+			_levelNum = 0;
+			return "";
+		}
+	}
+
+	return "";
+}
+
+/**
+* \brief TimePassed calculates the time passed using milliseconds which are then converted to seconds allowing for a 3 digit decimal point value for accuracy.
+*/
+GMEXPORT double TimePassed()
+{
+	if (_timeMillSeconds == NULL)
+	{
+		_timeMillSeconds = GetTickCount();
+	}
+
+	_secondsLeft = (_timeMillSeconds + (_testSeconds*1000)) - GetTickCount();
+	_secondsLeft = _secondsLeft / 1000;
+	if (_secondsLeft <= 0)
+	{
+		return 1;
+	}
+	return 0;
+}
+#pragma endregion
+
+#pragma region Perfomance Stats
+/**
+* \brief RecordStats passes the various performance stats to be recorded to the pStats class for use in calculating a bot's performance.
+* @param val this is the value to be recorded.
+* @param stat this is the stat that is being recorded e.g time, score, attemp etc.
+* note. the time stat gets calculated via this API and is not given via the spelunky GameMaker program.
+*/
+GMEXPORT double RecordStats(double val, char* stat)
+{	
+	if (strcmp(stat, "TIME") == 0)
+	{		
+		val = _testSeconds -_secondsLeft;
+		pStats.Assigner(val, stat);
+	}
+	else
+	{
+		pStats.Assigner(val, stat);
+	}
+	return 1;
+}
 #pragma endregion

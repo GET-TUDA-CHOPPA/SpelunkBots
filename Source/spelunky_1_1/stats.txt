@@ -8,11 +8,11 @@ CHESTS OPENED:      4
 IDOLS GRABBED:      62
 IDOLS CONVERTED:    8
 
-DAMSELS GRABBED:    627
+DAMSELS GRABBED:    628
 KISSES BOUGHT:      0
 DAMSELS BOUGHT:     1
 DAMSELS SAVED:      17
-DAMSELS KILLED:     137
+DAMSELS KILLED:     138
 
 ITEMS BOUGHT:       0
 ITEMS STOLEN:       3
@@ -23,10 +23,10 @@ DICE GAMES LOST:    0
 
 LEVEL        DEATHS
 ------------+------------
- 1          | 337
- 2          | 17
+ 1          | 349
+ 2          | 18
  3          | 6
- 4          | 8
+ 4          | 9
  5          | 7
  6          | 4
  7          | 1
@@ -40,13 +40,13 @@ LEVEL        DEATHS
  15         | 1
  16         | 4
 ------------+------------
- TOTAL      | 405
+ TOTAL      | 419
 
 ENEMY        DEATHS
 ------------+------------
  ???        | 0
  SNAKE      | 5
- SPIDER     | 6
+ SPIDER     | 8
  ???        | 0
  CAVEMAN    | 1
  SKELETON   | 1
@@ -54,7 +54,7 @@ ENEMY        DEATHS
  ???        | 0
  FROG       | 3
  FIRE FROG  | 1
- MANTRAP    | 2
+ MANTRAP    | 3
  PIRANHA    | 1
  ???        | 0
  ???        | 0
@@ -66,18 +66,18 @@ ENEMY        DEATHS
  SHOPKEEPER | 2
  ???        | 0
  ???        | 0
- OLMEC      | 3
+ OLMEC      | 8
  ???        | 0
 
 MISC         DEATHS
 ------------+------------
  ???        | 0
  ???        | 0
- CRUSHED    | 20
- LONG FALL  | 33
- SPIKES     | 29
+ CRUSHED    | 44
+ LONG FALL  | 34
+ SPIKES     | 31
  ???        | 0
- ARROW TRAP | 17
+ ARROW TRAP | 31
  SPEAR TRAP | 2
  SMASH TRAP | 3
  ???        | 0
@@ -86,15 +86,15 @@ MISC         DEATHS
 
 ENEMY        KILLS
 ------------+------------
- BAT        | 81
- SNAKE      | 189
- SPIDER     | 53
+ BAT        | 92
+ SNAKE      | 220
+ SPIDER     | 59
  G. SPIDER  | 2
  CAVEMAN    | 4
- SKELETON   | 14
+ SKELETON   | 16
  ZOMBIE     | 7
  ???        | 0
- FROG       | 15
+ FROG       | 16
  MONKEY     | 3
  FIRE FROG  | 6
  ???        | 0
@@ -105,9 +105,9 @@ ENEMY        KILLS
  ???        | 0
  ???        | 0
  ???        | 0
- ???        | 0
+ HAWKMAN    | 31
  SHOPKEEPER | 1
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 402
+ TOTAL      | 484
