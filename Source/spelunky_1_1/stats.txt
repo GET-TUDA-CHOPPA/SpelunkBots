@@ -87,7 +87,7 @@ MISC         DEATHS
 ENEMY        KILLS
 ------------+------------
  BAT        | 92
- SNAKE      | 218
+ SNAKE      | 220
  SPIDER     | 59
  G. SPIDER  | 2
  CAVEMAN    | 4
@@ -110,4 +110,4 @@ ENEMY        KILLS
  ???        | 0
  OLMEC      | 1
 ------------+------------
- TOTAL      | 482
+ TOTAL      | 484

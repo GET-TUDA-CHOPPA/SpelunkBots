@@ -80,7 +80,11 @@ string PerformanceStats::GetTestType()
 	return _testType;
 }
 
-
+/**
+* \brief Assigner ensures that the correct value is assigned to the correct class variable.
+* @param val this is the value to be recorded.
+* @param stat this is the stat the is being recorded
+*/
 void PerformanceStats::Assigner(double val, char* stat)
 {
 	if (strcmp(stat, "SCORE")==0)
@@ -125,12 +129,17 @@ void PerformanceStats::Assigner(double val, char* stat)
 	}
 }
 
+/**
+* \brief CalculatePerformance controls when the performance of a bot is calculated and also helps with when the next levels should be used.
+*/
 void PerformanceStats::CalculatePerformance()
 {
+	// if the test type and ranking make sense.
 	if (!_unrecognisedData)
 	{
 		if (_botID.compare("") == 0)
 		{
+			// if the bot has no ID then put the folder name as today's date.
 			auto time = std::chrono::system_clock::now();
 			auto time_t = chrono::system_clock::to_time_t(time);
 			stringstream dateString;
@@ -161,6 +170,9 @@ void PerformanceStats::CalculatePerformance()
 	}
 }
 
+/**
+* \brief Clear resets the class variables to a default state.
+*/
 void PerformanceStats::Clear()
 {
 	_scores.clear();
@@ -175,6 +187,9 @@ void PerformanceStats::Clear()
 	_botY = 0;
 }
 
+/**
+* \brief TestMaps is the function that controls the performance measuring for Test Map tests.
+*/
 void PerformanceStats::TestMaps()
 {
 	ofstream fileStream;
@@ -188,6 +203,7 @@ void PerformanceStats::TestMaps()
 	double avgTime = 0.0;
 	int successes = 0;
 	double bestTime = 0.0;
+	// use first time as best time
 	if (_times.size() > 0)
 	{
 		bestTime = _times.at(0);
@@ -246,6 +262,9 @@ void PerformanceStats::TestMaps()
 	fileStream.close();
 }
 
+/**
+* \brief Marathon is the function that controls the performance measuring for the Marathon tests.
+*/
 void PerformanceStats::Marathon()
 {
 	ofstream fileStream;
@@ -313,6 +332,9 @@ void PerformanceStats::Marathon()
 	fileStream.close();
 }
 
+/**
+* \brief CalcDistanceTraveled calculates the distance the bot has traveled to the end door of the furthest level it got to.
+*/
 int PerformanceStats::CalcDistanceTraveled()
 {
 	double startDistanceX = 0;
@@ -355,6 +377,9 @@ int PerformanceStats::CalcDistanceTraveled()
 	return distanceTraveled;
 }
 
+/**
+* \brief CheckFolderState checks to make sure the correct folders exist to store the performance data in.
+*/
 bool PerformanceStats::CheckFolderState()
 {
 	ofstream fileStream;

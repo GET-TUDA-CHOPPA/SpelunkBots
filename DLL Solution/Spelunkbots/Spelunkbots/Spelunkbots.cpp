@@ -115,14 +115,14 @@ bool coolGlasses;
 bool shopkeepersAngered;
 
 //Level Control
-vector<char*> _levels;
-vector<char*> _seeds;
-int _levelNum = 0;
-int _tests = 0;
-int _maxTests = 0;
-double _testSeconds = 0.0; // seconds to complete level. //do not edit
-double _secondsLeft = 0.0; // seconds left to complete level. //do not edit
-double _timeMillSeconds = NULL;
+vector<char*> _levels;				// test levels
+vector<char*> _seeds;				// marathon level seeds
+int _levelNum = 0;					// the current level or seed number
+int _tests = 0;						// number of tests that have been run
+int _maxTests = 0;					// maximum number of tests to run
+double _testSeconds = 0.0;			// total seconds given to complete level.
+double _secondsLeft = 0.0;			// seconds left to complete level.
+double _timeMillSeconds = NULL;		// seconds passed in milliseconds
 
 //Performance Stats
 PerformanceStats pStats;
@@ -1635,12 +1635,20 @@ GMEXPORT double IsNodePassable(double x, double y, double usingPixelCoords)
 #pragma endregion
 
 #pragma region Level Control
+/**
+* \brief Output something to the command line.
+* @param output the text you wish to output.
+*/
 GMEXPORT double Output(char* output)
 {
 	cout << output << endl;
 	return 1;
 }
 
+/**
+* \brief SetLevelData stores the test maps level information.
+* @param level contatins the level name to be added to the _levels vector.
+*/
 GMEXPORT double SetLevelData(char* level)
 {
 	_levels.insert(_levels.end(), level);
@@ -1648,6 +1656,10 @@ GMEXPORT double SetLevelData(char* level)
 	return 1;
 }
 
+/**
+* \brief SetSeedData stores the seed information for the marathon levels.
+* @param seed contatins the seed number to be added to the _seeds vector.
+*/
 GMEXPORT double SetSeedData(char* seed)
 {
 	_seeds.insert(_seeds.end(), seed);
@@ -1655,6 +1667,10 @@ GMEXPORT double SetSeedData(char* seed)
 	return 1;
 }
 
+/**
+* \brief SetMaxTests stores the maximum number of tests to be run.
+* @param testNumber contatins the value for the maximum number of tests to be run.
+*/
 GMEXPORT double SetMaxTests(double testNumber)
 {
 	_maxTests = testNumber;
@@ -1662,6 +1678,11 @@ GMEXPORT double SetMaxTests(double testNumber)
 	return 1;
 }
 
+/**
+* \brief SetTestType stores the test type and ranking to be used when assessing the bot.
+* @param type contatins the test type to be recorded e.g. marathon or test map.
+* @param rankingSystem contatins the ranking system to be recorded e.g. score or time.
+*/
 GMEXPORT double SetTestType(char* type, char* rankingSystem)
 {
 	pStats.SetTestType(type);
@@ -1669,6 +1690,10 @@ GMEXPORT double SetTestType(char* type, char* rankingSystem)
 	return 1;
 }
 
+/**
+* \brief SetTestTime stores the maximum time given to complete a test level.
+* @param time contatins the value for the maximum time given for a test to be completed.
+*/
 GMEXPORT double SetTestTime(double time)
 {
 	_testSeconds = time;
@@ -1676,18 +1701,28 @@ GMEXPORT double SetTestTime(double time)
 	return 1;
 }
 
-GMEXPORT double SetBotID(char* ID)
+/**
+* \brief SetBotID stores the bot id value to be used when naming performance files.
+* @param id contatins the value for the id to be used to name and organise the performance files.
+*/
+GMEXPORT double SetBotID(char* id)
 {
-	pStats.SetBotID(ID);
+	pStats.SetBotID(id);
 	return 1;
 }
 
+/**
+* \brief ResetClock resets the clock at the end of eatch level so the bot has the maximum time available to complete the next level.
+*/
 GMEXPORT double ResetClock()
 {
 	_timeMillSeconds = NULL;
 	return 1;
 }
 
+/**
+* \brief CalculatePerformance controls when the performance of a bot is calculated and also helps with when the next levels should be used.
+*/
 GMEXPORT double CalculatePerformance() // run this before you run check next level
 {
 	_tests++;
@@ -1715,6 +1750,9 @@ GMEXPORT double CalculatePerformance() // run this before you run check next lev
 	return 1;
 }
 
+/**
+* \brief CheckNextLevel returns the next level to be used for testing (this can be the same level that is currently being used).
+*/
 GMEXPORT char* CheckNextLevel()
 {
 	string testType = pStats.GetTestType();
@@ -1748,6 +1786,9 @@ GMEXPORT char* CheckNextLevel()
 	return "";
 }
 
+/**
+* \brief TimePassed calculates the time passed using milliseconds which are then converted to seconds allowing for a 3 digit decimal point value for accuracy.
+*/
 GMEXPORT double TimePassed()
 {
 	if (_timeMillSeconds == NULL)
@@ -1766,6 +1807,12 @@ GMEXPORT double TimePassed()
 #pragma endregion
 
 #pragma region Perfomance Stats
+/**
+* \brief RecordStats passes the various performance stats to be recorded to the pStats class for use in calculating a bot's performance.
+* @param val this is the value to be recorded.
+* @param stat this is the stat that is being recorded e.g time, score, attemp etc.
+* note. the time stat gets calculated via this API and is not given via the spelunky GameMaker program.
+*/
 GMEXPORT double RecordStats(double val, char* stat)
 {	
 	if (strcmp(stat, "TIME") == 0)
